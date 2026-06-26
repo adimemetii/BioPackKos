@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(sed -i 's/Klokot Viti/Klokot, Viti-Kosovo/g' index.html catalog.txt)",
+      "Bash(sed -i 's/Kosova/Kosovo/g' index.html catalog.txt)",
+      "Bash(sed -i 's/Kosovë/Kosovo/g' index.html catalog.txt)",
+      "Bash(sed -i 's/Kosovën/Kosovo/g' index.html catalog.txt)"
+    ]
+  }
+}
