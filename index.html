@@ -1429,18 +1429,154 @@
         @media (max-width: 991.98px) {
             .navbar-collapse {
                 background-color: var(--bg-primary);
-                border-radius: 8px;
+                border-radius: 12px;
                 margin-top: 10px;
-                padding: 15px;
+                padding: 18px;
                 box-shadow: 0 5px 15px var(--shadow);
+            }
+
+            .navbar-nav .nav-item {
+                width: 100%;
+            }
+
+            .navbar-nav .nav-link {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                min-height: 48px;
+                padding: 14px 18px;
+                margin: 0;
+                font-size: 1.05rem;
+                border-radius: 10px;
+                transition: var(--transition);
+            }
+
+            .navbar-nav .nav-link:hover,
+            .navbar-nav .nav-link.active {
+                background-color: rgba(102, 187, 106, 0.12);
+            }
+
+            .navbar-nav .nav-link::after {
+                display: none;
             }
 
             .control-buttons {
                 justify-content: center;
-                margin-top: 15px;
-                padding-top: 15px;
+                margin-top: 18px;
+                padding-top: 18px;
                 border-top: 1px solid var(--border-color);
+                flex-wrap: wrap;
             }
+
+            /* Mobile language selector: keep on its own row, full width */
+            .language-selector {
+                width: 100%;
+            }
+
+            .language-selector .btn-control {
+                width: 100%;
+                min-height: 48px;
+                justify-content: center;
+                font-size: 1rem;
+            }
+
+            .language-menu {
+                width: 100%;
+            }
+
+            .language-menu .language-option {
+                min-height: 48px;
+                padding: 14px 18px;
+                font-size: 1rem;
+            }
+        }
+
+        /* Language Selector */
+        .language-selector {
+            position: relative;
+            display: inline-block;
+        }
+
+        .language-selector .btn-control {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .language-selector .btn-control .flag {
+            font-size: 1.05rem;
+            line-height: 1;
+        }
+
+        .language-menu {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            min-width: 200px;
+            background: #fff;
+            border: 1px solid rgba(102, 187, 106, 0.25);
+            border-radius: 12px;
+            box-shadow: 0 12px 32px rgba(102, 187, 106, 0.18);
+            padding: 6px;
+            z-index: 1080;
+            display: none;
+            list-style: none;
+            margin: 0;
+        }
+
+        .language-menu.open {
+            display: block;
+        }
+
+        .language-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            min-height: 40px;
+            padding: 10px 14px;
+            background: none;
+            border: none;
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-weight: 500;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: left;
+            font-family: inherit;
+        }
+
+        .language-option:hover,
+        .language-option:focus {
+            background-color: rgba(102, 187, 106, 0.12);
+            color: var(--primary);
+            outline: none;
+        }
+
+        .language-option.active {
+            background-color: rgba(102, 187, 106, 0.18);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .language-option .flag {
+            font-size: 1.1rem;
+            line-height: 1;
+        }
+
+        .language-option .lang-name {
+            flex: 1;
+        }
+
+        .language-option .lang-check {
+            color: var(--primary);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .language-option.active .lang-check {
+            opacity: 1;
         }
 
         /* Ripple animation */
@@ -1923,7 +2059,7 @@
                 <div class="col-lg-3 col-md-6">
                     <div class="stat-item text-center">
                         <i class="fas fa-tree text-success fs-1 mb-3"></i>
-                        <div class="stat-number counter" data-target="10000">0</div>
+                        <div class="stat-number counter" data-target="1500" data-suffix="">0</div>
                         <p data-translate="stat-trees">Pema të shpëtuara në vit</p>
                     </div>
                 </div>
@@ -1937,7 +2073,7 @@
                 <div class="col-lg-3 col-md-6">
                     <div class="stat-item text-center">
                         <i class="fas fa-cogs text-warning fs-1 mb-3"></i>
-                        <div class="stat-number counter" data-target="50000">0</div>
+                        <div class="stat-number counter" data-target="50000" data-suffix="">0</div>
                         <p data-translate="stat-production">Qese të prodhuara çditë</p>
                     </div>
                 </div>
@@ -3404,29 +3540,32 @@ Mundesh ta dizajnosh vetë
             }
         }
 
-        // Counter animation - continuous up and down
+        // Counter animation - stops at the target limit
         function animateCounter(element) {
             const target = parseInt(element.getAttribute('data-target'));
+            const suffix = element.getAttribute('data-suffix') || '';
             let current = 0;
-            let direction = 1; // 1 for up, -1 for down
-            const speed = target / 200; // Adjust speed
+            const duration = 2000; // Total animation duration in ms
+            const startTime = performance.now();
 
-            const updateCounter = () => {
-                current += speed * direction;
+            const updateCounter = (now) => {
+                const elapsed = now - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                // Ease-out cubic for smooth deceleration
+                const eased = 1 - Math.pow(1 - progress, 3);
+                current = target * eased;
 
-                if (direction === 1 && current >= target) {
+                if (progress >= 1) {
                     current = target;
-                    direction = -1; // Start decreasing
-                } else if (direction === -1 && current <= 0) {
-                    current = 0;
-                    direction = 1; // Start increasing
+                    element.textContent = Math.floor(current).toLocaleString() + suffix;
+                    return; // Stop animation at the limit
                 }
 
-                element.textContent = Math.floor(current).toLocaleString() + (Math.floor(current) >= 1000 ? '+' : '');
+                element.textContent = Math.floor(current).toLocaleString() + suffix;
                 requestAnimationFrame(updateCounter);
             };
 
-            updateCounter();
+            requestAnimationFrame(updateCounter);
         }
 
         // Intersection Observer for animations and counters
@@ -4025,9 +4164,9 @@ Mundesh ta dizajnosh vetë
                     "At competitive prices"
                 ],
                 stats: {
-                    treesSaved: "10,000+",
+                    treesSaved: "1,500",
                     clients: "500+",
-                    dailyProduction: "50,000+",
+                    dailyProduction: "50,000",
                     exportCountries: "5"
                 },
                 description: "Leading company in Kosovo for the production of biodegradable bags, focusing on advanced technology and environmental protection.",
@@ -4057,18 +4196,16 @@ Mundesh ta dizajnosh vetë
                 orderMessage: "1. Contact us:\n   📞 ${phone}\n   📧 ${email}\n\n2. Specify type and quantity\n3. We will respond within 24 hours!\n\nOr fill out the contact form on the page.",
                 statsLabel: "Our statistics",
                 greeting: "Hello! 👋\n\nI am the AI Assistant of BioPackKos. How can I help you?\n\nI can inform you about:\n• Phone: ${phone}\n• Email: ${email}\n• Address: ${address}\n• Products and services\n• Prices and orders\n\nWe Go We Shine! 🌱",
-                about: "${fullName}\n\n${description}\n\n📍 Location: ${address}\n📞 Phone: ${phone}\n📧 Email: ${email}\n\n${features}",
-                generalWhat: "Based on your question, I can inform you about:\n\n📦 Products: ${products.length} types of biodegradable bags\n⚙️ Services: ${services.length} professional services\n💰 Prices: Contact ${phone} for quote\n📞 Contact: ${phone} or ${email}\n📍 Location: ${address}\n\nSpecify more what you want to know!",
-                generalHow: "To help you, I can assist:\n\n• How to order: Contact ${phone}\n• How to find us: ${address}\n• How to contact us: ${phone} or ${email}\n• How products work: 100% biodegradable\n\nSpecify more!",
-                generalWhere: "📍 Location: ${address}\n\nContact us:\n📞 Phone: ${phone}\n📧 Email: ${email}\n\nOr visit us in Klokot, Viti-Kosovo!",
-                generalWhen: "🕐 Working hours: ${workingHours}\n\nWe are available Monday to Friday, from 08:00 to 16:30.\n\nFor emergencies, contact us at ${phone}!",
-                generalOther: "Thank you for the question! 🤔\n\nI can help you with:\n\n📞 Phone: ${phone}\n📧 Email: ${email}\n📍 Address: ${address}\n📦 Products: ${products.length} types\n⚙️ Services: ${services.length} services\n\nSpecify more what you want to know!",
+                about: "${fullName}\n\n${description}\n\n📍 Location: ${address}\n📞 Phone: ${phone}\n📧 Email: ${email}\n",
+                orderFallback: "To place an order, the easiest way is to contact us directly:\n\n📞 ${phone}\n📧 ${email}\n\nOr use the contact form at the bottom of the page. We respond within 24 hours!",
+                clarification: "I want to make sure I answer the right question. Could you clarify which of these you mean?\n\n1. 📞 Phone number\n2. 📧 Email\n3. 📍 Address / location\n4. 🕐 Working hours\n5. 📦 Products\n6. ⚙️ Services\n7. 💰 Prices\n8. 🛒 How to order\n9. 🏢 About the company\n10. 📊 Statistics\n\nJust type a number or a topic!",
+                fallback: "I'm not sure I understood your question completely. For more detailed information, please contact us directly:\n\n📞 ${phone}\n📧 ${email}\n\nOr use the contact form on this page. Our team will be happy to help you!",
+                thanks: "You're welcome! 😊 If you have any other questions, feel free to ask. We're here to help!",
                 typingMessage: "Typing...",
                 assistantTitle: "AI Assistant",
                 assistantSubtitle: "We Go We Shine",
                 initialGreeting: "Hello! I am the AI Assistant of BioPackKos. How can I help you today?",
-                inputPlaceholder: "Type your question...",
-                defaultReply: "Thank you for your message! 😊\n\nI am the AI Assistant of BioPackKos and I am here to help you!\n\nDirect information:\n📞 Phone: ${phone}\n📧 Email: ${email}\n📍 Address: ${address}\n🕐 Working hours: ${workingHours}\n\nI can tell you about:\n📦 Our products (${products.length} types)\n⚙️ Services\n💰 Prices\n✨ Advantages\n🛒 How to order\n\nWrite your question and I will answer you directly!"
+                inputPlaceholder: "Type your question..."
             },
             'de': {
                 company: "BioPackKos",
@@ -4087,7 +4224,7 @@ Mundesh ta dizajnosh vetë
                     "Qualitätszertifizierung",
                     "24/7 Support"
                 ],
-                address: "Klokot, Viti-Kosovo",
+                address: "Pozheran, Viti-Kosovo",
                 phone: "+383 44 450 505",
                 email: "biopackkos@gmail.com",
                 workingHours: "Montag - Freitag: 08:00 - 16:30",
@@ -4098,9 +4235,9 @@ Mundesh ta dizajnosh vetë
                     "Konkurrenzfähige Preise"
                 ],
                 stats: {
-                    treesSaved: "10,000+",
+                    treesSaved: "1,500",
                     clients: "500+",
-                    dailyProduction: "50,000+",
+                    dailyProduction: "50,000",
                     exportCountries: "5"
                 },
                 description: "Führendes Unternehmen in Kosovo für die Herstellung biologisch abbaubarer Taschen mit Fokus auf fortschrittliche Technologie und Umweltschutz.",
@@ -4113,7 +4250,7 @@ Mundesh ta dizajnosh vetë
                 emailLabel: "E-Mail",
                 emailMessage: "Senden Sie eine E-Mail für Fragen oder Bestellungen!",
                 addressLabel: "Adresse",
-                addressMessage: "Wir befinden uns in Klokot, Viti-Kosovo. Besuchen Sie uns oder kontaktieren Sie uns für weitere Informationen!",
+                addressMessage: "Wir befinden uns in Pozheran, Viti-Kosovo. Besuchen Sie uns oder kontaktieren Sie uns für weitere Informationen!",
                 workingHoursLabel: "Öffnungszeiten",
                 workingHoursMessage: "Wir sind von Montag bis Freitag von 08:00 bis 16:30 für Sie da.",
                 companyNameLabel: "Firmenname",
@@ -4131,17 +4268,15 @@ Mundesh ta dizajnosh vetë
                 statsLabel: "Unsere Statistiken",
                 greeting: "Hallo! 👋\n\nIch bin der AI-Assistent von BioPackKos. Wie kann ich Ihnen helfen?\n\nIch kann Ihnen Informationen geben über:\n• Telefon: ${phone}\n• E-Mail: ${email}\n• Adresse: ${address}\n• Produkte und Dienstleistungen\n• Preise und Bestellungen\n\nWe Go We Shine! 🌱",
                 about: "${fullName}\n\n${description}\n\n📍 Standort: ${address}\n📞 Telefon: ${phone}\n📧 E-Mail: ${email}\n\n${features}",
-                generalWhat: "Basierend auf Ihrer Frage kann ich Ihnen Auskunft geben über:\n\n📦 Produkte: ${products.length} Arten biologisch abbaubarer Taschen\n⚙️ Dienstleistungen: ${services.length} professionelle Dienstleistungen\n💰 Preise: Kontaktieren Sie ${phone} für ein Angebot\n📞 Kontakt: ${phone} oder ${email}\n📍 Standort: ${address}\n\nGeben Sie bitte genauer an, was Sie wissen möchten!",
-                generalHow: "Ich kann Ihnen helfen:\n\n• Wie man bestellt: Kontaktieren Sie ${phone}\n• Wie man uns findet: ${address}\n• Wie man uns kontaktiert: ${phone} oder ${email}\n• Wie die Produkte funktionieren: 100% biologisch abbaubar\n\nBitte geben Sie mehr Details an!",
-                generalWhere: "📍 Standort: ${address}\n\nKontaktieren Sie uns:\n📞 Telefon: ${phone}\n📧 E-Mail: ${email}\n\nOder besuchen Sie uns in Klokot, Viti-Kosovo!",
-                generalWhen: "🕐 Öffnungszeiten: ${workingHours}\n\nWir sind von Montag bis Freitag von 08:00 bis 16:30 für Sie da.\n\nFür Notfälle kontaktieren Sie uns unter ${phone}!",
-                generalOther: "Vielen Dank für Ihre Frage! 🤔\n\nIch kann Ihnen helfen mit:\n\n📞 Telefon: ${phone}\n📧 E-Mail: ${email}\n📍 Adresse: ${address}\n📦 Produkte: ${products.length} Arten\n⚙️ Dienstleistungen: ${services.length} Dienstleistungen\n\nBitte geben Sie mehr Details an, was Sie wissen möchten!",
+                orderFallback: "Um zu bestellen, kontaktieren Sie uns am einfachsten direkt:\n\n📞 ${phone}\n📧 ${email}\n\nOder nutzen Sie das Kontaktformular am Ende der Seite. Wir antworten innerhalb von 24 Stunden!",
+                clarification: "Ich möchte sicherstellen, dass ich die richtige Frage beantworte. Können Sie klarstellen, was Sie meinen?\n\n1. 📞 Telefonnummer\n2. 📧 E-Mail\n3. 📍 Adresse / Standort\n4. 🕐 Öffnungszeiten\n5. 📦 Produkte\n6. ⚙️ Dienstleistungen\n7. 💰 Preise\n8. 🛒 Wie man bestellt\n9. 🏢 Über das Unternehmen\n10. 📊 Statistiken\n\nGeben Sie einfach eine Zahl oder ein Thema ein!",
+                fallback: "Ich bin nicht sicher, ob ich Ihre Frage vollständig verstanden habe. Für genauere Informationen kontaktieren Sie uns bitte direkt:\n\n📞 ${phone}\n📧 ${email}\n\nOder nutzen Sie das Kontaktformular auf dieser Seite. Unser Team hilft Ihnen gerne weiter!",
+                thanks: "Gerne! 😊 Wenn Sie weitere Fragen haben, zögern Sie nicht, sie zu stellen. Wir helfen Ihnen gerne!",
                 typingMessage: "Schreibe...",
                 assistantTitle: "KI-Assistent",
                 assistantSubtitle: "We Go We Shine",
                 initialGreeting: "Hallo! Ich bin der KI-Assistent von BioPackKos. Wie kann ich Ihnen heute helfen?",
-                inputPlaceholder: "Geben Sie Ihre Frage ein...",
-                defaultReply: "Vielen Dank für Ihre Nachricht! 😊\n\nIch bin der KI-Assistent von BioPackKos und ich bin hier, um Ihnen zu helfen!\n\nDirekte Informationen:\n📞 Telefon: ${phone}\n📧 E-Mail: ${email}\n📍 Adresse: ${address}\n🕐 Öffnungszeiten: ${workingHours}\n\nIch kann Ihnen Auskunft geben über:\n📦 Unsere Produkte (${products.length} Arten)\n⚙️ Dienstleistungen\n💰 Preise\n✨ Vorteile\n🛒 Wie man bestellt\n\nSchreiben Sie Ihre Frage und ich antworte Ihnen direkt!"
+                inputPlaceholder: "Geben Sie Ihre Frage ein..."
             },
             'fr': {
                 company: "BioPackKos",
@@ -4160,7 +4295,7 @@ Mundesh ta dizajnosh vetë
                     "Certification qualité",
                     "Support 24/7"
                 ],
-                address: "Klokot, Viti-Kosovo",
+                address: "Pozheran, Viti-Kosovo",
                 phone: "+383 44 450 505",
                 email: "biopackkos@gmail.com",
                 workingHours: "Lundi - Vendredi : 08:00 - 16:30",
@@ -4171,9 +4306,9 @@ Mundesh ta dizajnosh vetë
                     "Prix compétitifs"
                 ],
                 stats: {
-                    treesSaved: "10,000+",
+                    treesSaved: "1,500",
                     clients: "500+",
-                    dailyProduction: "50,000+",
+                    dailyProduction: "50,000",
                     exportCountries: "5"
                 },
                 description: "Entreprise leader au Kosovo dans la production de sacs biodégradables, axée sur la technologie avancée et la protection de l'environnement.",
@@ -4186,7 +4321,7 @@ Mundesh ta dizajnosh vetë
                 emailLabel: "E-mail",
                 emailMessage: "Envoyez un e-mail pour toute question ou commande !",
                 addressLabel: "Adresse",
-                addressMessage: "Nous sommes situés à Klokot, Viti-Kosovo. Venez nous rendre visite ou contactez-nous pour plus d'informations !",
+                addressMessage: "Nous sommes situés à Pozheran, Viti-Kosovo. Venez nous rendre visite ou contactez-nous pour plus d'informations !",
                 workingHoursLabel: "Heures d'ouverture",
                 workingHoursMessage: "Nous sommes disponibles du lundi au vendredi de 08h00 à 16h30.",
                 companyNameLabel: "Nom de l'entreprise",
@@ -4204,17 +4339,15 @@ Mundesh ta dizajnosh vetë
                 statsLabel: "Nos statistiques",
                 greeting: "Bonjour ! 👋\n\nJe suis l'assistant IA de BioPackKos. Comment puis-je vous aider ?\n\nJe peux vous informer sur :\n• Téléphone : ${phone}\n• E-mail : ${email}\n• Adresse : ${address}\n• Produits et services\n• Prix et commandes\n\nWe Go We Shine ! 🌱",
                 about: "${fullName}\n\n${description}\n\n📍 Emplacement : ${address}\n📞 Téléphone : ${phone}\n📧 E-mail : ${email}\n\n${features}",
-                generalWhat: "En fonction de votre question, je peux vous informer sur :\n\n📦 Produits : ${products.length} types de sacs biodégradables\n⚙️ Services : ${services.length} services professionnels\n💰 Prix : Contactez ${phone} pour un devis\n📞 Contact : ${phone} ou ${email}\n📍 Emplacement : ${address}\n\nPrécisez ce que vous souhaitez savoir !",
-                generalHow: "Pour vous aider, je peux vous expliquer :\n\n• Comment commander : contactez ${phone}\n• Comment nous trouver : ${address}\n• Comment nous contacter : ${phone} ou ${email}\n• Comment fonctionnent les produits : 100% biodégradables\n\nPrécisez davantage !",
-                generalWhere: "📍 Emplacement : ${address}\n\nContactez-nous :\n📞 Téléphone : ${phone}\n📧 E-mail : ${email}\n\nOu visitez-nous à Klokot, Viti-Kosovo !",
-                generalWhen: "🕐 Heures d'ouverture : ${workingHours}\n\nNous sommes disponibles du lundi au vendredi de 08h00 à 16h30.\n\nEn cas d'urgence, contactez-nous au ${phone}!",
-                generalOther: "Merci pour votre question ! 🤔\n\nJe peux vous aider avec :\n\n📞 Téléphone : ${phone}\n📧 E-mail : ${email}\n📍 Adresse : ${address}\n📦 Produits : ${products.length} types\n⚙️ Services : ${services.length} services\n\nPrécisez davantage ce que vous souhaitez savoir !",
+                orderFallback: "Pour passer commande, le plus simple est de nous contacter directement :\n\n📞 ${phone}\n📧 ${email}\n\nOu utilisez le formulaire de contact en bas de la page. Nous répondons sous 24 heures !",
+                clarification: "Je veux m'assurer de bien répondre à votre question. Pourriez-vous préciser laquelle de ces options vous intéresse ?\n\n1. 📞 Numéro de téléphone\n2. 📧 E-mail\n3. 📍 Adresse / emplacement\n4. 🕐 Heures d'ouverture\n5. 📦 Produits\n6. ⚙️ Services\n7. 💰 Prix\n8. 🛒 Comment commander\n9. 🏢 À propos de l'entreprise\n10. 📊 Statistiques\n\nTapez un chiffre ou un sujet !",
+                fallback: "Je ne suis pas sûr d'avoir bien compris votre question. Pour des informations plus précises, veuillez nous contacter directement :\n\n📞 ${phone}\n📧 ${email}\n\nOu utilisez le formulaire de contact sur cette page. Notre équipe sera ravie de vous aider !",
+                thanks: "Avec plaisir ! 😊 Si vous avez d'autres questions, n'hésitez pas à les poser. Nous sommes là pour vous aider !",
                 typingMessage: "Écriture...",
                 assistantTitle: "Assistant IA",
                 assistantSubtitle: "We Go We Shine",
                 initialGreeting: "Bonjour ! Je suis l'assistant IA de BioPackKos. Comment puis-je vous aider aujourd'hui ?",
-                inputPlaceholder: "Entrez votre question...",
-                defaultReply: "Merci pour votre message ! 😊\n\nJe suis l'assistant IA de BioPackKos et je suis ici pour vous aider !\n\nInformations directes :\n📞 Téléphone : ${phone}\n📧 E-mail : ${email}\n📍 Adresse : ${address}\n🕐 Heures d'ouverture : ${workingHours}\n\nJe peux vous informer sur :\n📦 Nos produits (${products.length} types)\n⚙️ Services\n💰 Prix\n✨ Avantages\n🛒 Comment commander\n\nÉcrivez votre question et je vous répondrai directement !"
+                inputPlaceholder: "Entrez votre question..."
             },
             'it': {
                 company: "BioPackKos",
@@ -4233,7 +4366,7 @@ Mundesh ta dizajnosh vetë
                     "Certificazione di qualità",
                     "Supporto 24/7"
                 ],
-                address: "Klokot, Viti-Kosovo",
+                address: "Pozheran, Viti-Kosovo",
                 phone: "+383 44 450 505",
                 email: "biopackkos@gmail.com",
                 workingHours: "Lunedì - Venerdì: 08:00 - 16:30",
@@ -4244,9 +4377,9 @@ Mundesh ta dizajnosh vetë
                     "Prezzi competitivi"
                 ],
                 stats: {
-                    treesSaved: "10,000+",
+                    treesSaved: "1,500",
                     clients: "500+",
-                    dailyProduction: "50,000+",
+                    dailyProduction: "50,000",
                     exportCountries: "5"
                 },
                 description: "Azienda leader in Kosovo nella produzione di sacchetti biodegradabili, con un focus sulla tecnologia avanzata e la protezione dell'ambiente.",
@@ -4259,7 +4392,7 @@ Mundesh ta dizajnosh vetë
                 emailLabel: "E-mail",
                 emailMessage: "Invia un'e-mail per qualsiasi domanda o ordine!",
                 addressLabel: "Indirizzo",
-                addressMessage: "Siamo situati a Klokot, Viti-Kosovo. Vieni a trovarci o contattaci per ulteriori informazioni!",
+                addressMessage: "Siamo situati a Pozheran, Viti-Kosovo. Vieni a trovarci o contattaci per ulteriori informazioni!",
                 workingHoursLabel: "Orari di apertura",
                 workingHoursMessage: "Siamo disponibili dal lunedì al venerdì dalle 08:00 alle 16:30.",
                 companyNameLabel: "Nome dell'azienda",
@@ -4277,17 +4410,15 @@ Mundesh ta dizajnosh vetë
                 statsLabel: "Le nostre statistiche",
                 greeting: "Ciao! 👋\n\nSono l'assistente AI di BioPackKos. Come posso aiutarti?\n\nPosso fornirti informazioni su:\n• Telefono: ${phone}\n• E-mail: ${email}\n• Indirizzo: ${address}\n• Prodotti e servizi\n• Prezzi e ordini\n\nWe Go We Shine! 🌱",
                 about: "${fullName}\n\n${description}\n\n📍 Posizione: ${address}\n📞 Telefono: ${phone}\n📧 E-mail: ${email}\n\n${features}",
-                generalWhat: "In base alla tua domanda, posso informarti su:\n\n📦 Prodotti: ${products.length} tipi di sacchetti biodegradabili\n⚙️ Servizi: ${services.length} servizi professionali\n💰 Prezzi: Contatta ${phone} per un preventivo\n📞 Contatto: ${phone} o ${email}\n📍 Posizione: ${address}\n\nSpecifica cosa vuoi sapere!",
-                generalHow: "Per aiutarti, posso spiegarti:\n\n• Come ordinare: contatta ${phone}\n• Come trovarci: ${address}\n• Come contattarci: ${phone} o ${email}\n• Come funzionano i prodotti: 100% biodegradabili\n\nSpecifica più dettagli!",
-                generalWhere: "📍 Posizione: ${address}\n\nContattaci:\n📞 Telefono: ${phone}\n📧 E-mail: ${email}\n\nOppure visitaci a Klokot, Viti-Kosovo!",
-                generalWhen: "🕐 Orari di apertura: ${workingHours}\n\nSiamo disponibili dal lunedì al venerdì dalle 08:00 alle 16:30.\n\nPer emergenze, contattaci al ${phone}!",
-                generalOther: "Grazie per la tua domanda! 🤔\n\nPosso aiutarti con:\n\n📞 Telefono: ${phone}\n📧 E-mail: ${email}\n📍 Indirizzo: ${address}\n📦 Prodotti: ${products.length} tipi\n⚙️ Servizi: ${services.length} servizi\n\nSpecifica cosa vuoi sapere!",
+                orderFallback: "Per ordinare, il modo più semplice è contattarci direttamente:\n\n📞 ${phone}\n📧 ${email}\n\nOppure usa il modulo di contatto in fondo alla pagina. Rispondiamo entro 24 ore!",
+                clarification: "Voglio assicurarmi di rispondere alla domanda giusta. Potresti chiarire quale di queste ti interessa?\n\n1. 📞 Numero di telefono\n2. 📧 E-mail\n3. 📍 Indirizzo / posizione\n4. 🕐 Orari di apertura\n5. 📦 Prodotti\n6. ⚙️ Servizi\n7. 💰 Prezzi\n8. 🛒 Come ordinare\n9. 🏢 Sull'azienda\n10. 📊 Statistiche\n\nDigita un numero o un argomento!",
+                fallback: "Non sono sicuro di aver capito bene la tua domanda. Per informazioni più dettagliate, contattaci direttamente:\n\n📞 ${phone}\n📧 ${email}\n\nOppure usa il modulo di contatto su questa pagina. Il nostro team sarà felice di aiutarti!",
+                thanks: "Prego! 😊 Se hai altre domande, non esitare a chiedere. Siamo qui per aiutarti!",
                 typingMessage: "Sto scrivendo...",
                 assistantTitle: "Assistente AI",
                 assistantSubtitle: "We Go We Shine",
                 initialGreeting: "Ciao! Sono l'assistente AI di BioPackKos. Come posso aiutarti oggi?",
-                inputPlaceholder: "Inserisci la tua domanda...",
-                defaultReply: "Grazie per il tuo messaggio! 😊\n\nSono l'assistente AI di BioPackKos e sono qui per aiutarti!\n\nInformazioni dirette:\n📞 Telefono: ${phone}\n📧 E-mail: ${email}\n📍 Indirizzo: ${address}\n🕐 Orari di apertura: ${workingHours}\n\nPosso informarti su:\n📦 I nostri prodotti (${products.length} tipi)\n⚙️ Servizi\n💰 Prezzi\n✨ Vantaggi\n🛒 Come ordinare\n\nScrivi la tua domanda e ti risponderò direttamente!"
+                inputPlaceholder: "Inserisci la tua domanda..."
             },
             'sq': {
                 company: "BioPackKos",
@@ -4306,7 +4437,7 @@ Mundesh ta dizajnosh vetë
                     "Certifikim Cilësie",
                     "Mbështetje 24/7"
                 ],
-                address: "Klokot, Viti-Kosovo",
+                address: "Pozheran, Viti-Kosovo",
                 phone: "+383 44 450 505",
                 email: "biopackkos@gmail.com",
                 workingHours: "E Hënë - E Premte: 08:00 - 16:30",
@@ -4317,9 +4448,9 @@ Mundesh ta dizajnosh vetë
                     "Me çmim konkurrues"
                 ],
                 stats: {
-                    treesSaved: "10,000+",
+                    treesSaved: "1,500",
                     clients: "500+",
-                    dailyProduction: "50,000+",
+                    dailyProduction: "50,000",
                     exportCountries: "5"
                 },
                 description: "Kompania lider në Kosovo për prodhimin e qeseve biodegradueshme, me fokus në teknologjinë e avancuar dhe mbrojtjen e mjedisit.",
@@ -4332,7 +4463,7 @@ Mundesh ta dizajnosh vetë
                 emailLabel: "Email",
                 emailMessage: "Dërgoni email për çdo pyetje ose porosi!",
                 addressLabel: "Adresa",
-                addressMessage: "Jemi të vendosur në Klokot, Viti-Kosovo. Mund të na vizitoni ose na kontaktoni për më shumë informacion!",
+                addressMessage: "Jemi të vendosur në Pozheran, Viti-Kosovo. Mund të na vizitoni ose na kontaktoni për më shumë informacion!",
                 workingHoursLabel: "Oraret e punës",
                 workingHoursMessage: "Jemi në dispozicion nga E Hënë deri në E Premte, nga ora 08:00 deri në 16:30.",
                 companyNameLabel: "Emri i kompanisë",
@@ -4350,17 +4481,15 @@ Mundesh ta dizajnosh vetë
                 statsLabel: "Statistikat tona",
                 greeting: "Përshëndetje! 👋\n\nUnë jam AI Assistant i BioPackKos. Si mund t'ju ndihmoj?\n\nMund t'ju informoj për:\n• Numri i telefonit: ${phone}\n• Email: ${email}\n• Adresa: ${address}\n• Produktet dhe shërbimet\n• Çmimet dhe porositë\n\nWe Go We Shine! 🌱",
                 about: "${fullName}\n\n${description}\n\n📍 Lokacioni: ${address}\n📞 Telefoni: ${phone}\n📧 Email: ${email}\n\n${features}",
-                generalWhat: "Bazuar në pyetjen tuaj, unë mund t'ju informoj për:\n\n📦 Produktet: ${products.length} lloje qese biodegradueshme\n⚙️ Shërbimet: ${services.length} shërbime profesionale\n💰 Çmimet: Kontaktoni ${phone} për ofertë\n📞 Kontakti: ${phone} ose ${email}\n📍 Lokacioni: ${address}\n\nSpecifikoni më shumë për çfarë dëshironi të dini!",
-                generalHow: "Për të dëshiruar, unë mund t'ju ndihmoj:\n\n• Si të bëni porosi: Kontaktoni ${phone}\n• Si të na gjeni: ${address}\n• Si të na kontaktoni: ${phone} ose ${email}\n• Si funksionojnë produktet: 100% biodegradueshme\n\nSpecifikoni më shumë!",
-                generalWhere: "📍 Lokacioni: ${address}\n\nMund të na kontaktoni:\n📞 Telefoni: ${phone}\n📧 Email: ${email}\n\nOse na vizitoni në Klokot, Viti-Kosovo!",
-                generalWhen: "🕐 Oraret e punës: ${workingHours}\n\nJemi në dispozicion nga E Hënë deri në E Premte, nga ora 08:00 deri në 16:30.\n\nPër urgjenca, mund të na kontaktoni në ${phone}!",
-                generalOther: "Faleminderit për pyetjen! 🤔\n\nUnë mund t'ju ndihmoj me:\n\n📞 Telefoni: ${phone}\n📧 Email: ${email}\n📍 Adresa: ${address}\n📦 Produktet: ${products.length} lloje\n⚙️ Shërbimet: ${services.length} shërbime\n\nSpecifikoni më shumë për çfarë dëshironi të dini!",
+                orderFallback: "Për të bërë porosi, mënyra më e thjeshtë është të na kontaktoni drejtpërdrejt:\n\n📞 ${phone}\n📧 ${email}\n\nOse plotësoni formularin e kontaktit në fund të faqes. Ne do t'ju përgjigjemi brenda 24 orëve!",
+                clarification: "Dua të sigurohem që po i përgjigjem pyetjes së duhur. A mund të qartësoni se cila nga këto ju intereson?\n\n1. 📞 Numri i telefonit\n2. 📧 Email\n3. 📍 Adresa / lokacioni\n4. 🕐 Oraret e punës\n5. 📦 Produktet\n6. ⚙️ Shërbimet\n7. 💰 Çmimet\n8. 🛒 Si të bëni porosi\n9. 🏢 Rreth kompanisë\n10. 📊 Statistikat\n\nThjesht shkruani një numër ose temë!",
+                fallback: "Nuk jam i sigurt nëse e kuptova plotësisht pyetjen tuaj. Për informacione më të detajuara, ju lutem na kontaktoni drejtpërdrejt:\n\n📞 ${phone}\n📧 ${email}\n\nOse plotësoni formularin e kontaktit në këtë faqe. Ekipi ynë do të jetë i kënaqur t'ju ndihmojë!",
+                thanks: "Ju lutem! 😊 Nëse keni pyetje të tjera, mos hezitoni të pyesni. Jemi këtu për t'ju ndihmuar!",
                 typingMessage: "Duke shkruar...",
                 assistantTitle: "AI Assistant",
                 assistantSubtitle: "We Go We Shine",
                 initialGreeting: "Përshëndetje! Unë jam AI Assistant i BioPackKos. Si mund t'ju ndihmoj sot?",
-                inputPlaceholder: "Shkruani pyetjen tuaj...",
-                defaultReply: "Faleminderit për mesazhin tuaj! 😊\n\nUnë jam AI Assistant i BioPackKos dhe jam këtu për t'ju ndihmuar!\n\nInformacione direkte:\n📞 Telefoni: ${phone}\n📧 Email: ${email}\n📍 Adresa: ${address}\n🕐 Oraret: ${workingHours}\n\nMund t'ju informoj për:\n📦 Produktet tona (${products.length} lloje)\n⚙️ Shërbimet\n💰 Çmimet\n✨ Përparësitë\n🛒 Si të bëni porosi\n\nShkruani pyetjen tuaj dhe unë do t'ju përgjigjem direkt!"
+                inputPlaceholder: "Shkruani pyetjen tuaj..."
             }
         };
         
@@ -4453,93 +4582,360 @@ Mundesh ta dizajnosh vetë
             }
             
             function generateAIResponse(userMessage) {
-                const message = userMessage.toLowerCase().trim();
+                const raw = (userMessage || '').toLowerCase().trim();
                 const data = aiChatData[currentLang] || aiChatData['en'];
-                
-                // DIRECT ANSWERS - Priority matching for specific questions
-                
-                // Phone number - DIRECT ANSWER
-                if (/(nr|numri|telefon|phone|tel|call|thirr|kontakt|telefonnummer|numero di telefono|numéro de téléphone|téléphone|telefono)/.test(message)) {
-                    return `📱 ${data.phoneLabel}: ${data.phone}\n\n${data.phoneMessage}`;
+                const subs = (template) => template
+                    .replace(/\$\{phone\}/g, data.phone)
+                    .replace(/\$\{email\}/g, data.email)
+                    .replace(/\$\{address\}/g, data.address)
+                    .replace(/\$\{workingHours\}/g, data.workingHours)
+                    .replace(/\$\{fullName\}/g, data.fullName)
+                    .replace(/\$\{description\}/g, data.description)
+                    .replace(/\$\{products\.length\}/g, data.products.length)
+                    .replace(/\$\{services\.length\}/g, data.services.length);
+
+                // Strip diacritics for tolerant matching (e.g., "çfarë" ≈ "cfare")
+                const norm = raw.normalize('NFD').replace(/\p{Diacritic}/gu, '');
+
+                // Score-based intent detection. Each keyword contributes to a topic's score.
+                // Highest-scoring topic wins; tie-breaks follow array order.
+                // Topics: phone, email, address, hours, products, services, price, features, order, stats, about, greeting, thanks, clarification, fallback
+                const topics = {
+                    phone: 0,
+                    email: 0,
+                    address: 0,
+                    hours: 0,
+                    products: 0,
+                    services: 0,
+                    price: 0,
+                    features: 0,
+                    order: 0,
+                    stats: 0,
+                    about: 0,
+                    thanks: 0
+                };
+
+                // -- GREETINGS / THANKS (separate flow, not scored) --
+                const greetingRe = /^(pershendetje|miredita|mirembrema|tung|tungjatjeta|mire|përshëndetje|hello|hi|hey|good morning|good afternoon|good evening|howdy|hallo|guten morgen|guten tag|guten abend|hi there|bonjour|salut|bonsoir|buongiorno|buonasera|ciao)\b/;
+                if (greetingRe.test(raw) || greetingRe.test(norm)) {
+                    return subs(data.greeting);
                 }
-                
-                // Email - DIRECT ANSWER
-                if (/(email|emaili|mail|courriel|postë|postë elektronike|correo|e-mail)/.test(message)) {
-                    return `📧 ${data.emailLabel}: ${data.email}\n\n${data.emailMessage}`;
+                const thanksRe = /\b(faleminderit|thank you|thanks|merci|danke|grazie|gracias|thx)\b/;
+                if (thanksRe.test(raw) || thanksRe.test(norm)) {
+                    return data.thanks;
                 }
-                
-                // Address - DIRECT ANSWER
-                if (/(adres|address|lokacion|location|ku jeni|ku ndodheni|vendndodhje|vendbanim|adresse|indirizzo|ubicazione|dove)/.test(message)) {
-                    return `📍 ${data.addressLabel}: ${data.address}\n\n${data.addressMessage}`;
+
+                // -- PHONE / CALL (specific word-boundary keywords only) --
+                // Avoiding 2-3 char false positives like "nr" or "tel" that match inside unrelated words.
+                const phoneKw = [
+                    /\bnr\.?\s*i\s*telefonit\b/,
+                    /\bnumri\s+i\s+telefonit\b/,
+                    /\bnumrin\s+e\s+telefonit\b/,
+                    /\bnumrin\s+tuaj\b/,
+                    /\bnumri\s+juaj\b/,
+                    /\bnumrin\s+telefonit\b/,
+                    /\bphone\s+number\b/,
+                    /\bphone\s*\b/,
+                    /\btelephone\s+number\b/,
+                    /\btelefonnummer\b/,
+                    /\bnumero\s+di\s+telefono\b/,
+                    /\bnumero\s+telefono\b/,
+                    /\bnum[eé]ro\s+de\s+t[eé]l[eé]phone\b/,
+                    /\bt[eé]l[eé]phone\b/,
+                    /\btelefon(?:i|it|in|it?)\b/,
+                    /\btelefono\b/,
+                    /\bthirr(?:je|ni)?\b/,
+                    /\bna\s+thirr(?:ni)?\b/,
+                    /\bcan\s+you\s+call\b/,
+                    /\bgive\s+me\s+a\s+call\b/,
+                    /\bruf(?:t|en)?\s+(?:mich|sie|uns)\b/,
+                    /\brufnummer\b/,
+                    /\bappel(?:er|-moi|lez)\b/,
+                    /\bappeler\b/,
+                    /\bchiam(?:a|ami|ata)\b/,
+                    /\bchiamaci\b/,
+                    /\bsms\b/,
+                    /\bwhatsapp\b/,
+                    /\bviber\b/
+                ];
+                phoneKw.forEach(re => { if (re.test(raw) || re.test(norm)) topics.phone += 2; });
+                if (/\bmund\s+t['']?ju\s+th(?:e|ë)rras\b/.test(raw) || /\bmund\s+t['']?ju\s+th(?:e|ë)rras\b/.test(norm)) topics.phone += 2;
+                // Phone is also about the actual digits
+                if (/\+383\b/.test(raw)) topics.phone += 5;
+
+                // -- EMAIL --
+                const emailKw = [
+                    /\bemail\b/,
+                    /\bemaili\b/,
+                    /\bmail\b/,
+                    /\be-?mail\b/,
+                    /\bcourriel\b/,
+                    /\bposta\s+elektronike\b/,
+                    /\bcorreo\b/,
+                    /\beposta\b/
+                ];
+                emailKw.forEach(re => { if (re.test(raw) || re.test(norm)) topics.email += 2; });
+                if (/@gmail\b/.test(raw) || /@gmail\b/.test(norm)) topics.email += 5;
+
+                // -- ADDRESS / LOCATION --
+                // Use word-boundary keywords that are SPECIFIC to location, not generic "contact"
+                const addressKw = [
+                    /\baddress\b/,
+                    /\baddressa\b/,
+                    /\badres[aë]?\b/,
+                    /\blokacioni\b/,
+                    /\blokacion\b/,
+                    /\bvenndodhja\b/,
+                    /\bvenndodhje\b/,
+                    /\bku\s+(?:ndodheni|jeni|ndodhet|gjendet)\b/,
+                    /\bku\s+jete\b/,
+                    /\bku\s+jetoni\b/,
+                    /\bvendbanimi\b/,
+                    /\bselenium\b/, // rare
+                    /\bstay\b/, // ambiguous
+                    /\bsituate?d?\b/,
+                    /\blocated?\b/,
+                    /\blocation\b/,
+                    /\bwhere\s+are\s+you\b/,
+                    /\bwhere\s+is\s+(?:your|the)\b/,
+                    /\bwo\s+(?:sind|befindet|finde\s+ich)\b/,
+                    /\bstandort\b/,
+                    /\bwo\s+befindet\b/,
+                    /\bwo\s+liegt\b/,
+                    /\badresse\b/,
+                    /\bubicazione\b/,
+                    /\bdove\s+(?:siete|si\s+trova|vi\s+trovo)\b/,
+                    /\bindirizzo\b/,
+                    /\bo[uù]\s+(?:e[ts]tes[-\s]?vous|se\s+trouve|[ée]tes[-\s]?vous)\b/
+                ];
+                addressKw.forEach(re => { if (re.test(raw) || re.test(norm)) topics.address += 2; });
+                // "Pozheran" / "Viti" is a strong address signal
+                if (/\b(pozheran|viti)\b/.test(raw) || /\b(pozheran|viti)\b/.test(norm)) topics.address += 5;
+                // "Google Maps" / "maps" questions point to address
+                if (/\b(maps|google\s*maps|itin[eé]raire|directions|wegbeschreibung|indicazioni|percorso)\b/.test(raw) || /\b(maps|google\s*maps|itineraire|directions|wegbeschreibung|indicazioni|percorso)\b/.test(norm)) topics.address += 3;
+
+                // -- WORKING HOURS --
+                const hoursKw = [
+                    /\borar(?:i|et|t)?\s+(?:i\s+)?pun(?:ës|es)\b/,
+                    /\boraret\s+e\s+pun[eë]s\b/,
+                    /\bworking\s+hours\b/,
+                    /\bbusiness\s+hours\b/,
+                    /\bopen(?:ing)?\s+hours\b/,
+                    /\bwhen\s+(?:are\s+you|do\s+you)\s+open\b/,
+                    /\boffnungszeiten\b/,
+                    /\barbeitszeiten\b/,
+                    /\bheures?\s+d['o]?uverture\b/,
+                    /\borari(?:o)?\s+(?:di\s+)?(?:apertura|lavoro)\b/,
+                    /\borario\b/,
+                    /\bhoraires?\b/,
+                    /\bkur\s+(?:punoni|jeni|hapeni|mbyllni)\b/,
+                    /\bderi\s+kur\b/,
+                    /\bnaga\s+cila\s+ore\b/,
+                    /\bsa\s+ore\b/
+                ];
+                hoursKw.forEach(re => { if (re.test(raw) || re.test(norm)) topics.hours += 2; });
+                // specific time-day combos
+                if (/\b(e\s+h[eë]n[eë]|e\s+premte|e\s+mart[eë]|e\s+merkure|e\s+enjte|e\s+shtun[eë]|e\s+diel)\b/.test(norm)) topics.hours += 1;
+                if (/\b(monday|tuesday|wednesday|thursday|friday|saturday|sunday|montag|dienstag|mittwoch|donnerstag|freitag|samstag|sonntag|lundi|mardi|mercredi|jeudi|vendredi|samedi|dimanche|luned[iì]|marted[iì]|mercoled[iì]|gioved[iì]|venerd[iì]|sabato|domenica)\b/.test(raw)) topics.hours += 1;
+                if (/\b(08:00|09:00|16:30|17:00|18:00)\b/.test(raw)) topics.hours += 2;
+
+                // -- PRODUCTS --
+                const productKw = [
+                    /\bprodukt(?:et|eve|in|it)?\b/,
+                    /\bprodukte\b/,
+                    /\bproduits?\b/,
+                    /\bprodotto|prodotti\b/,
+                    /\bqese(?:ve|t|te)?\b/,
+                    /\bbag(?:s)?\b/,
+                    /\bsac(?:s|che)?\b/,
+                    /\bsacchetto|sacchetti\b/,
+                    /\btaschen\b/,
+                    /\bwhat\s+(?:do\s+you\s+(?:sell|offer|make|produce)|products?)\b/,
+                    /\b(?:quels?|quali)\s+produits?\b/,
+                    /\b(?:quali)\s+prodott[i]?\b/,
+                    /\bwas\s+(?:bieten|produzieren|sind)\s+(?:sie|ihre)\b/,
+                    /\bce\s+que\s+vous\s+(?:faites|produisez|vendez)\b/
+                ];
+                productKw.forEach(re => { if (re.test(raw) || re.test(norm)) topics.products += 2; });
+                // specific bag types
+                if (/\b(blerje|mbeturina|ushqimore|komposht|industriale|personalizuara|shopping|waste|food|compost|industrial|custom|spesa|rifiuti|alimentari|compostabili|industriali|personalizzati|einkauf|m[üu]ll|lebensmittel|kompost|individuell|industri)\b/.test(norm)) topics.products += 2;
+
+                // -- SERVICES --
+                const serviceKw = [
+                    /\bsh[ëe]rbim(?:e|et|eve|it|in)?\b/,
+                    /\bservices?\b/,
+                    /\bservizi?\b/,
+                    /\bdienstleistungen\b/,
+                    /\bwhat\s+services?\b/,
+                    /\bquels?\s+services?\b/,
+                    /\bquali\s+serviz[i]?\b/,
+                    /\bwas\s+(?:sind|ihre)\s+dienstleistungen\b/,
+                    /\bofferta\b/,
+                    /\bofferte\b/
+                ];
+                serviceKw.forEach(re => { if (re.test(raw) || re.test(norm)) topics.services += 2; });
+                if (/\b(prodhim|distribution|certifikim|support|custom|fast|quality|24\/7)\b/.test(norm)) topics.services += 1;
+
+                // -- PRICE / COST --
+                const priceKw = [
+                    /\b[cç]mim(?:i|et|eve|it)?\b/,
+                    /\bpreis(?:e)?\b/,
+                    /\bprix\b/,
+                    /\bprezzo\b/,
+                    /\bcost\b/,
+                    /\bhow\s+much\b/,
+                    /\bquanto\s+costa\b/,
+                    /\bcombien\s+(?:co[uû]te|cela\s+co[uû]te)\b/,
+                    /\bwas\s+kostet\b/,
+                    /\bquote\b/,
+                    /\bofert[aë]?\b/,
+                    /\bbudget\b/,
+                    /\bsa\s+kushton\b/,
+                    /\bsa\s+(?:behet|duhet|kane)\b/
+                ];
+                priceKw.forEach(re => { if (re.test(raw) || re.test(norm)) topics.price += 2; });
+
+                // -- FEATURES / QUALITY --
+                const featureKw = [
+                    /\bcil[eë]si\b/,
+                    /\bqualit[eé]?\b/,
+                    /\bquality\b/,
+                    /\bfeatures?\b/,
+                    /\bp[eë]rpar[eë]si\b/,
+                    /\bavantages?\b/,
+                    /\bvantaggi\b/,
+                    /\bvorteile\b/,
+                    /\bkarakteristika\b/,
+                    /\bbiodegradueshme?\b/,
+                    /\bbiod[eé]gradables?\b/,
+                    /\bbiodegradabili\b/,
+                    /\bbiologisch\s+abbaubar\b/,
+                    /\bwhat\s+(?:are|is).{0,10}(?:advantage|benefit|feature)\b/,
+                    /\b(?:pse)\b.*\b(zgjedhur|mirë)\b/
+                ];
+                featureKw.forEach(re => { if (re.test(raw) || re.test(norm)) topics.features += 2; });
+                if (/\b(ecological|environment|green|eco|miqë|mjedis|nat[uü]r|umwelt|ambiente|environnement)\b/.test(norm)) topics.features += 1;
+
+                // -- ORDER --
+                const orderKw = [
+                    /\bporosit[aë]?\b/,
+                    /\bporosis\b/,
+                    /\border\b/,
+                    /\bord(?:ine|er|ini|ina)\b/,
+                    /\bcommander\b/,
+                    /\bcomm(?:ande|ander)\b/,
+                    /\bbuy\b/,
+                    /\bpurchase\b/,
+                    /\bsi\s+porosit\b/,
+                    /\bsi\s+(?:t['']?)?(?:b[eë]j|b[eë]jm[eë]|porosisni)\b/,
+                    /\bhow\s+to\s+order\b/,
+                    /\bcome\s+ordinare\b/,
+                    /\bwie\s+(?:kann|bestelle)\b/,
+                    /\bcomment\s+commander\b/,
+                    /\bkomand[oë]?\b/
+                ];
+                orderKw.forEach(re => { if (re.test(raw) || re.test(norm)) topics.order += 2; });
+
+                // -- STATS --
+                const statsKw = [
+                    /\bstatistika(?:t)?\b/,
+                    /\bstatistik(?:a|en|en)?\b/,
+                    /\bstatistiques?\b/,
+                    /\bstatistiche?\b/,
+                    /\bstats?\b/,
+                    /\bnum[eë]r(?:i|it)?\b/,
+                    /\bnumbers?\b/,
+                    /\bsa\s+(?:klient|prodhon|qese|pem[ëe]|kemi)\b/,
+                    /\bhow\s+many\b/,
+                    /\bcombien\s+(?:de|avez|vous)\b/,
+                    /\bquanti\b/,
+                    /\bwieviele\b/,
+                    /\bklient[eë]?\b/,
+                    /\bclienti\b/,
+                    /\bclient(?:s)?\b/,
+                    /\bprodhim(?:i|it)?\b/,
+                    /\bproduction\b/,
+                    /\bproduzione\b/
+                ];
+                statsKw.forEach(re => { if (re.test(raw) || re.test(norm)) topics.stats += 2; });
+                if (/\b(pem[ëe]|trees|alberi|b[aä]ume|arbres)\b/.test(norm)) topics.stats += 1;
+
+                // -- ABOUT / COMPANY INFO --
+                const aboutKw = [
+                    /\brreth\s+(?:kompanis[eë]|nesh|nesh)\b/,
+                    /\babout\s+(?:us|the\s+company|your\s+company)\b/,
+                    /\b[cç]far[eë]\s+(?:esht[eë]|jeni|b[eë]ni)\b/,
+                    /\bwho\s+are\s+you\b/,
+                    /\bwhat\s+is\s+(?:this|your)\s+company\b/,
+                    /\bkompania\b/,
+                    /\bcompany\b/,
+                    /\bunternehmen\b/,
+                    /\bentreprise\b/,
+                    /\bazienda\b/,
+                    /\bübrigens\b/,
+                    /\binfo(?:rmacion)?\b/,
+                    /\binformation\b/,
+                    /\binformacione?\b/,
+                    /\binfos?\b/,
+                    /\bhistor[yikë]?\b/,
+                    /\bhistorik\b/
+                ];
+                aboutKw.forEach(re => { if (re.test(raw) || re.test(norm)) topics.about += 2; });
+                // BioPackKos directly mentioned
+                if (/\bbiopackkos\b/.test(norm)) topics.about += 1;
+
+                // Penalty: if the word "all" / "everything" / "gjithçka" is in the message,
+                // soften the scores so we don't lock onto a single word
+                if (/\b(all|everything|gjith[cç]ka|alles|tout|tutta|alle)\b/.test(norm)) {
+                    Object.keys(topics).forEach(k => { topics[k] = Math.max(0, topics[k] - 1); });
                 }
-                
-                // Working hours - DIRECT ANSWER
-                if (/(orar|oraret|hours|working|koha|kohë|kur|when|open|hapur|mbyllur|öffnungszeiten|horaires|orario|orari|ouvert|fermé)/.test(message)) {
-                    return `🕐 ${data.workingHoursLabel}: ${data.workingHours}\n\n${data.workingHoursMessage}`;
-                }
-                
-                // Company name - DIRECT ANSWER
-                if (/(emri|name|kompani|company|kush jeni|who are you|cilët jeni|firma|unternehmen|entreprise|azienda|azienda|chi siete)/.test(message)) {
-                    return `🏢 ${data.companyNameLabel}: ${data.companyNameMessage}\n\n${data.description}`;
-                }
-                
-                // Products - DIRECT ANSWER
-                if (/(produkt|produkte|qese|qeseve|qeset|qes|bag|bags|sac|sacs|sacchetti|çfarë produktesh|what products|quels produits|quali prodotti)/.test(message)) {
-                    return `📦 ${data.productsLabel}:\n\n${data.products.map((p, i) => `${i + 1}. ${p}`).join('\n')}\n\n${data.productsMessage}`;
-                }
-                
-                // Services - DIRECT ANSWER
-                if (/(shërbim|service|services|servizi|dienstleistungen|çfarë shërbimesh|what services|quels services|quali servizi)/.test(message)) {
-                    return `⚙️ ${data.servicesLabel}:\n\n${data.services.map((s, i) => `${i + 1}. ${s}`).join('\n')}\n\n${data.servicesMessage}`;
-                }
-                
-                // Price - DIRECT ANSWER
-                if (/(çmim|price|preis|prix|prezzo|kushton|kosto|cost|ofertë|quote|budget|sa kushton|how much|quanto costa|combien)/.test(message)) {
-                    return `💰 ${data.priceLabel}:\n\n📞 ${data.phoneLabel}: ${data.phone}\n📧 ${data.emailLabel}: ${data.email}\n\n${data.priceMessage}`;
-                }
-                
-                // Features - DIRECT ANSWER
-                if (/(cilësi|quality|feature|features|përparësi|advantage|benefit|karakteristik|characteristic|biodegradueshme|biodegradable|çfarë përparësish|avantages|vantaggi)/.test(message)) {
-                    return `✨ ${data.featuresLabel}:\n\n${data.features.map(f => `✓ ${f}`).join('\n')}\n\n${data.featuresMessage}`;
-                }
-                
-                // Order - DIRECT ANSWER
-                if (/(porosit|order|ordine|commander|buy|purchase|komand|command|si porosit|how to order|come ordinare|comment commander)/.test(message)) {
-                    return `🛒 ${data.orderLabel}:\n\n${data.orderMessage.replace(/\$\{phone\}/g, data.phone).replace(/\$\{email\}/g, data.email)}`;
-                }
-                
-                // Stats - DIRECT ANSWER
-                if (/(statistik|stats|statistiques|statistiche|numër|number|sa|how many|klient|client|prodhim|production)/.test(message)) {
-                    return `📊 ${data.statsLabel}:\n\n🌳 ${data.stats.treesSaved} ${data.treesSavedLabel}\n👥 ${data.stats.clients} ${data.clientsLabel}\n📦 ${data.stats.dailyProduction} ${data.dailyProductionLabel}\n🌍 ${data.stats.exportCountries} ${data.exportCountriesLabel}`;
-                }
-                
-                // Greetings
-                if (/^(përshëndetje|hello|hi|hey|pershendetje|mirëdita|mirëmbrëma|tung|tungjatjeta|good morning|good afternoon|good evening|hallo|guten morgen|guten tag|guten abend|bonjour|salut|buongiorno|buonasera)/.test(message)) {
-                    return data.greeting.replace(/\$\{phone\}/g, data.phone).replace(/\$\{email\}/g, data.email).replace(/\$\{address\}/g, data.address);
-                }
-                
-                // About company
-                if (/(rreth|about|über|über uns|kompani|company|firma|unternehmen|entreprise|azienda|histori|history|themelo|founded|kush jeni|who are you|informacion|information)/.test(message)) {
-                    return data.about.replace(/\$\{fullName\}/g, data.fullName).replace(/\$\{description\}/g, data.description).replace(/\$\{address\}/g, data.address).replace(/\$\{phone\}/g, data.phone).replace(/\$\{email\}/g, data.email).replace(/\$\{features\}/g, data.features.map(f => `✓ ${f}`).join('\n'));
-                }
-                
-                // General questions with "what", "how", "where", "when", "why"
-                if (/(çfarë|what|was|wo|where|où|où|where|come|how|comment|si|wie|ku|quando|kur|when|pse|why|kush|who|pourquoi|perché|pourquoi)/.test(message)) {
-                    if (message.includes('çfarë') || message.includes('what') || message.includes('was') || message.includes('quoi') || message.includes('cosa')) {
-                        return data.generalWhat.replace(/\$\{products\.length\}/g, data.products.length).replace(/\$\{services\.length\}/g, data.services.length).replace(/\$\{phone\}/g, data.phone).replace(/\$\{email\}/g, data.email).replace(/\$\{address\}/g, data.address);
-                    } else if (message.includes('si') || message.includes('how') || message.includes('wie') || message.includes('comment') || message.includes('come')) {
-                        return data.generalHow.replace(/\$\{phone\}/g, data.phone).replace(/\$\{address\}/g, data.address).replace(/\$\{email\}/g, data.email);
-                    } else if (message.includes('ku') || message.includes('where') || message.includes('wo') || message.includes('où') || message.includes('dove')) {
-                        return data.generalWhere.replace(/\$\{address\}/g, data.address).replace(/\$\{phone\}/g, data.phone).replace(/\$\{email\}/g, data.email);
-                    } else if (message.includes('kur') || message.includes('when') || message.includes('quando') || message.includes('wann')) {
-                        return data.generalWhen.replace(/\$\{workingHours\}/g, data.workingHours).replace(/\$\{phone\}/g, data.phone);
-                    } else {
-                        return data.generalOther.replace(/\$\{phone\}/g, data.phone).replace(/\$\{email\}/g, data.email).replace(/\$\{address\}/g, data.address).replace(/\$\{products\.length\}/g, data.products.length).replace(/\$\{services\.length\}/g, data.services.length);
+
+                // Pick highest scoring topic
+                const order = ['phone', 'email', 'address', 'hours', 'products', 'services', 'price', 'features', 'order', 'stats', 'about'];
+                let best = null;
+                let bestScore = 0;
+                for (const t of order) {
+                    if (topics[t] > bestScore) {
+                        bestScore = topics[t];
+                        best = t;
                     }
                 }
-                
-                // Default intelligent response - ALWAYS ANSWER
-                return data.defaultReply.replace(/\$\{phone\}/g, data.phone).replace(/\$\{email\}/g, data.email).replace(/\$\{address\}/g, data.address).replace(/\$\{workingHours\}/g, data.workingHours).replace(/\$\{products\.length\}/g, data.products.length).replace(/\$\{services\.length\}/g, data.services.length);
+
+                // Confidence threshold: if no topic scored meaningfully, ask for clarification
+                if (!best || bestScore < 2) {
+                    // If the user clearly just sent a single word or super short input, ask for clarification
+                    if (raw.length <= 3) {
+                        return data.clarification;
+                    }
+                    return subs(data.fallback);
+                }
+
+                switch (best) {
+                    case 'phone':
+                        return `📞 ${data.phoneLabel}: ${data.phone}\n\n${data.phoneMessage}`;
+                    case 'email':
+                        return `📧 ${data.emailLabel}: ${data.email}\n\n${data.emailMessage}`;
+                    case 'address':
+                        return `📍 ${data.addressLabel}: ${data.address}\n\n${data.addressMessage}`;
+                    case 'hours':
+                        return `🕐 ${data.workingHoursLabel}: ${data.workingHours}\n\n${data.workingHoursMessage}`;
+                    case 'products':
+                        return `📦 ${data.productsLabel}:\n\n${data.products.map((p, i) => `${i + 1}. ${p}`).join('\n')}\n\n${data.productsMessage}`;
+                    case 'services':
+                        return `⚙️ ${data.servicesLabel}:\n\n${data.services.map((s, i) => `${i + 1}. ${s}`).join('\n')}\n\n${data.servicesMessage}`;
+                    case 'price':
+                        return `💰 ${data.priceLabel}\n\n${data.priceMessage}\n\nFor a personalized quote:\n📞 ${data.phone}\n📧 ${data.email}`;
+                    case 'features':
+                        return `✨ ${data.featuresLabel}:\n\n${data.features.map(f => `✓ ${f}`).join('\n')}\n\n${data.featuresMessage}`;
+                    case 'order':
+                        return `🛒 ${data.orderLabel}:\n\n${subs(data.orderMessage)}`;
+                    case 'stats':
+                        return `📊 ${data.statsLabel}:\n\n🌳 ${data.stats.treesSaved} ${data.treesSavedLabel}\n👥 ${data.stats.clients} ${data.clientsLabel}\n📦 ${data.stats.dailyProduction} ${data.dailyProductionLabel}\n🌍 ${data.stats.exportCountries} ${data.exportCountriesLabel}`;
+                    case 'about':
+                        return subs(data.about);
+                    default:
+                        return subs(data.fallback);
+                }
             }
         }
         

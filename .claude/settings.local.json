@@ -4,7 +4,11 @@
       "Bash(sed -i 's/Klokot Viti/Klokot, Viti-Kosovo/g' index.html catalog.txt)",
       "Bash(sed -i 's/Kosova/Kosovo/g' index.html catalog.txt)",
       "Bash(sed -i 's/Kosovë/Kosovo/g' index.html catalog.txt)",
-      "Bash(sed -i 's/Kosovën/Kosovo/g' index.html catalog.txt)"
+      "Bash(sed -i 's/Kosovën/Kosovo/g' index.html catalog.txt)",
+      "Bash(node -e ' *)",
+      "Bash(node test_chat.js)",
+      "Bash(node -e \"const s = 'ku ndodheni'; console.log\\('match:', /\\\\bku\\\\s+\\(?:ndodheni|jeni|ndodhet|gjendet\\)\\\\b/.test\\(s\\)\\);\")",
+      "Bash(node test_actual.js)"
     ]
   }
 }
