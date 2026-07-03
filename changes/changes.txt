@@ -1,0 +1,35 @@
+--BioPackKos(1)
+
+--Languages
+
+--English,Deutch,French,Italian,Albanian
+
+
+--Home 
+
+--3 divs i ndryshomi
+--I shtojm shtresen hiri ne home section text
+
+
+--Rregullo inputin e dyte tek contact
+--Rregullo explore Products
+
+
+--Stastistics
+
+--bacgkrundi i gjelbert
+
+--Order Now rregullo
+
+--Our Products
+
+--vendos katalloget duke filluar nga me e vogla deri the biggest dhe nga nje pershkrim for each one dhe duhet te ceket qe mund te krijohen dhe forma te ndryshme
+
+
+--te home le te shfaqet slide1.jpg
+
+
+
+-------------------------------------------
+
+
