@@ -16,26 +16,11 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Google Tag Manager -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <!-- Google Tag Manager (analytics IDs are configured at deploy time, not hard-coded) -->
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        
-        // Multiple Google Analytics accounts
-        gtag('config', 'G-XXXXXXXXXX', {
-            'user_id': 'adimemeti97@gmail.com'
-        });
-        gtag('config', 'G-YYYYYYYYYY', {
-            'user_id': 'drinmehmeti2@gmail.com'
-        });
-        gtag('config', 'G-ZZZZZZZZZZ', {
-            'user_id': 'vebimehmeti6@gmail.com'
-        });
-        gtag('config', 'G-AAAAAAAAAA', {
-            'user_id': 'dionismehmeti6@gmail.com'
-        });
     </script>
     <!-- End Google Tag Manager -->
    
@@ -69,6 +54,7 @@
        
         html {
             scroll-behavior: smooth;
+            min-height: 100%;
         }
        
         body {
@@ -79,6 +65,9 @@
             font-size: 1.05rem;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
         
         h1, h2, h3, h4, h5, h6 {
@@ -1027,6 +1016,7 @@
             background-color: var(--dark);
             color: white;
             padding: 50px 0 15px;
+            margin-top: auto;
         }
 
         .footer-title {
@@ -1778,6 +1768,11 @@
             transition: var(--transition);
         }
 
+        .catalog-item.catalog-bag-item {
+            height: auto;
+            aspect-ratio: 1402 / 1122;
+        }
+
         .catalog-item:hover img {
             transform: scale(1.05);
         }
@@ -1963,6 +1958,22 @@
                 padding-top: 15px;
                 border-top: 1px solid var(--border-color);
             }
+
+            .catalog-modal.active {
+                flex-direction: column;
+            }
+
+            .modal-close {
+                position: static;
+                align-self: flex-end;
+                margin: 10px 16px 8px 0;
+                flex-shrink: 0;
+            }
+
+            .modal-content,
+            .modal-content img {
+                max-height: calc(100vh - 90px);
+            }
         }
 
         #stats-section{
@@ -2144,19 +2155,19 @@
    
     
     <!-- Catalog Section -->
-    <section id = 'catalog' class="catalog-section">
+    <section id="catalog" class="catalog-section">
         <div class="container">
             <h1 class="catalog-title" data-translate="catalog-title">Katalogu </h1>
             <p class="catalog-subtitle" data-translate="catalog-subtitle">Eksploro koleksionin e produkteve tona</p>
             
             <div class="catalog-grid">
-                <div class="catalog-item" style="grid-column: 1 / -1; height: auto; max-height: 400px; margin-bottom: 30px;" onclick="openModal('assets/newmali3.jpg', 0)">
+                <div class="catalog-item" style="grid-column: 1 / -1; height: auto; margin-bottom: 30px;" onclick="openModal('assets/newmali3.jpg', 0)">
                     <img src="assets/newmali3.jpg" alt="BioPackKos" loading="lazy" style="width: 100%; height: auto; object-fit: cover;">
                 </div>
 
-                <div class="catalog-item" onclick="openModal('assets/f1.jpg', 1)">
+                <div class="catalog-item catalog-bag-item" onclick="openModal('assets/bag0.png', 1)">
                     <div class="catalog-number">1</div>
-                    <img src="assets/f1.jpg" alt="Katalog 1" loading="lazy">
+                    <img src="assets/bag0.png" alt="Katalog 1" loading="lazy">
                     <div class="catalog-overlay">
                         <h5 data-translate="catalog-1-title">Katalogu 1</h5>
                         <p data-translate="catalog-item-desc">
@@ -2166,9 +2177,9 @@ Mundesh ta dizajnosh vetë
                     </div>
                 </div>
                 
-                <div class="catalog-item" onclick="openModal('assets/f2.jpg', 2)">
+                <div class="catalog-item catalog-bag-item" onclick="openModal('assets/bag1.png', 2)">
                     <div class="catalog-number">2</div>
-                    <img src="assets/f2.jpg" alt="Katalog 2" loading="lazy">
+                    <img src="assets/bag1.png" alt="Katalog 2" loading="lazy">
                     <div class="catalog-overlay">
                         <h5 data-translate="catalog-2-title">Katalogu 2</h5>
                         <p data-translate="catalog-item-desc">
@@ -2178,11 +2189,11 @@ Mundesh ta dizajnosh vetë
                     </div>
                 </div>
                 
-                <div class="catalog-item" onclick="openModal('assets/f3.jpg', 3)">
+                <div class="catalog-item catalog-bag-item" onclick="openModal('assets/bag2.png', 3)">
                     <div class="catalog-number">3</div>
-                    <img src="assets/f3.jpg" alt="Katalog 3" loading="lazy">
+                    <img src="assets/bag2.png" alt="Katalog 3" loading="lazy">
                     <div class="catalog-overlay">
-                        <h5 data-translate="catalog-3-title">3</h5>
+                        <h5 data-translate="catalog-3-title">Katalogu 3</h5>
                         <p data-translate="catalog-item-desc">
 Mundesh ta dizajnosh vetë
 </p>
@@ -2190,11 +2201,11 @@ Mundesh ta dizajnosh vetë
                     </div>
                 </div>
                 
-                <div class="catalog-item" style="grid-column: 2;" onclick="openModal('assets/f4.jpg', 4)">
+                <div class="catalog-item catalog-bag-item" style="grid-column: 2;" onclick="openModal('assets/bag3.png', 4)">
                     <div class="catalog-number">4</div>
-                    <img src="assets/f4.jpg" alt="Katalog 4" loading="lazy">
+                    <img src="assets/bag3.png" alt="Katalog 4" loading="lazy">
                     <div class="catalog-overlay">
-                        <h5 data-translate="catalog-4-title">4
+                        <h5 data-translate="catalog-4-title">Katalogu 4
                         </h5>
                         <p data-translate="catalog-item-desc">
 Mundesh ta dizajnosh vetë
@@ -2387,7 +2398,7 @@ Mundesh ta dizajnosh vetë
                     <ul class="list-unstyled">
                         <li class="mb-2"><a href="#home" class="footer-link" data-translate="nav-home">Faqja Kryesore</a></li>
                         <li class="mb-2"><a href="#about" class="footer-link" data-translate="nav-about">Rreth Nesh</a></li>
-                        <li class="mb-2"><a href="#products" class="footer-link" data-translate="nav-products">Katalogu</a></li>
+                        <li class="mb-2"><a href="#catalog" class="footer-link" data-translate="nav-products">Katalogu</a></li>
                         <li class="mb-2"><a href="#contact" class="footer-link" data-translate="nav-contact">Kontakt</a></li>
                     </ul>
                 </div>
@@ -2395,9 +2406,9 @@ Mundesh ta dizajnosh vetë
                 <div class="col-lg-3 col-md-6">
                     <h5 class="footer-title" data-translate="products-footer">Produktet</h5>
                     <ul class="list-unstyled">
-                        <li class="mb-2"><a href="#products" class="footer-link" data-translate="product-1-title">Qese për Blerje</a></li>
-                       
-                        <li class="mb-2"><a class='footer-link' data-translate='nav-catalog' href='/catalog'>Kataloget</a></li>
+                        <li class="mb-2"><a href="#catalog" class="footer-link" data-translate="product-1-title">Qese për Blerje</a></li>
+
+                        <li class="mb-2"><a class='footer-link' data-translate='nav-catalog' href='#catalog'>Kataloget</a></li>
                     </ul>
                 </div>
                
@@ -3076,7 +3087,15 @@ Mundesh ta dizajnosh vetë
         };
 
         // Current language and theme
-        let currentLang = 'en';
+        let currentLang = (function () {
+            try {
+                const saved = localStorage.getItem('language');
+                if (saved && ['en', 'de', 'fr', 'it', 'sq'].indexOf(saved) !== -1) {
+                    return saved;
+                }
+            } catch (_) {}
+            return 'sq';
+        })();
         localStorage.setItem('language', currentLang);
         let countersAnimated = false;
 
@@ -3198,10 +3217,13 @@ Mundesh ta dizajnosh vetë
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
             updateRotatingBag();
-           
+
             // Initialize observers
             initializeObservers();
-            
+
+            // Animate counters immediately if the stats section is already in view.
+            animateCountersIfVisible();
+
             // Generate animated icons
             generateAnimatedIcons();
             
@@ -3300,9 +3322,20 @@ Mundesh ta dizajnosh vetë
            
             // Update title
             document.title = translations[currentLang]['site-title'];
-            
+
             // Update AI chat language content
             updateAIChatLanguage();
+            // Refresh the AI chat UI in the new language (welcome + suggestions + placeholder).
+            try {
+                if (typeof aiRenderWelcome === 'function') {
+                    if (!AI_STATE || !AI_STATE.history || AI_STATE.history.length === 0) {
+                        aiRenderWelcome();
+                    }
+                }
+                if (typeof aiRenderSuggestions === 'function') aiRenderSuggestions();
+                const inputEl = document.getElementById('ai-chat-input');
+                if (inputEl) inputEl.placeholder = aiLabels().inputPlaceholder;
+            } catch (_) {}
         }
 
         function updateRotatingBag() {
@@ -3604,6 +3637,24 @@ Mundesh ta dizajnosh vetë
             }
         }
 
+        // Fallback: if the stats section is already in view when observers are
+        // initialized, animate the counters right away. The IntersectionObserver
+        // can miss the initial intersection event on some browsers / scroll
+        // positions, which would otherwise leave the counters stuck at "0".
+        function animateCountersIfVisible() {
+            if (countersAnimated) return;
+            const statsSection = document.getElementById('stats-section');
+            if (!statsSection) return;
+            const rect = statsSection.getBoundingClientRect();
+            const inView = rect.top < window.innerHeight && rect.bottom > 0;
+            if (inView) {
+                countersAnimated = true;
+                document.querySelectorAll('.counter').forEach(function (counter) {
+                    animateCounter(counter);
+                });
+            }
+        }
+
         // Add smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
@@ -3828,37 +3879,38 @@ Mundesh ta dizajnosh vetë
     </div>
 
     <!-- AI Chat Agent -->
-    <div id="ai-chat-widget" class="ai-chat-widget">
-        <div id="ai-chat-toggle" class="ai-chat-toggle">
-            <i class="fas fa-comments"></i>
+    <div id="ai-chat-widget" class="ai-chat-widget" aria-live="polite">
+        <button id="ai-chat-toggle" class="ai-chat-toggle" type="button" aria-label="Open AI Assistant" aria-expanded="false">
+            <i class="fas fa-comments" aria-hidden="true"></i>
             <span class="ai-chat-badge">AI</span>
-        </div>
-        <div id="ai-chat-container" class="ai-chat-container">
+        </button>
+        <div id="ai-chat-container" class="ai-chat-container" role="dialog" aria-modal="false" aria-label="BioPackKos AI Assistant" hidden>
             <div class="ai-chat-header">
                 <div class="ai-chat-header-content">
-                    <i class="fas fa-robot"></i>
+                    <i class="fas fa-robot" aria-hidden="true"></i>
                     <div>
-                        <h6 class="mb-0">AI Assistant</h6>
-                        <small>We Go We Shine</small>
+                        <h6 class="mb-0" data-ai-label="assistant-title">AI Assistant</h6>
+                        <small data-ai-label="assistant-subtitle">We Go We Shine</small>
                     </div>
                 </div>
-                <button id="ai-chat-close" class="ai-chat-close">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div id="ai-chat-messages" class="ai-chat-messages">
-                <div class="ai-message ai-bot-message">
-                    <div class="ai-message-content">
-                        <p>Përshëndetje! Unë jam AI Assistant i BioPackKos. Si mund t'ju ndihmoj sot?</p>
-                    </div>
+                <div class="ai-chat-header-actions">
+                    <button id="ai-chat-clear" class="ai-chat-icon-btn" type="button" title="Clear conversation" data-ai-tooltip="clear" aria-label="Clear conversation">
+                        <i class="fas fa-trash-alt" aria-hidden="true"></i>
+                    </button>
+                    <button id="ai-chat-close" class="ai-chat-icon-btn" type="button" title="Close" data-ai-tooltip="close" aria-label="Close chat">
+                        <i class="fas fa-times" aria-hidden="true"></i>
+                    </button>
                 </div>
             </div>
+            <div id="ai-chat-messages" class="ai-chat-messages" role="log" aria-live="polite" aria-relevant="additions"></div>
+            <div id="ai-chat-suggestions" class="ai-chat-suggestions" aria-label="Suggested questions"></div>
             <div class="ai-chat-input-container">
-                <input type="text" id="ai-chat-input" class="ai-chat-input" placeholder="Shkruani pyetjen tuaj...">
-                <button id="ai-chat-send" class="ai-chat-send">
-                    <i class="fas fa-paper-plane"></i>
+                <textarea id="ai-chat-input" class="ai-chat-input" rows="1" placeholder="Shkruani pyetjen tuaj..." data-ai-label="input-placeholder" aria-label="Message"></textarea>
+                <button id="ai-chat-send" class="ai-chat-send" type="button" aria-label="Send message">
+                    <i class="fas fa-paper-plane" aria-hidden="true"></i>
                 </button>
             </div>
+            <div id="ai-chat-status" class="ai-chat-status sr-only" aria-live="polite"></div>
         </div>
     </div>
     
@@ -3868,10 +3920,9 @@ Mundesh ta dizajnosh vetë
             position: fixed;
             bottom: 20px;
             right: 20px;
-            z-index: 10000;
-            font-family: 'Poppins', sans-serif;
+            z-index: 1080;
         }
-        
+
         .ai-chat-toggle {
             width: 60px;
             height: 60px;
@@ -3882,17 +3933,22 @@ Mundesh ta dizajnosh vetë
             justify-content: center;
             cursor: pointer;
             box-shadow: 0 8px 25px rgba(102, 187, 106, 0.4);
-            transition: var(--transition);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
             position: relative;
             color: white;
             font-size: 24px;
+            border: none;
+            padding: 0;
         }
-        
-        .ai-chat-toggle:hover {
-            transform: scale(1.1);
-            box-shadow: 0 12px 35px rgba(102, 187, 106, 0.5);
+        .ai-chat-toggle:focus-visible {
+            outline: 3px solid rgba(102, 187, 106, 0.5);
+            outline-offset: 2px;
         }
-        
+        .ai-chat-toggle:hover { transform: scale(1.08); box-shadow: 0 12px 35px rgba(102, 187, 106, 0.5); }
+        .ai-chat-toggle .fa-times { display: none; }
+        .ai-chat-widget.is-open .ai-chat-toggle .fa-comments { display: none; }
+        .ai-chat-widget.is-open .ai-chat-toggle .fa-times { display: inline; }
+
         .ai-chat-badge {
             position: absolute;
             top: -5px;
@@ -3905,66 +3961,45 @@ Mundesh ta dizajnosh vetë
             border-radius: 10px;
             border: 2px solid white;
         }
-        
+
         .ai-chat-container {
             position: absolute;
             bottom: 80px;
             right: 0;
             width: 380px;
             height: 600px;
-            background: white;
+            max-height: calc(100vh - 110px);
+            background: #ffffff;
             border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
             display: none;
             flex-direction: column;
             overflow: hidden;
-            animation: slideUp 0.3s ease-out;
+            animation: aiSlideUp 0.25s ease-out;
         }
-        
-        .ai-chat-container.active {
-            display: flex;
+        .ai-chat-container.active { display: flex; }
+        @keyframes aiSlideUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to   { opacity: 1; transform: translateY(0); }
         }
-        
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
+
         .ai-chat-header {
             background: var(--gradient-primary);
             color: white;
-            padding: 20px;
+            padding: 16px 18px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 10px;
         }
-        
-        .ai-chat-header-content {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        
-        .ai-chat-header-content i {
-            font-size: 24px;
-        }
-        
-        .ai-chat-header h6 {
-            color: white;
-            margin: 0;
-        }
-        
-        .ai-chat-header small {
-            color: rgba(255, 255, 255, 0.9);
-        }
-        
-        .ai-chat-close {
+        .ai-chat-header-content { display: flex; align-items: center; gap: 12px; min-width: 0; }
+        .ai-chat-header-content > div { min-width: 0; }
+        .ai-chat-header-content i { font-size: 22px; }
+        .ai-chat-header h6 { color: white; margin: 0; font-size: 1rem; line-height: 1.1; }
+        .ai-chat-header small { color: rgba(255, 255, 255, 0.9); display: block; font-size: 0.75rem; }
+        .ai-chat-header-actions { display: flex; gap: 6px; }
+
+        .ai-chat-icon-btn {
             background: rgba(255, 255, 255, 0.2);
             border: none;
             color: white;
@@ -3972,980 +4007,615 @@ Mundesh ta dizajnosh vetë
             height: 32px;
             border-radius: 50%;
             cursor: pointer;
-            transition: var(--transition);
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 0;
+            transition: background 0.2s ease, transform 0.2s ease;
         }
-        
-        .ai-chat-close:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: rotate(90deg);
-        }
-        
+        .ai-chat-icon-btn:hover { background: rgba(255, 255, 255, 0.32); }
+        .ai-chat-icon-btn:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+        #ai-chat-close:hover { transform: rotate(90deg); }
+
         .ai-chat-messages {
             flex: 1;
             overflow-y: auto;
-            padding: 20px;
+            padding: 18px;
             background: #f8f9fa;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
+            scroll-behavior: smooth;
         }
-        
-        .ai-message {
-            display: flex;
-            animation: fadeIn 0.3s ease-out;
+        .ai-message { display: flex; animation: aiFadeIn 0.25s ease-out; }
+        @keyframes aiFadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to   { opacity: 1; transform: translateY(0); }
         }
-        
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .ai-bot-message  { justify-content: flex-start; }
+        .ai-user-message { justify-content: flex-end; }
+
+        .ai-message-avatar {
+            width: 28px; height: 28px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 12px; flex-shrink: 0; align-self: flex-end;
+            margin: 0 6px;
         }
-        
-        .ai-bot-message {
-            justify-content: flex-start;
-        }
-        
-        .ai-user-message {
-            justify-content: flex-end;
-        }
-        
+        .ai-bot-message .ai-message-avatar  { background: var(--gradient-primary); color: #fff; }
+        .ai-user-message .ai-message-avatar { background: #e9ecef; color: #495057; order: 2; }
+
         .ai-message-content {
-            max-width: 75%;
-            padding: 12px 16px;
-            border-radius: 18px;
+            max-width: 78%;
+            padding: 10px 14px;
+            border-radius: 16px;
             word-wrap: break-word;
+            overflow-wrap: anywhere;
+            font-size: 0.93rem;
+            line-height: 1.45;
+            white-space: pre-wrap;
         }
-        
         .ai-bot-message .ai-message-content {
-            background: white;
-            color: #333;
+            background: #ffffff;
+            color: #222;
             border-bottom-left-radius: 4px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.08);
         }
-        
         .ai-user-message .ai-message-content {
             background: var(--gradient-primary);
             color: white;
             border-bottom-right-radius: 4px;
         }
-        
+        .ai-message-content a { color: var(--primary); text-decoration: underline; }
+        .ai-user-message .ai-message-content a { color: #fff; text-decoration: underline; }
+
+        .ai-message-time {
+            font-size: 10px;
+            opacity: 0.6;
+            margin-top: 4px;
+            display: block;
+        }
+        .ai-user-message .ai-message-time { text-align: right; color: rgba(255,255,255,0.85); }
+        .ai-bot-message  .ai-message-time { color: #6c757d; }
+
+        .ai-typing { display: inline-flex; gap: 4px; align-items: center; }
+        .ai-typing span {
+            width: 6px; height: 6px; border-radius: 50%;
+            background: #adb5bd;
+            display: inline-block;
+            animation: aiTyping 1.2s infinite ease-in-out;
+        }
+        .ai-typing span:nth-child(2) { animation-delay: 0.15s; }
+        .ai-typing span:nth-child(3) { animation-delay: 0.3s; }
+        @keyframes aiTyping {
+            0%, 80%, 100% { transform: scale(0.6); opacity: 0.5; }
+            40%           { transform: scale(1);   opacity: 1; }
+        }
+
+        .ai-message.ai-error .ai-message-content {
+            background: #fff3f3;
+            color: #b00020;
+            border: 1px solid #f3c2c2;
+        }
+        .ai-message-retry {
+            margin-top: 8px;
+            background: transparent;
+            border: 1px solid #b00020;
+            color: #b00020;
+            padding: 4px 10px;
+            border-radius: 14px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        .ai-message-retry:hover { background: #b00020; color: #fff; }
+        .ai-message-retry:focus-visible { outline: 2px solid #b00020; outline-offset: 2px; }
+
+        .ai-chat-suggestions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            padding: 10px 14px 0;
+            background: #f8f9fa;
+        }
+        .ai-chat-suggestion {
+            background: #ffffff;
+            border: 1px solid #e0e0e0;
+            color: #333;
+            font-size: 12px;
+            padding: 6px 10px;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: background 0.2s ease, border-color 0.2s ease;
+        }
+        .ai-chat-suggestion:hover { background: var(--primary); border-color: var(--primary); color: #fff; }
+        .ai-chat-suggestion:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+        .ai-chat-suggestions:empty { display: none; }
+
         .ai-chat-input-container {
-            padding: 15px;
-            background: white;
+            padding: 12px;
+            background: #ffffff;
             border-top: 1px solid #e0e0e0;
             display: flex;
-            gap: 10px;
+            gap: 8px;
+            align-items: flex-end;
         }
-        
         .ai-chat-input {
             flex: 1;
-            border: 2px solid #e0e0e0;
-            border-radius: 25px;
-            padding: 12px 18px;
+            border: 1.5px solid #e0e0e0;
+            border-radius: 22px;
+            padding: 10px 14px;
             font-size: 14px;
             outline: none;
-            transition: var(--transition);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            resize: none;
+            font-family: inherit;
+            line-height: 1.4;
+            max-height: 140px;
+            min-height: 40px;
         }
-        
         .ai-chat-input:focus {
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(102, 187, 106, 0.1);
+            box-shadow: 0 0 0 3px rgba(102, 187, 106, 0.15);
         }
-        
+
         .ai-chat-send {
-            width: 45px;
-            height: 45px;
+            width: 42px;
+            height: 42px;
             background: var(--gradient-primary);
             border: none;
             border-radius: 50%;
             color: white;
             cursor: pointer;
-            transition: var(--transition);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 0;
+            flex-shrink: 0;
         }
-     ba   
-        .ai-chat-send:hover {
-            transform: scale(1.1);
-            box-shadow: 0 4px 15px rgba(102, 187, 106, 0.4);
+        .ai-chat-send:hover:not(:disabled) { transform: scale(1.08); box-shadow: 0 4px 14px rgba(102, 187, 106, 0.4); }
+        .ai-chat-send:active:not(:disabled) { transform: scale(0.95); }
+        .ai-chat-send:disabled { opacity: 0.5; cursor: not-allowed; }
+        .ai-chat-send:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+        .ai-chat-send .fa-spinner { animation: aiSpin 1s linear infinite; }
+        @keyframes aiSpin { to { transform: rotate(360deg); } }
+
+        .sr-only {
+            position: absolute;
+            width: 1px; height: 1px;
+            padding: 0; margin: -1px;
+            overflow: hidden;
+            clip: rect(0,0,0,0);
+            white-space: nowrap;
+            border: 0;
         }
-        
-        .ai-chat-send:active {
-            transform: scale(0.95);
-        }
-        
+
         @media (max-width: 768px) {
-            .ai-chat-widget {
-                bottom: 16px;
-                right: 16px;
-            }
-
-            .ai-chat-toggle {
-                width: 52px;
-                height: 52px;
-                font-size: 20px;
-            }
-
-            .ai-chat-badge {
-                top: -4px;
-                right: -4px;
-                font-size: 9px;
-                padding: 2px 5px;
-            }
-
+            .ai-chat-widget { bottom: 14px; right: 14px; }
+            .ai-chat-toggle { width: 54px; height: 54px; font-size: 20px; }
+            .ai-chat-badge { top: -4px; right: -4px; font-size: 9px; padding: 2px 5px; }
             .ai-chat-container {
-                width: min(380px, calc(100vw - 32px));
-                height: min(500px, calc(100vh - 120px));
-                bottom: 80px;
-                right: 16px;
+                position: fixed;
+                right: 0; left: 0; bottom: 0;
+                width: 100%;
+                height: 100%;
+                max-height: 100vh;
+                border-radius: 0;
             }
-
-            .ai-chat-header {
-                padding: 16px;
-            }
-
-            .ai-chat-header-content i {
-                font-size: 20px;
-            }
-
-            .ai-chat-input-container {
-                padding: 12px;
-                gap: 8px;
-            }
-
-            .ai-chat-input {
-                padding: 12px 14px;
-                font-size: 14px;
-            }
-
-            .ai-chat-send {
-                width: 40px;
-                height: 40px;
-            }
+            .ai-chat-header { padding: 14px 16px; }
+            .ai-chat-input-container { padding: 10px; gap: 6px; padding-bottom: calc(10px + env(safe-area-inset-bottom)); }
+            .ai-chat-input { font-size: 16px; }
         }
     </style>
-    
-    <script>
-        // AI Chat Agent - Complete Database
-        const aiChatData = {
-            'en': {
-                company: "BioPackKos",
-                fullName: "BioPackKos - Biodegradable Bags",
-                products: [
-                    "Shopping Bags",
-                    "Waste Bags",
-                    "Food Bags",
-                    "Custom Bags",
-                    "Compost Bags",
-                    "Industrial Bags"
-                ],
-                services: [
-                    "Custom Production",
-                    "Fast Distribution",
-                    "Quality Certification",
-                    "24/7 Support"
-                ],
-                address: "Pozheran, Viti-Kosovo",
-                phone: "+383 44 450 505",
-                email: "biopackkos@gmail.com",
-                workingHours: "Monday - Friday: 08:00 - 16:30",
-                features: [
-                    "100% biodegradable",
-                    "Guaranteed European quality",
-                    "Produced with recyclable materials",
-                    "At competitive prices"
-                ],
-                stats: {
-                    treesSaved: "1,500",
-                    clients: "500+",
-                    dailyProduction: "50,000",
-                    exportCountries: "5"
-                },
-                description: "Leading company in Kosovo for the production of biodegradable bags, focusing on advanced technology and environmental protection.",
-                treesSavedLabel: "trees saved per year",
-                clientsLabel: "satisfied clients",
-                dailyProductionLabel: "bags produced daily",
-                exportCountriesLabel: "countries we export to",
-                phoneLabel: "Phone number",
-                phoneMessage: "You can call us anytime! We are available to answer your questions.",
-                emailLabel: "Email",
-                emailMessage: "Send email for any questions or orders!",
-                addressLabel: "Address",
-                addressMessage: "We are located in Pozheran, Viti-Kosovo. You can visit us or contact us for more information!",
-                workingHoursLabel: "Working hours",
-                workingHoursMessage: "We are available from Monday to Friday, from 08:00 to 16:30.",
-                companyNameLabel: "Company name",
-                companyNameMessage: "BioPackKos - Biodegradable Bags",
-                productsLabel: "Our products",
-                productsMessage: "All our products are 100% biodegradable and of European quality.",
-                servicesLabel: "Our services",
-                servicesMessage: "We offer complete solutions for your needs!",
-                priceLabel: "For price information",
-                priceMessage: "Prices vary by type and quantity. We offer competitive and flexible prices!",
-                featuresLabel: "Advantages of our products",
-                featuresMessage: "We guarantee high European quality!",
-                orderLabel: "To place an order",
-                orderMessage: "1. Contact us:\n   📞 ${phone}\n   📧 ${email}\n\n2. Specify type and quantity\n3. We will respond within 24 hours!\n\nOr fill out the contact form on the page.",
-                statsLabel: "Our statistics",
-                greeting: "Hello! 👋\n\nI am the AI Assistant of BioPackKos. How can I help you?\n\nI can inform you about:\n• Phone: ${phone}\n• Email: ${email}\n• Address: ${address}\n• Products and services\n• Prices and orders\n\nWe Go We Shine! 🌱",
-                about: "${fullName}\n\n${description}\n\n📍 Location: ${address}\n📞 Phone: ${phone}\n📧 Email: ${email}\n",
-                orderFallback: "To place an order, the easiest way is to contact us directly:\n\n📞 ${phone}\n📧 ${email}\n\nOr use the contact form at the bottom of the page. We respond within 24 hours!",
-                clarification: "I want to make sure I answer the right question. Could you clarify which of these you mean?\n\n1. 📞 Phone number\n2. 📧 Email\n3. 📍 Address / location\n4. 🕐 Working hours\n5. 📦 Products\n6. ⚙️ Services\n7. 💰 Prices\n8. 🛒 How to order\n9. 🏢 About the company\n10. 📊 Statistics\n\nJust type a number or a topic!",
-                fallback: "I'm not sure I understood your question completely. For more detailed information, please contact us directly:\n\n📞 ${phone}\n📧 ${email}\n\nOr use the contact form on this page. Our team will be happy to help you!",
-                thanks: "You're welcome! 😊 If you have any other questions, feel free to ask. We're here to help!",
-                typingMessage: "Typing...",
-                assistantTitle: "AI Assistant",
-                assistantSubtitle: "We Go We Shine",
-                initialGreeting: "Hello! I am the AI Assistant of BioPackKos. How can I help you today?",
-                inputPlaceholder: "Type your question..."
-            },
-            'de': {
-                company: "BioPackKos",
-                fullName: "BioPackKos - Biologisch abbaubare Taschen",
-                products: [
-                    "Einkaufstaschen",
-                    "Müllbeutel",
-                    "Lebensmittelbeutel",
-                    "Individuelle Taschen",
-                    "Kompostbeutel",
-                    "Industrietaschen"
-                ],
-                services: [
-                    "Maßgeschneiderte Produktion",
-                    "Schnelle Lieferung",
-                    "Qualitätszertifizierung",
-                    "24/7 Support"
-                ],
-                address: "Pozheran, Viti-Kosovo",
-                phone: "+383 44 450 505",
-                email: "biopackkos@gmail.com",
-                workingHours: "Montag - Freitag: 08:00 - 16:30",
-                features: [
-                    "100% biologisch abbaubar",
-                    "Garantierte europäische Qualität",
-                    "Hergestellt aus recycelbaren Materialien",
-                    "Konkurrenzfähige Preise"
-                ],
-                stats: {
-                    treesSaved: "1,500",
-                    clients: "500+",
-                    dailyProduction: "50,000",
-                    exportCountries: "5"
-                },
-                description: "Führendes Unternehmen in Kosovo für die Herstellung biologisch abbaubarer Taschen mit Fokus auf fortschrittliche Technologie und Umweltschutz.",
-                treesSavedLabel: "Bäume pro Jahr gespeichert",
-                clientsLabel: "zufriedene Kunden",
-                dailyProductionLabel: "Taschen täglich produziert",
-                exportCountriesLabel: "Länder, in die wir exportieren",
-                phoneLabel: "Telefonnummer",
-                phoneMessage: "Sie können uns jederzeit anrufen! Wir sind verfügbar, um Ihre Fragen zu beantworten.",
-                emailLabel: "E-Mail",
-                emailMessage: "Senden Sie eine E-Mail für Fragen oder Bestellungen!",
-                addressLabel: "Adresse",
-                addressMessage: "Wir befinden uns in Pozheran, Viti-Kosovo. Besuchen Sie uns oder kontaktieren Sie uns für weitere Informationen!",
-                workingHoursLabel: "Öffnungszeiten",
-                workingHoursMessage: "Wir sind von Montag bis Freitag von 08:00 bis 16:30 für Sie da.",
-                companyNameLabel: "Firmenname",
-                companyNameMessage: "BioPackKos - Biologisch abbaubare Taschen",
-                productsLabel: "Unsere Produkte",
-                productsMessage: "Alle unsere Produkte sind 100% biologisch abbaubar und von europäischer Qualität.",
-                servicesLabel: "Unsere Dienstleistungen",
-                servicesMessage: "Wir bieten komplette Lösungen für Ihre Bedürfnisse!",
-                priceLabel: "Preisinformationen",
-                priceMessage: "Preise variieren je nach Typ und Menge. Wir bieten wettbewerbsfähige und flexible Preise!",
-                featuresLabel: "Vorteile unserer Produkte",
-                featuresMessage: "Wir garantieren hohe europäische Qualität!",
-                orderLabel: "Um zu bestellen",
-                orderMessage: "1. Kontaktieren Sie uns:\n   📞 ${phone}\n   📧 ${email}\n\n2. Geben Sie Typ und Menge an\n3. Wir antworten Ihnen innerhalb von 24 Stunden!\n\nOder füllen Sie das Kontaktformular auf der Seite aus.",
-                statsLabel: "Unsere Statistiken",
-                greeting: "Hallo! 👋\n\nIch bin der AI-Assistent von BioPackKos. Wie kann ich Ihnen helfen?\n\nIch kann Ihnen Informationen geben über:\n• Telefon: ${phone}\n• E-Mail: ${email}\n• Adresse: ${address}\n• Produkte und Dienstleistungen\n• Preise und Bestellungen\n\nWe Go We Shine! 🌱",
-                about: "${fullName}\n\n${description}\n\n📍 Standort: ${address}\n📞 Telefon: ${phone}\n📧 E-Mail: ${email}\n\n${features}",
-                orderFallback: "Um zu bestellen, kontaktieren Sie uns am einfachsten direkt:\n\n📞 ${phone}\n📧 ${email}\n\nOder nutzen Sie das Kontaktformular am Ende der Seite. Wir antworten innerhalb von 24 Stunden!",
-                clarification: "Ich möchte sicherstellen, dass ich die richtige Frage beantworte. Können Sie klarstellen, was Sie meinen?\n\n1. 📞 Telefonnummer\n2. 📧 E-Mail\n3. 📍 Adresse / Standort\n4. 🕐 Öffnungszeiten\n5. 📦 Produkte\n6. ⚙️ Dienstleistungen\n7. 💰 Preise\n8. 🛒 Wie man bestellt\n9. 🏢 Über das Unternehmen\n10. 📊 Statistiken\n\nGeben Sie einfach eine Zahl oder ein Thema ein!",
-                fallback: "Ich bin nicht sicher, ob ich Ihre Frage vollständig verstanden habe. Für genauere Informationen kontaktieren Sie uns bitte direkt:\n\n📞 ${phone}\n📧 ${email}\n\nOder nutzen Sie das Kontaktformular auf dieser Seite. Unser Team hilft Ihnen gerne weiter!",
-                thanks: "Gerne! 😊 Wenn Sie weitere Fragen haben, zögern Sie nicht, sie zu stellen. Wir helfen Ihnen gerne!",
-                typingMessage: "Schreibe...",
-                assistantTitle: "KI-Assistent",
-                assistantSubtitle: "We Go We Shine",
-                initialGreeting: "Hallo! Ich bin der KI-Assistent von BioPackKos. Wie kann ich Ihnen heute helfen?",
-                inputPlaceholder: "Geben Sie Ihre Frage ein..."
-            },
-            'fr': {
-                company: "BioPackKos",
-                fullName: "BioPackKos - Sacs biodégradables",
-                products: [
-                    "Sacs d'achat",
-                    "Sacs poubelle",
-                    "Sacs alimentaires",
-                    "Sacs personnalisés",
-                    "Sacs compostables",
-                    "Sacs industriels"
-                ],
-                services: [
-                    "Production sur mesure",
-                    "Livraison rapide",
-                    "Certification qualité",
-                    "Support 24/7"
-                ],
-                address: "Pozheran, Viti-Kosovo",
-                phone: "+383 44 450 505",
-                email: "biopackkos@gmail.com",
-                workingHours: "Lundi - Vendredi : 08:00 - 16:30",
-                features: [
-                    "100% biodégradables",
-                    "Qualité européenne garantie",
-                    "Fabriqués avec des matériaux recyclables",
-                    "Prix compétitifs"
-                ],
-                stats: {
-                    treesSaved: "1,500",
-                    clients: "500+",
-                    dailyProduction: "50,000",
-                    exportCountries: "5"
-                },
-                description: "Entreprise leader au Kosovo dans la production de sacs biodégradables, axée sur la technologie avancée et la protection de l'environnement.",
-                treesSavedLabel: "arbres sauvés par an",
-                clientsLabel: "clients satisfaits",
-                dailyProductionLabel: "sacs produits par jour",
-                exportCountriesLabel: "pays vers lesquels nous exportons",
-                phoneLabel: "Numéro de téléphone",
-                phoneMessage: "Vous pouvez nous appeler à tout moment ! Nous sommes disponibles pour répondre à vos questions.",
-                emailLabel: "E-mail",
-                emailMessage: "Envoyez un e-mail pour toute question ou commande !",
-                addressLabel: "Adresse",
-                addressMessage: "Nous sommes situés à Pozheran, Viti-Kosovo. Venez nous rendre visite ou contactez-nous pour plus d'informations !",
-                workingHoursLabel: "Heures d'ouverture",
-                workingHoursMessage: "Nous sommes disponibles du lundi au vendredi de 08h00 à 16h30.",
-                companyNameLabel: "Nom de l'entreprise",
-                companyNameMessage: "BioPackKos - Sacs biodégradables",
-                productsLabel: "Nos produits",
-                productsMessage: "Tous nos produits sont 100% biodégradables et de qualité européenne.",
-                servicesLabel: "Nos services",
-                servicesMessage: "Nous offrons des solutions complètes pour vos besoins !",
-                priceLabel: "Informations sur les prix",
-                priceMessage: "Les prix varient selon le type et la quantité. Nous offrons des prix compétitifs et flexibles !",
-                featuresLabel: "Avantages de nos produits",
-                featuresMessage: "Nous garantissons une qualité européenne élevée !",
-                orderLabel: "Pour commander",
-                orderMessage: "1. Contactez-nous :\n   📞 ${phone}\n   📧 ${email}\n\n2. Spécifiez le type et la quantité\n3. Nous vous répondrons sous 24 heures !\n\nOu remplissez le formulaire de contact sur la page.",
-                statsLabel: "Nos statistiques",
-                greeting: "Bonjour ! 👋\n\nJe suis l'assistant IA de BioPackKos. Comment puis-je vous aider ?\n\nJe peux vous informer sur :\n• Téléphone : ${phone}\n• E-mail : ${email}\n• Adresse : ${address}\n• Produits et services\n• Prix et commandes\n\nWe Go We Shine ! 🌱",
-                about: "${fullName}\n\n${description}\n\n📍 Emplacement : ${address}\n📞 Téléphone : ${phone}\n📧 E-mail : ${email}\n\n${features}",
-                orderFallback: "Pour passer commande, le plus simple est de nous contacter directement :\n\n📞 ${phone}\n📧 ${email}\n\nOu utilisez le formulaire de contact en bas de la page. Nous répondons sous 24 heures !",
-                clarification: "Je veux m'assurer de bien répondre à votre question. Pourriez-vous préciser laquelle de ces options vous intéresse ?\n\n1. 📞 Numéro de téléphone\n2. 📧 E-mail\n3. 📍 Adresse / emplacement\n4. 🕐 Heures d'ouverture\n5. 📦 Produits\n6. ⚙️ Services\n7. 💰 Prix\n8. 🛒 Comment commander\n9. 🏢 À propos de l'entreprise\n10. 📊 Statistiques\n\nTapez un chiffre ou un sujet !",
-                fallback: "Je ne suis pas sûr d'avoir bien compris votre question. Pour des informations plus précises, veuillez nous contacter directement :\n\n📞 ${phone}\n📧 ${email}\n\nOu utilisez le formulaire de contact sur cette page. Notre équipe sera ravie de vous aider !",
-                thanks: "Avec plaisir ! 😊 Si vous avez d'autres questions, n'hésitez pas à les poser. Nous sommes là pour vous aider !",
-                typingMessage: "Écriture...",
-                assistantTitle: "Assistant IA",
-                assistantSubtitle: "We Go We Shine",
-                initialGreeting: "Bonjour ! Je suis l'assistant IA de BioPackKos. Comment puis-je vous aider aujourd'hui ?",
-                inputPlaceholder: "Entrez votre question..."
-            },
-            'it': {
-                company: "BioPackKos",
-                fullName: "BioPackKos - Sacchetti biodegradabili",
-                products: [
-                    "Buste per la spesa",
-                    "Sacchi per rifiuti",
-                    "Sacchetti alimentari",
-                    "Sacchetti personalizzati",
-                    "Sacchi compostabili",
-                    "Sacchi industriali"
-                ],
-                services: [
-                    "Produzione personalizzata",
-                    "Consegna rapida",
-                    "Certificazione di qualità",
-                    "Supporto 24/7"
-                ],
-                address: "Pozheran, Viti-Kosovo",
-                phone: "+383 44 450 505",
-                email: "biopackkos@gmail.com",
-                workingHours: "Lunedì - Venerdì: 08:00 - 16:30",
-                features: [
-                    "100% biodegradabili",
-                    "Qualità europea garantita",
-                    "Prodotti con materiali riciclabili",
-                    "Prezzi competitivi"
-                ],
-                stats: {
-                    treesSaved: "1,500",
-                    clients: "500+",
-                    dailyProduction: "50,000",
-                    exportCountries: "5"
-                },
-                description: "Azienda leader in Kosovo nella produzione di sacchetti biodegradabili, con un focus sulla tecnologia avanzata e la protezione dell'ambiente.",
-                treesSavedLabel: "alberi salvati all'anno",
-                clientsLabel: "clienti soddisfatti",
-                dailyProductionLabel: "sacchetti prodotti al giorno",
-                exportCountriesLabel: "paesi in cui esportiamo",
-                phoneLabel: "Numero di telefono",
-                phoneMessage: "Puoi chiamarci in qualsiasi momento! Siamo disponibili per rispondere alle tue domande.",
-                emailLabel: "E-mail",
-                emailMessage: "Invia un'e-mail per qualsiasi domanda o ordine!",
-                addressLabel: "Indirizzo",
-                addressMessage: "Siamo situati a Pozheran, Viti-Kosovo. Vieni a trovarci o contattaci per ulteriori informazioni!",
-                workingHoursLabel: "Orari di apertura",
-                workingHoursMessage: "Siamo disponibili dal lunedì al venerdì dalle 08:00 alle 16:30.",
-                companyNameLabel: "Nome dell'azienda",
-                companyNameMessage: "BioPackKos - Sacchetti biodegradabili",
-                productsLabel: "I nostri prodotti",
-                productsMessage: "Tutti i nostri prodotti sono 100% biodegradabili e di qualità europea.",
-                servicesLabel: "I nostri servizi",
-                servicesMessage: "Offriamo soluzioni complete per le tue esigenze!",
-                priceLabel: "Informazioni sui prezzi",
-                priceMessage: "I prezzi variano in base al tipo e alla quantità. Offriamo prezzi competitivi e flessibili!",
-                featuresLabel: "Vantaggi dei nostri prodotti",
-                featuresMessage: "Garantiamo alta qualità europea!",
-                orderLabel: "Per ordinare",
-                orderMessage: "1. Contattaci:\n   📞 ${phone}\n   📧 ${email}\n\n2. Specifica il tipo e la quantità\n3. Ti risponderemo entro 24 ore!\n\nOppure compila il modulo di contatto sulla pagina.",
-                statsLabel: "Le nostre statistiche",
-                greeting: "Ciao! 👋\n\nSono l'assistente AI di BioPackKos. Come posso aiutarti?\n\nPosso fornirti informazioni su:\n• Telefono: ${phone}\n• E-mail: ${email}\n• Indirizzo: ${address}\n• Prodotti e servizi\n• Prezzi e ordini\n\nWe Go We Shine! 🌱",
-                about: "${fullName}\n\n${description}\n\n📍 Posizione: ${address}\n📞 Telefono: ${phone}\n📧 E-mail: ${email}\n\n${features}",
-                orderFallback: "Per ordinare, il modo più semplice è contattarci direttamente:\n\n📞 ${phone}\n📧 ${email}\n\nOppure usa il modulo di contatto in fondo alla pagina. Rispondiamo entro 24 ore!",
-                clarification: "Voglio assicurarmi di rispondere alla domanda giusta. Potresti chiarire quale di queste ti interessa?\n\n1. 📞 Numero di telefono\n2. 📧 E-mail\n3. 📍 Indirizzo / posizione\n4. 🕐 Orari di apertura\n5. 📦 Prodotti\n6. ⚙️ Servizi\n7. 💰 Prezzi\n8. 🛒 Come ordinare\n9. 🏢 Sull'azienda\n10. 📊 Statistiche\n\nDigita un numero o un argomento!",
-                fallback: "Non sono sicuro di aver capito bene la tua domanda. Per informazioni più dettagliate, contattaci direttamente:\n\n📞 ${phone}\n📧 ${email}\n\nOppure usa il modulo di contatto su questa pagina. Il nostro team sarà felice di aiutarti!",
-                thanks: "Prego! 😊 Se hai altre domande, non esitare a chiedere. Siamo qui per aiutarti!",
-                typingMessage: "Sto scrivendo...",
-                assistantTitle: "Assistente AI",
-                assistantSubtitle: "We Go We Shine",
-                initialGreeting: "Ciao! Sono l'assistente AI di BioPackKos. Come posso aiutarti oggi?",
-                inputPlaceholder: "Inserisci la tua domanda..."
-            },
-            'sq': {
-                company: "BioPackKos",
-                fullName: "BioPackKos - Qese Bio të Degradueshme",
-                products: [
-                    "Qese për Blerje",
-                    "Qese për Mbeturina",
-                    "Qese Ushqimore",
-                    "Qese të Personalizuara",
-                    "Qese Komposhtimi",
-                    "Qese Industriale"
-                ],
-                services: [
-                    "Prodhim të Personalizuar",
-                    "Shpërndarje e Shpejtë",
-                    "Certifikim Cilësie",
-                    "Mbështetje 24/7"
-                ],
-                address: "Pozheran, Viti-Kosovo",
-                phone: "+383 44 450 505",
-                email: "biopackkos@gmail.com",
-                workingHours: "E Hënë - E Premte: 08:00 - 16:30",
-                features: [
-                    "100% të biodegradueshme",
-                    "Cilësi të garantuar europiane",
-                    "Të prodhuara me materiale të ripërtyeshme",
-                    "Me çmim konkurrues"
-                ],
-                stats: {
-                    treesSaved: "1,500",
-                    clients: "500+",
-                    dailyProduction: "50,000",
-                    exportCountries: "5"
-                },
-                description: "Kompania lider në Kosovo për prodhimin e qeseve biodegradueshme, me fokus në teknologjinë e avancuar dhe mbrojtjen e mjedisit.",
-                treesSavedLabel: "pema të shpëtuara në vit",
-                clientsLabel: "klientë të kënaqur",
-                dailyProductionLabel: "qese të prodhuara çditë",
-                exportCountriesLabel: "vende ku eksportojmë",
-                phoneLabel: "Numri i telefonit",
-                phoneMessage: "Mund të na telefononi çdo kohë! Jemi në dispozicion për të përgjigjur pyetjeve tuaja.",
-                emailLabel: "Email",
-                emailMessage: "Dërgoni email për çdo pyetje ose porosi!",
-                addressLabel: "Adresa",
-                addressMessage: "Jemi të vendosur në Pozheran, Viti-Kosovo. Mund të na vizitoni ose na kontaktoni për më shumë informacion!",
-                workingHoursLabel: "Oraret e punës",
-                workingHoursMessage: "Jemi në dispozicion nga E Hënë deri në E Premte, nga ora 08:00 deri në 16:30.",
-                companyNameLabel: "Emri i kompanisë",
-                companyNameMessage: "BioPackKos - Qese Bio të Degradueshme",
-                productsLabel: "Produktet tona",
-                productsMessage: "Të gjitha produktet tona janë 100% biodegradueshme dhe me cilësi europiane.",
-                servicesLabel: "Shërbimet tona",
-                servicesMessage: "Ne ofrojmë zgjidhje të plota për nevojat tuaja!",
-                priceLabel: "Për informacione për çmime",
-                priceMessage: "Çmimet variojnë sipas llojit dhe sasisë. Ne ofrojmë çmime konkurruese dhe fleksibël!",
-                featuresLabel: "Përparësitë e produktave tanë",
-                featuresMessage: "Ne garantojmë cilësi të lartë europiane!",
-                orderLabel: "Për të bërë porosi",
-                orderMessage: "1. Na kontaktoni:\n   📞 ${phone}\n   📧 ${email}\n\n2. Specifikoni llojin dhe sasinë\n3. Ne do t'ju përgjigjemi brenda 24 orëve!\n\nOse plotësoni formularin e kontaktit në faqe.",
-                statsLabel: "Statistikat tona",
-                greeting: "Përshëndetje! 👋\n\nUnë jam AI Assistant i BioPackKos. Si mund t'ju ndihmoj?\n\nMund t'ju informoj për:\n• Numri i telefonit: ${phone}\n• Email: ${email}\n• Adresa: ${address}\n• Produktet dhe shërbimet\n• Çmimet dhe porositë\n\nWe Go We Shine! 🌱",
-                about: "${fullName}\n\n${description}\n\n📍 Lokacioni: ${address}\n📞 Telefoni: ${phone}\n📧 Email: ${email}\n\n${features}",
-                orderFallback: "Për të bërë porosi, mënyra më e thjeshtë është të na kontaktoni drejtpërdrejt:\n\n📞 ${phone}\n📧 ${email}\n\nOse plotësoni formularin e kontaktit në fund të faqes. Ne do t'ju përgjigjemi brenda 24 orëve!",
-                clarification: "Dua të sigurohem që po i përgjigjem pyetjes së duhur. A mund të qartësoni se cila nga këto ju intereson?\n\n1. 📞 Numri i telefonit\n2. 📧 Email\n3. 📍 Adresa / lokacioni\n4. 🕐 Oraret e punës\n5. 📦 Produktet\n6. ⚙️ Shërbimet\n7. 💰 Çmimet\n8. 🛒 Si të bëni porosi\n9. 🏢 Rreth kompanisë\n10. 📊 Statistikat\n\nThjesht shkruani një numër ose temë!",
-                fallback: "Nuk jam i sigurt nëse e kuptova plotësisht pyetjen tuaj. Për informacione më të detajuara, ju lutem na kontaktoni drejtpërdrejt:\n\n📞 ${phone}\n📧 ${email}\n\nOse plotësoni formularin e kontaktit në këtë faqe. Ekipi ynë do të jetë i kënaqur t'ju ndihmojë!",
-                thanks: "Ju lutem! 😊 Nëse keni pyetje të tjera, mos hezitoni të pyesni. Jemi këtu për t'ju ndihmuar!",
-                typingMessage: "Duke shkruar...",
-                assistantTitle: "AI Assistant",
-                assistantSubtitle: "We Go We Shine",
-                initialGreeting: "Përshëndetje! Unë jam AI Assistant i BioPackKos. Si mund t'ju ndihmoj sot?",
-                inputPlaceholder: "Shkruani pyetjen tuaj..."
-            }
-        };
-        
-        function updateAIChatLanguage() {
-            const data = aiChatData[currentLang] || aiChatData['en'];
-            const titleEl = document.querySelector('.ai-chat-header h6');
-            const subtitleEl = document.querySelector('.ai-chat-header small');
-            const inputEl = document.getElementById('ai-chat-input');
-            const initialParagraph = document.querySelector('.ai-chat-messages .ai-bot-message .ai-message-content p');
 
-            if (titleEl) titleEl.textContent = data.assistantTitle;
-            if (subtitleEl) subtitleEl.textContent = data.assistantSubtitle;
-            if (inputEl) inputEl.placeholder = data.inputPlaceholder;
-            if (initialParagraph) {
-                initialParagraph.textContent = data.initialGreeting.replace(/\$\{phone\}/g, data.phone).replace(/\$\{email\}/g, data.email).replace(/\$\{address\}/g, data.address);
+    <script>
+        // AI Chat Agent - real DeepSeek-backed conversation.
+        // The actual API call is made from the Netlify Function at /.netlify/functions/chat
+        // (or via the /api/chat rewrite). The API key never leaves the server.
+
+        const AI_CHAT_LABELS = {
+            en: {
+                assistantTitle: 'AI Assistant',
+                assistantSubtitle: 'We Go We Shine',
+                welcome: 'Hello! I am the BioPackKos AI assistant. How can I help you today?',
+                inputPlaceholder: 'Type your message...',
+                send: 'Send',
+                clear: 'Clear conversation',
+                close: 'Close',
+                typing: 'Thinking...',
+                emptyReply: "I don't have that information available. Please contact BioPackKos directly for accurate information.",
+                networkError: "Sorry, the AI assistant could not answer right now. Please try again, or contact BioPackKos directly.",
+                retry: 'Retry',
+                suggestions: [
+                    'What kinds of bags do you produce?',
+                    'Can I customize the bag with my logo?',
+                    'How can I place an order?',
+                    'How can I contact you?',
+                ],
+            },
+            sq: {
+                assistantTitle: 'AI Assistant',
+                assistantSubtitle: 'We Go We Shine',
+                welcome: 'Përshëndetje! Unë jam asistenti AI i BioPackKos. Si mund t‘ju ndihmoj sot?',
+                inputPlaceholder: 'Shkruani mesazhin tuaj...',
+                send: 'Dërgo',
+                clear: 'Fshi bisedën',
+                close: 'Mbyll',
+                typing: 'Po mendoj...',
+                emptyReply: 'Nuk kam këtë informacion të disponueshme. Ju lutem kontaktoni BioPackKos drejtpërdrejt për informacion të saktë.',
+                networkError: 'Ndjesë, asistenti AI nuk mundi të përgjigjet tani. Ju lutem provoni përsëri, ose kontaktoni BioPackKos drejtpërdrejt.',
+                retry: 'Provo përsëri',
+                suggestions: [
+                    'Çfarë lloj qesesh prodhoni?',
+                    'A mund ta personalizoj qesen me logon time?',
+                    'Si mund të bëj një porosi?',
+                    'Si mund t‘ju kontaktoj?',
+                ],
+            },
+            de: {
+                assistantTitle: 'AI-Assistent',
+                assistantSubtitle: 'We Go We Shine',
+                welcome: 'Hallo! Ich bin der BioPackKos KI-Assistent. Wie kann ich Ihnen heute helfen?',
+                inputPlaceholder: 'Geben Sie Ihre Nachricht ein...',
+                send: 'Senden',
+                clear: 'Gespräch löschen',
+                close: 'Schließen',
+                typing: 'Denke nach...',
+                emptyReply: 'Diese Information habe ich nicht. Bitte kontaktieren Sie BioPackKos direkt für genaue Auskunft.',
+                networkError: 'Entschuldigung, der KI-Assistent kann gerade nicht antworten. Bitte versuchen Sie es erneut oder kontaktieren Sie BioPackKos direkt.',
+                retry: 'Erneut versuchen',
+                suggestions: [
+                    'Welche Arten von Beuteln produzieren Sie?',
+                    'Kann ich den Beutel mit meinem Logo personalisieren?',
+                    'Wie kann ich eine Bestellung aufgeben?',
+                    'Wie kann ich Sie kontaktieren?',
+                ],
+            },
+            fr: {
+                assistantTitle: 'Assistant IA',
+                assistantSubtitle: 'We Go We Shine',
+                welcome: 'Bonjour ! Je suis l‘assistant IA de BioPackKos. Comment puis-je vous aider aujourd‘hui ?',
+                inputPlaceholder: 'Tapez votre message...',
+                send: 'Envoyer',
+                clear: 'Effacer la conversation',
+                close: 'Fermer',
+                typing: 'Réflexion...',
+                emptyReply: "Je n‘ai pas cette information. Veuillez contacter BioPackKos directement pour une information précise.",
+                networkError: "Désolé, l‘assistant IA ne peut pas répondre pour le moment. Veuillez réessayer ou contacter BioPackKos directement.",
+                retry: 'Réessayer',
+                suggestions: [
+                    'Quels types de sacs produisez-vous ?',
+                    'Puis-je personnaliser le sac avec mon logo ?',
+                    'Comment passer une commande ?',
+                    'Comment vous contacter ?',
+                ],
+            },
+            it: {
+                assistantTitle: 'Assistente IA',
+                assistantSubtitle: 'We Go We Shine',
+                welcome: 'Ciao! Sono l‘assistente IA di BioPackKos. Come posso aiutarti oggi?',
+                inputPlaceholder: 'Scrivi il tuo messaggio...',
+                send: 'Invia',
+                clear: 'Cancella conversazione',
+                close: 'Chiudi',
+                typing: 'Sto pensando...',
+                emptyReply: 'Non ho questa informazione. Contatta direttamente BioPackKos per informazioni accurate.',
+                networkError: "L‘assistente IA non riesce a rispondere in questo momento. Riprova o contatta direttamente BioPackKos.",
+                retry: 'Riprova',
+                suggestions: [
+                    'Che tipi di sacchetti producete?',
+                    'Posso personalizzare il sacchetto con il mio logo?',
+                    'Come posso effettuare un ordine?',
+                    'Come posso contattarvi?',
+                ],
+            },
+        };
+
+        const AI_API_ENDPOINT = (typeof window !== 'undefined' && window.location && window.location.origin)
+            ? window.location.origin + '/api/chat'
+            : '/api/chat';
+
+        function aiLabels() {
+            return AI_CHAT_LABELS[currentLang] || AI_CHAT_LABELS.en;
+        }
+
+        function aiEscape(text) {
+            return String(text || '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+        }
+
+        function aiFormatTime(date) {
+            try {
+                return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            } catch (_) {
+                const h = String(date.getHours()).padStart(2, '0');
+                const m = String(date.getMinutes()).padStart(2, '0');
+                return h + ':' + m;
             }
         }
-        
+
+        const AI_STATE = {
+            open: false,
+            history: [],
+            busy: false,
+            pendingRetry: null,
+        };
+
+        function aiRenderWelcome() {
+            const messages = document.getElementById('ai-chat-messages');
+            const labels = aiLabels();
+            messages.innerHTML = '';
+            appendAIMessage('bot', labels.welcome);
+        }
+
+        function appendAIMessage(role, text, opts) {
+            const messages = document.getElementById('ai-chat-messages');
+            if (!messages) return null;
+
+            const wrap = document.createElement('div');
+            wrap.className = 'ai-message ai-' + role + '-message';
+
+            const avatar = document.createElement('div');
+            avatar.className = 'ai-message-avatar';
+            avatar.innerHTML = role === 'user' ? '<i class="fas fa-user"></i>' : '<i class="fas fa-robot"></i>';
+
+            const bubble = document.createElement('div');
+            bubble.className = 'ai-message-content';
+
+            const textEl = document.createElement('div');
+            textEl.className = 'ai-message-text';
+            textEl.textContent = text;
+
+            const timeEl = document.createElement('span');
+            timeEl.className = 'ai-message-time';
+            timeEl.textContent = aiFormatTime(new Date());
+
+            bubble.appendChild(textEl);
+            bubble.appendChild(timeEl);
+            wrap.appendChild(avatar);
+            wrap.appendChild(bubble);
+
+            if (opts && opts.error) {
+                wrap.classList.add('ai-error');
+                if (opts.retryText) {
+                    const btn = document.createElement('button');
+                    btn.type = 'button';
+                    btn.className = 'ai-message-retry';
+                    btn.textContent = opts.retryText;
+                    btn.addEventListener('click', () => {
+                        if (opts.onRetry) opts.onRetry();
+                    });
+                    bubble.appendChild(btn);
+                }
+            }
+
+            messages.appendChild(wrap);
+            messages.scrollTop = messages.scrollHeight;
+            return wrap;
+        }
+
+        function aiAppendTyping() {
+            const messages = document.getElementById('ai-chat-messages');
+            if (!messages) return null;
+            const wrap = document.createElement('div');
+            wrap.className = 'ai-message ai-bot-message ai-typing-message';
+            const avatar = document.createElement('div');
+            avatar.className = 'ai-message-avatar';
+            avatar.innerHTML = '<i class="fas fa-robot"></i>';
+            const bubble = document.createElement('div');
+            bubble.className = 'ai-message-content';
+            bubble.innerHTML = '<span class="ai-typing"><span></span><span></span><span></span></span>';
+            wrap.appendChild(avatar);
+            wrap.appendChild(bubble);
+            messages.appendChild(wrap);
+            messages.scrollTop = messages.scrollHeight;
+            return wrap;
+        }
+
+        function aiSetBusy(busy) {
+            AI_STATE.busy = !!busy;
+            const sendBtn = document.getElementById('ai-chat-send');
+            const input = document.getElementById('ai-chat-input');
+            if (sendBtn) {
+                sendBtn.disabled = !!busy;
+                const icon = sendBtn.querySelector('i');
+                if (icon) {
+                    icon.className = busy ? 'fas fa-spinner' : 'fas fa-paper-plane';
+                }
+            }
+            if (input) {
+                input.disabled = !!busy;
+            }
+            const status = document.getElementById('ai-chat-status');
+            if (status) status.textContent = busy ? aiLabels().typing : '';
+        }
+
+        function aiRenderSuggestions() {
+            const wrap = document.getElementById('ai-chat-suggestions');
+            if (!wrap) return;
+            wrap.innerHTML = '';
+            const labels = aiLabels();
+            if (!labels.suggestions || labels.suggestions.length === 0) return;
+            labels.suggestions.forEach(function (q) {
+                const b = document.createElement('button');
+                b.type = 'button';
+                b.className = 'ai-chat-suggestion';
+                b.textContent = q;
+                b.addEventListener('click', function () {
+                    const input = document.getElementById('ai-chat-input');
+                    if (input) {
+                        input.value = q;
+                        input.focus();
+                    }
+                    aiSendMessage();
+                });
+                wrap.appendChild(b);
+            });
+        }
+
+        async function aiSendMessage() {
+            const input = document.getElementById('ai-chat-input');
+            if (!input) return;
+            const text = (input.value || '').trim();
+            if (!text || AI_STATE.busy) return;
+
+            const labels = aiLabels();
+            appendAIMessage('user', text);
+            AI_STATE.history.push({ role: 'user', content: text });
+            input.value = '';
+            input.style.height = 'auto';
+
+            aiSetBusy(true);
+            const typingEl = aiAppendTyping();
+
+            try {
+                const reply = await aiCallBackend(AI_STATE.history.slice());
+                if (typingEl && typingEl.parentNode) typingEl.parentNode.removeChild(typingEl);
+
+                const finalText = reply || labels.emptyReply;
+                appendAIMessage('bot', finalText);
+                AI_STATE.history.push({ role: 'assistant', content: finalText });
+
+                // Keep the history bounded.
+                const MAX = 20;
+                if (AI_STATE.history.length > MAX) {
+                    AI_STATE.history.splice(0, AI_STATE.history.length - MAX);
+                }
+            } catch (err) {
+                if (typingEl && typingEl.parentNode) typingEl.parentNode.removeChild(typingEl);
+                const lastUser = AI_STATE.history[AI_STATE.history.length - 1];
+                if (lastUser && lastUser.role === 'user') {
+                    AI_STATE.history.pop();
+                }
+                appendAIMessage('bot', (err && err.userMessage) || labels.networkError, {
+                    error: true,
+                    retryText: labels.retry,
+                    onRetry: function () {
+                        const retryInput = document.getElementById('ai-chat-input');
+                        if (!retryInput || AI_STATE.busy) return;
+                        retryInput.value = text;
+                        aiAutoResize();
+                        aiSendMessage();
+                    },
+                });
+            } finally {
+                aiSetBusy(false);
+                if (input) input.focus();
+            }
+        }
+
+        async function aiCallBackend(history) {
+            let response;
+            try {
+                response = await fetch(AI_API_ENDPOINT, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ language: currentLang, messages: history }),
+                });
+            } catch (_) {
+                const e = new Error('network');
+                e.userMessage = aiLabels().networkError;
+                throw e;
+            }
+
+            let data = null;
+            try { data = await response.json(); } catch (_) { data = null; }
+
+            if (!response.ok) {
+                const e = new Error('http');
+                e.userMessage = (data && data.error) ? data.error : aiLabels().networkError;
+                throw e;
+            }
+
+            return (data && typeof data.reply === 'string') ? data.reply : '';
+        }
+
+        function aiOpen(open) {
+            const widget = document.getElementById('ai-chat-widget');
+            const container = document.getElementById('ai-chat-container');
+            const toggle = document.getElementById('ai-chat-toggle');
+            if (!widget || !container || !toggle) return;
+            AI_STATE.open = !!open;
+            if (AI_STATE.open) {
+                widget.classList.add('is-open');
+                container.classList.add('active');
+                container.removeAttribute('hidden');
+                toggle.setAttribute('aria-expanded', 'true');
+                toggle.setAttribute('aria-label', 'Close AI Assistant');
+                const input = document.getElementById('ai-chat-input');
+                if (input) setTimeout(function () { input.focus(); }, 50);
+            } else {
+                widget.classList.remove('is-open');
+                container.classList.remove('active');
+                container.setAttribute('hidden', '');
+                toggle.setAttribute('aria-expanded', 'false');
+                toggle.setAttribute('aria-label', 'Open AI Assistant');
+            }
+        }
+
+        function aiClearConversation() {
+            AI_STATE.history = [];
+            aiRenderWelcome();
+        }
+
+        function aiAutoResize() {
+            const input = document.getElementById('ai-chat-input');
+            if (!input) return;
+            input.style.height = 'auto';
+            const max = 140;
+            const next = Math.min(input.scrollHeight, max);
+            input.style.height = next + 'px';
+        }
+
+        // Legacy shim (the old static AI widget called this; the new widget
+        // reacts directly to language changes via aiLabels()/aiRenderWelcome()).
+        function updateAIChatLanguage() { /* no-op */ }
+
         function initAIChat() {
             const toggle = document.getElementById('ai-chat-toggle');
             const container = document.getElementById('ai-chat-container');
-            const close = document.getElementById('ai-chat-close');
+            const closeBtn = document.getElementById('ai-chat-close');
+            const clearBtn = document.getElementById('ai-chat-clear');
             const sendBtn = document.getElementById('ai-chat-send');
             const input = document.getElementById('ai-chat-input');
-            const messages = document.getElementById('ai-chat-messages');
+            if (!toggle || !container || !closeBtn || !sendBtn || !input) return;
 
-            // Update AI chat widget language immediately
-            updateAIChatLanguage();
-            
-            // Check if device is mobile
-            const isMobile = window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-            
-            // Auto-open chatbot immediately on page load only for desktop
-            if (!isMobile) {
-                setTimeout(() => {
-                    container.classList.add('active');
-                    input.focus();
-                }, 1000);
+            aiRenderWelcome();
+            aiRenderSuggestions();
+
+            toggle.addEventListener('click', function () {
+                aiOpen(!AI_STATE.open);
+            });
+            closeBtn.addEventListener('click', function () {
+                aiOpen(false);
+            });
+            if (clearBtn) {
+                clearBtn.addEventListener('click', function () {
+                    aiClearConversation();
+                });
             }
-            
-            toggle.addEventListener('click', () => {
-                container.classList.toggle('active');
-                if (container.classList.contains('active')) {
-                    input.focus();
+
+            sendBtn.addEventListener('click', function () {
+                aiSendMessage();
+            });
+
+            input.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) {
+                    e.preventDefault();
+                    aiSendMessage();
                 }
             });
-            
-            close.addEventListener('click', () => {
-                container.classList.remove('active');
-            });
-            
-            function sendMessage() {
-                const userMessage = input.value.trim();
-                if (!userMessage) return;
-                
-                const data = aiChatData[currentLang] || aiChatData['en'];
-                addMessage(userMessage, 'user');
-                input.value = '';
-                
-                // Simulate typing
-                const typingMessage = addMessage(data.typingMessage, 'bot', true);
-                
-                setTimeout(() => {
-                    typingMessage.remove();
-                    const response = generateAIResponse(userMessage);
-                    addMessage(response, 'bot');
-                }, 1000 + Math.random() * 1000);
-            }
-            
-            sendBtn.addEventListener('click', sendMessage);
-            input.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    sendMessage();
-                }
-            });
-            
-            function addMessage(text, type, isTyping = false) {
-                const messageDiv = document.createElement('div');
-                messageDiv.className = `ai-message ai-${type}-message`;
-                
-                const contentDiv = document.createElement('div');
-                contentDiv.className = 'ai-message-content';
-                contentDiv.innerHTML = `<p style="margin: 0;">${text}</p>`;
-                
-                messageDiv.appendChild(contentDiv);
-                messages.appendChild(messageDiv);
-                messages.scrollTop = messages.scrollHeight;
-                
-                return messageDiv;
-            }
-            
-            function generateAIResponse(userMessage) {
-                const raw = (userMessage || '').toLowerCase().trim();
-                const data = aiChatData[currentLang] || aiChatData['en'];
-                const subs = (template) => template
-                    .replace(/\$\{phone\}/g, data.phone)
-                    .replace(/\$\{email\}/g, data.email)
-                    .replace(/\$\{address\}/g, data.address)
-                    .replace(/\$\{workingHours\}/g, data.workingHours)
-                    .replace(/\$\{fullName\}/g, data.fullName)
-                    .replace(/\$\{description\}/g, data.description)
-                    .replace(/\$\{products\.length\}/g, data.products.length)
-                    .replace(/\$\{services\.length\}/g, data.services.length);
-
-                // Strip diacritics for tolerant matching (e.g., "çfarë" ≈ "cfare")
-                const norm = raw.normalize('NFD').replace(/\p{Diacritic}/gu, '');
-
-                // Score-based intent detection. Each keyword contributes to a topic's score.
-                // Highest-scoring topic wins; tie-breaks follow array order.
-                // Topics: phone, email, address, hours, products, services, price, features, order, stats, about, greeting, thanks, clarification, fallback
-                const topics = {
-                    phone: 0,
-                    email: 0,
-                    address: 0,
-                    hours: 0,
-                    products: 0,
-                    services: 0,
-                    price: 0,
-                    features: 0,
-                    order: 0,
-                    stats: 0,
-                    about: 0,
-                    thanks: 0
-                };
-
-                // -- GREETINGS / THANKS (separate flow, not scored) --
-                const greetingRe = /^(pershendetje|miredita|mirembrema|tung|tungjatjeta|mire|përshëndetje|hello|hi|hey|good morning|good afternoon|good evening|howdy|hallo|guten morgen|guten tag|guten abend|hi there|bonjour|salut|bonsoir|buongiorno|buonasera|ciao)\b/;
-                if (greetingRe.test(raw) || greetingRe.test(norm)) {
-                    return subs(data.greeting);
-                }
-                const thanksRe = /\b(faleminderit|thank you|thanks|merci|danke|grazie|gracias|thx)\b/;
-                if (thanksRe.test(raw) || thanksRe.test(norm)) {
-                    return data.thanks;
-                }
-
-                // -- PHONE / CALL (specific word-boundary keywords only) --
-                // Avoiding 2-3 char false positives like "nr" or "tel" that match inside unrelated words.
-                const phoneKw = [
-                    /\bnr\.?\s*i\s*telefonit\b/,
-                    /\bnumri\s+i\s+telefonit\b/,
-                    /\bnumrin\s+e\s+telefonit\b/,
-                    /\bnumrin\s+tuaj\b/,
-                    /\bnumri\s+juaj\b/,
-                    /\bnumrin\s+telefonit\b/,
-                    /\bphone\s+number\b/,
-                    /\bphone\s*\b/,
-                    /\btelephone\s+number\b/,
-                    /\btelefonnummer\b/,
-                    /\bnumero\s+di\s+telefono\b/,
-                    /\bnumero\s+telefono\b/,
-                    /\bnum[eé]ro\s+de\s+t[eé]l[eé]phone\b/,
-                    /\bt[eé]l[eé]phone\b/,
-                    /\btelefon(?:i|it|in|it?)\b/,
-                    /\btelefono\b/,
-                    /\bthirr(?:je|ni)?\b/,
-                    /\bna\s+thirr(?:ni)?\b/,
-                    /\bcan\s+you\s+call\b/,
-                    /\bgive\s+me\s+a\s+call\b/,
-                    /\bruf(?:t|en)?\s+(?:mich|sie|uns)\b/,
-                    /\brufnummer\b/,
-                    /\bappel(?:er|-moi|lez)\b/,
-                    /\bappeler\b/,
-                    /\bchiam(?:a|ami|ata)\b/,
-                    /\bchiamaci\b/,
-                    /\bsms\b/,
-                    /\bwhatsapp\b/,
-                    /\bviber\b/
-                ];
-                phoneKw.forEach(re => { if (re.test(raw) || re.test(norm)) topics.phone += 2; });
-                if (/\bmund\s+t['']?ju\s+th(?:e|ë)rras\b/.test(raw) || /\bmund\s+t['']?ju\s+th(?:e|ë)rras\b/.test(norm)) topics.phone += 2;
-                // Phone is also about the actual digits
-                if (/\+383\b/.test(raw)) topics.phone += 5;
-
-                // -- EMAIL --
-                const emailKw = [
-                    /\bemail\b/,
-                    /\bemaili\b/,
-                    /\bmail\b/,
-                    /\be-?mail\b/,
-                    /\bcourriel\b/,
-                    /\bposta\s+elektronike\b/,
-                    /\bcorreo\b/,
-                    /\beposta\b/
-                ];
-                emailKw.forEach(re => { if (re.test(raw) || re.test(norm)) topics.email += 2; });
-                if (/@gmail\b/.test(raw) || /@gmail\b/.test(norm)) topics.email += 5;
-
-                // -- ADDRESS / LOCATION --
-                // Use word-boundary keywords that are SPECIFIC to location, not generic "contact"
-                const addressKw = [
-                    /\baddress\b/,
-                    /\baddressa\b/,
-                    /\badres[aë]?\b/,
-                    /\blokacioni\b/,
-                    /\blokacion\b/,
-                    /\bvenndodhja\b/,
-                    /\bvenndodhje\b/,
-                    /\bku\s+(?:ndodheni|jeni|ndodhet|gjendet)\b/,
-                    /\bku\s+jete\b/,
-                    /\bku\s+jetoni\b/,
-                    /\bvendbanimi\b/,
-                    /\bselenium\b/, // rare
-                    /\bstay\b/, // ambiguous
-                    /\bsituate?d?\b/,
-                    /\blocated?\b/,
-                    /\blocation\b/,
-                    /\bwhere\s+are\s+you\b/,
-                    /\bwhere\s+is\s+(?:your|the)\b/,
-                    /\bwo\s+(?:sind|befindet|finde\s+ich)\b/,
-                    /\bstandort\b/,
-                    /\bwo\s+befindet\b/,
-                    /\bwo\s+liegt\b/,
-                    /\badresse\b/,
-                    /\bubicazione\b/,
-                    /\bdove\s+(?:siete|si\s+trova|vi\s+trovo)\b/,
-                    /\bindirizzo\b/,
-                    /\bo[uù]\s+(?:e[ts]tes[-\s]?vous|se\s+trouve|[ée]tes[-\s]?vous)\b/
-                ];
-                addressKw.forEach(re => { if (re.test(raw) || re.test(norm)) topics.address += 2; });
-                // "Pozheran" / "Viti" is a strong address signal
-                if (/\b(pozheran|viti)\b/.test(raw) || /\b(pozheran|viti)\b/.test(norm)) topics.address += 5;
-                // "Google Maps" / "maps" questions point to address
-                if (/\b(maps|google\s*maps|itin[eé]raire|directions|wegbeschreibung|indicazioni|percorso)\b/.test(raw) || /\b(maps|google\s*maps|itineraire|directions|wegbeschreibung|indicazioni|percorso)\b/.test(norm)) topics.address += 3;
-
-                // -- WORKING HOURS --
-                const hoursKw = [
-                    /\borar(?:i|et|t)?\s+(?:i\s+)?pun(?:ës|es)\b/,
-                    /\boraret\s+e\s+pun[eë]s\b/,
-                    /\bworking\s+hours\b/,
-                    /\bbusiness\s+hours\b/,
-                    /\bopen(?:ing)?\s+hours\b/,
-                    /\bwhen\s+(?:are\s+you|do\s+you)\s+open\b/,
-                    /\boffnungszeiten\b/,
-                    /\barbeitszeiten\b/,
-                    /\bheures?\s+d['o]?uverture\b/,
-                    /\borari(?:o)?\s+(?:di\s+)?(?:apertura|lavoro)\b/,
-                    /\borario\b/,
-                    /\bhoraires?\b/,
-                    /\bkur\s+(?:punoni|jeni|hapeni|mbyllni)\b/,
-                    /\bderi\s+kur\b/,
-                    /\bnaga\s+cila\s+ore\b/,
-                    /\bsa\s+ore\b/
-                ];
-                hoursKw.forEach(re => { if (re.test(raw) || re.test(norm)) topics.hours += 2; });
-                // specific time-day combos
-                if (/\b(e\s+h[eë]n[eë]|e\s+premte|e\s+mart[eë]|e\s+merkure|e\s+enjte|e\s+shtun[eë]|e\s+diel)\b/.test(norm)) topics.hours += 1;
-                if (/\b(monday|tuesday|wednesday|thursday|friday|saturday|sunday|montag|dienstag|mittwoch|donnerstag|freitag|samstag|sonntag|lundi|mardi|mercredi|jeudi|vendredi|samedi|dimanche|luned[iì]|marted[iì]|mercoled[iì]|gioved[iì]|venerd[iì]|sabato|domenica)\b/.test(raw)) topics.hours += 1;
-                if (/\b(08:00|09:00|16:30|17:00|18:00)\b/.test(raw)) topics.hours += 2;
-
-                // -- PRODUCTS --
-                const productKw = [
-                    /\bprodukt(?:et|eve|in|it)?\b/,
-                    /\bprodukte\b/,
-                    /\bproduits?\b/,
-                    /\bprodotto|prodotti\b/,
-                    /\bqese(?:ve|t|te)?\b/,
-                    /\bbag(?:s)?\b/,
-                    /\bsac(?:s|che)?\b/,
-                    /\bsacchetto|sacchetti\b/,
-                    /\btaschen\b/,
-                    /\bwhat\s+(?:do\s+you\s+(?:sell|offer|make|produce)|products?)\b/,
-                    /\b(?:quels?|quali)\s+produits?\b/,
-                    /\b(?:quali)\s+prodott[i]?\b/,
-                    /\bwas\s+(?:bieten|produzieren|sind)\s+(?:sie|ihre)\b/,
-                    /\bce\s+que\s+vous\s+(?:faites|produisez|vendez)\b/
-                ];
-                productKw.forEach(re => { if (re.test(raw) || re.test(norm)) topics.products += 2; });
-                // specific bag types
-                if (/\b(blerje|mbeturina|ushqimore|komposht|industriale|personalizuara|shopping|waste|food|compost|industrial|custom|spesa|rifiuti|alimentari|compostabili|industriali|personalizzati|einkauf|m[üu]ll|lebensmittel|kompost|individuell|industri)\b/.test(norm)) topics.products += 2;
-
-                // -- SERVICES --
-                const serviceKw = [
-                    /\bsh[ëe]rbim(?:e|et|eve|it|in)?\b/,
-                    /\bservices?\b/,
-                    /\bservizi?\b/,
-                    /\bdienstleistungen\b/,
-                    /\bwhat\s+services?\b/,
-                    /\bquels?\s+services?\b/,
-                    /\bquali\s+serviz[i]?\b/,
-                    /\bwas\s+(?:sind|ihre)\s+dienstleistungen\b/,
-                    /\bofferta\b/,
-                    /\bofferte\b/
-                ];
-                serviceKw.forEach(re => { if (re.test(raw) || re.test(norm)) topics.services += 2; });
-                if (/\b(prodhim|distribution|certifikim|support|custom|fast|quality|24\/7)\b/.test(norm)) topics.services += 1;
-
-                // -- PRICE / COST --
-                const priceKw = [
-                    /\b[cç]mim(?:i|et|eve|it)?\b/,
-                    /\bpreis(?:e)?\b/,
-                    /\bprix\b/,
-                    /\bprezzo\b/,
-                    /\bcost\b/,
-                    /\bhow\s+much\b/,
-                    /\bquanto\s+costa\b/,
-                    /\bcombien\s+(?:co[uû]te|cela\s+co[uû]te)\b/,
-                    /\bwas\s+kostet\b/,
-                    /\bquote\b/,
-                    /\bofert[aë]?\b/,
-                    /\bbudget\b/,
-                    /\bsa\s+kushton\b/,
-                    /\bsa\s+(?:behet|duhet|kane)\b/
-                ];
-                priceKw.forEach(re => { if (re.test(raw) || re.test(norm)) topics.price += 2; });
-
-                // -- FEATURES / QUALITY --
-                const featureKw = [
-                    /\bcil[eë]si\b/,
-                    /\bqualit[eé]?\b/,
-                    /\bquality\b/,
-                    /\bfeatures?\b/,
-                    /\bp[eë]rpar[eë]si\b/,
-                    /\bavantages?\b/,
-                    /\bvantaggi\b/,
-                    /\bvorteile\b/,
-                    /\bkarakteristika\b/,
-                    /\bbiodegradueshme?\b/,
-                    /\bbiod[eé]gradables?\b/,
-                    /\bbiodegradabili\b/,
-                    /\bbiologisch\s+abbaubar\b/,
-                    /\bwhat\s+(?:are|is).{0,10}(?:advantage|benefit|feature)\b/,
-                    /\b(?:pse)\b.*\b(zgjedhur|mirë)\b/
-                ];
-                featureKw.forEach(re => { if (re.test(raw) || re.test(norm)) topics.features += 2; });
-                if (/\b(ecological|environment|green|eco|miqë|mjedis|nat[uü]r|umwelt|ambiente|environnement)\b/.test(norm)) topics.features += 1;
-
-                // -- ORDER --
-                const orderKw = [
-                    /\bporosit[aë]?\b/,
-                    /\bporosis\b/,
-                    /\border\b/,
-                    /\bord(?:ine|er|ini|ina)\b/,
-                    /\bcommander\b/,
-                    /\bcomm(?:ande|ander)\b/,
-                    /\bbuy\b/,
-                    /\bpurchase\b/,
-                    /\bsi\s+porosit\b/,
-                    /\bsi\s+(?:t['']?)?(?:b[eë]j|b[eë]jm[eë]|porosisni)\b/,
-                    /\bhow\s+to\s+order\b/,
-                    /\bcome\s+ordinare\b/,
-                    /\bwie\s+(?:kann|bestelle)\b/,
-                    /\bcomment\s+commander\b/,
-                    /\bkomand[oë]?\b/
-                ];
-                orderKw.forEach(re => { if (re.test(raw) || re.test(norm)) topics.order += 2; });
-
-                // -- STATS --
-                const statsKw = [
-                    /\bstatistika(?:t)?\b/,
-                    /\bstatistik(?:a|en|en)?\b/,
-                    /\bstatistiques?\b/,
-                    /\bstatistiche?\b/,
-                    /\bstats?\b/,
-                    /\bnum[eë]r(?:i|it)?\b/,
-                    /\bnumbers?\b/,
-                    /\bsa\s+(?:klient|prodhon|qese|pem[ëe]|kemi)\b/,
-                    /\bhow\s+many\b/,
-                    /\bcombien\s+(?:de|avez|vous)\b/,
-                    /\bquanti\b/,
-                    /\bwieviele\b/,
-                    /\bklient[eë]?\b/,
-                    /\bclienti\b/,
-                    /\bclient(?:s)?\b/,
-                    /\bprodhim(?:i|it)?\b/,
-                    /\bproduction\b/,
-                    /\bproduzione\b/
-                ];
-                statsKw.forEach(re => { if (re.test(raw) || re.test(norm)) topics.stats += 2; });
-                if (/\b(pem[ëe]|trees|alberi|b[aä]ume|arbres)\b/.test(norm)) topics.stats += 1;
-
-                // -- ABOUT / COMPANY INFO --
-                const aboutKw = [
-                    /\brreth\s+(?:kompanis[eë]|nesh|nesh)\b/,
-                    /\babout\s+(?:us|the\s+company|your\s+company)\b/,
-                    /\b[cç]far[eë]\s+(?:esht[eë]|jeni|b[eë]ni)\b/,
-                    /\bwho\s+are\s+you\b/,
-                    /\bwhat\s+is\s+(?:this|your)\s+company\b/,
-                    /\bkompania\b/,
-                    /\bcompany\b/,
-                    /\bunternehmen\b/,
-                    /\bentreprise\b/,
-                    /\bazienda\b/,
-                    /\bübrigens\b/,
-                    /\binfo(?:rmacion)?\b/,
-                    /\binformation\b/,
-                    /\binformacione?\b/,
-                    /\binfos?\b/,
-                    /\bhistor[yikë]?\b/,
-                    /\bhistorik\b/
-                ];
-                aboutKw.forEach(re => { if (re.test(raw) || re.test(norm)) topics.about += 2; });
-                // BioPackKos directly mentioned
-                if (/\bbiopackkos\b/.test(norm)) topics.about += 1;
-
-                // Penalty: if the word "all" / "everything" / "gjithçka" is in the message,
-                // soften the scores so we don't lock onto a single word
-                if (/\b(all|everything|gjith[cç]ka|alles|tout|tutta|alle)\b/.test(norm)) {
-                    Object.keys(topics).forEach(k => { topics[k] = Math.max(0, topics[k] - 1); });
-                }
-
-                // Pick highest scoring topic
-                const order = ['phone', 'email', 'address', 'hours', 'products', 'services', 'price', 'features', 'order', 'stats', 'about'];
-                let best = null;
-                let bestScore = 0;
-                for (const t of order) {
-                    if (topics[t] > bestScore) {
-                        bestScore = topics[t];
-                        best = t;
-                    }
-                }
-
-                // Confidence threshold: if no topic scored meaningfully, ask for clarification
-                if (!best || bestScore < 2) {
-                    // If the user clearly just sent a single word or super short input, ask for clarification
-                    if (raw.length <= 3) {
-                        return data.clarification;
-                    }
-                    return subs(data.fallback);
-                }
-
-                switch (best) {
-                    case 'phone':
-                        return `📞 ${data.phoneLabel}: ${data.phone}\n\n${data.phoneMessage}`;
-                    case 'email':
-                        return `📧 ${data.emailLabel}: ${data.email}\n\n${data.emailMessage}`;
-                    case 'address':
-                        return `📍 ${data.addressLabel}: ${data.address}\n\n${data.addressMessage}`;
-                    case 'hours':
-                        return `🕐 ${data.workingHoursLabel}: ${data.workingHours}\n\n${data.workingHoursMessage}`;
-                    case 'products':
-                        return `📦 ${data.productsLabel}:\n\n${data.products.map((p, i) => `${i + 1}. ${p}`).join('\n')}\n\n${data.productsMessage}`;
-                    case 'services':
-                        return `⚙️ ${data.servicesLabel}:\n\n${data.services.map((s, i) => `${i + 1}. ${s}`).join('\n')}\n\n${data.servicesMessage}`;
-                    case 'price':
-                        return `💰 ${data.priceLabel}\n\n${data.priceMessage}\n\nFor a personalized quote:\n📞 ${data.phone}\n📧 ${data.email}`;
-                    case 'features':
-                        return `✨ ${data.featuresLabel}:\n\n${data.features.map(f => `✓ ${f}`).join('\n')}\n\n${data.featuresMessage}`;
-                    case 'order':
-                        return `🛒 ${data.orderLabel}:\n\n${subs(data.orderMessage)}`;
-                    case 'stats':
-                        return `📊 ${data.statsLabel}:\n\n🌳 ${data.stats.treesSaved} ${data.treesSavedLabel}\n👥 ${data.stats.clients} ${data.clientsLabel}\n📦 ${data.stats.dailyProduction} ${data.dailyProductionLabel}\n🌍 ${data.stats.exportCountries} ${data.exportCountriesLabel}`;
-                    case 'about':
-                        return subs(data.about);
-                    default:
-                        return subs(data.fallback);
-                }
-            }
+            input.addEventListener('input', aiAutoResize);
         }
-        
+
         // Initialize AI Chat when DOM is ready
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', initAIChat);
         } else {
             initAIChat();
         }
+
 
         // Modal functions for catalog
         function openModal(imageSrc, number) {
