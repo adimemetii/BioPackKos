@@ -1,9 +1,9 @@
-// Netlify serverless function: secure proxy to the Groq Chat API.
-// The API key is read ONLY from the server-side environment variable GROQ_API_KEY.
+// Netlify serverless function: secure proxy to the OpenRouter Chat API.
+// The API key is read ONLY from the server-side environment variable OPENROUTER_API_KEY.
 // Never expose the key to the browser.
 
-const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
-// A fast, current Groq-hosted model suitable for this concise support assistant.
+const OPENROUTER_API_URL = 'https://openrouter.ai/api/v1/chat/completions';
+// A fast model suitable for this concise support assistant.
 const MODEL = 'openai/gpt-oss-20b';
 
 // Tunable safety limits (kept conservative so a single client cannot abuse the quota).
@@ -124,12 +124,10 @@ function sanitizeMessages(rawMessages, language) {
   return out;
 }
 
-async function callGroq(systemPrompt, messages) {
-  // DEEPSEEK_API_KEY is kept as a temporary fallback so existing Netlify
-  // settings continue to work until the variable is renamed to GROQ_API_KEY.
-  const apiKey = process.env.GROQ_API_KEY || process.env.DEEPSEEK_API_KEY;
+async function callOpenRouter(systemPrompt, messages) {
+  const apiKey = process.env.OPENROUTER_API_KEY;
   if (!apiKey) {
-    const err = new Error('GROQ_API_KEY is not configured on the server.');
+    const err = new Error('OPENROUTER_API_KEY is not configured on the server.');
     err.code = 'NO_KEY';
     throw err;
   }
@@ -138,11 +136,13 @@ async function callGroq(systemPrompt, messages) {
   const timer = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
 
   try {
-    const response = await fetch(GROQ_API_URL, {
+    const response = await fetch(OPENROUTER_API_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${apiKey}`,
+        'HTTP-Referer': 'https://biopackkos.netlify.app',
+        'X-Title': 'BioPackKos AI Assistant',
       },
       body: JSON.stringify({
         model: MODEL,
@@ -158,7 +158,7 @@ async function callGroq(systemPrompt, messages) {
       // Keep provider diagnostics in Netlify logs, but never return them to
       // the browser because they can contain account or request details.
       const detail = (await response.text()).slice(0, 1000);
-      const err = new Error(`Groq API returned ${response.status}: ${detail}`);
+      const err = new Error(`OpenRouter API returned ${response.status}: ${detail}`);
       err.code = 'UPSTREAM_STATUS';
       err.status = response.status;
       throw err;
@@ -170,7 +170,7 @@ async function callGroq(systemPrompt, messages) {
       : '';
 
     if (!reply) {
-      const err = new Error('Empty response from Groq API.');
+      const err = new Error('Empty response from OpenRouter API.');
       err.code = 'EMPTY_REPLY';
       throw err;
     }
@@ -209,7 +209,7 @@ exports.handler = async (event) => {
   const systemPrompt = buildSystemPrompt(language);
 
   try {
-    const reply = await callGroq(systemPrompt, messages);
+    const reply = await callOpenRouter(systemPrompt, messages);
     return jsonResponse(200, { reply });
   } catch (err) {
     const status = err && err.code === 'UPSTREAM_STATUS' && err.status === 429 ? 429
