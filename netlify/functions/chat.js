@@ -2,9 +2,9 @@
 // The API key is read ONLY from the server-side environment variable OPENROUTER_API_KEY.
 // Never expose the key to the browser.
 
-const OPENROUTER_API_URL = 'https://openrouter.ai/api/v1/chat/completions';
-// A fast model suitable for this concise support assistant.
-const MODEL = 'openai/gpt-oss-20b';
+const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
+// A professional, fast and detailed model as requested.
+const MODEL = 'gpt-oos-120b';
 
 // Tunable safety limits (kept conservative so a single client cannot abuse the quota).
 const MAX_MESSAGE_CHARS = 2000;
@@ -67,8 +67,9 @@ function buildSystemPrompt(language) {
 
   return [
     'You are the official virtual assistant for BioPackKos, a Kosovo-based producer of biodegradable / compostable plastic bags.',
-    'Your role is to be helpful, friendly, concise and professional.',
+    'Your role is to be helpful, friendly, professional, and efficient.',
     'Answer ONLY using the information below. Do not invent prices, delivery times, production volumes, customer counts, export countries, specific certifications beyond what is listed, guarantees, or other business facts.',
+    'Keep responses to a medium length — professional and detailed enough to be helpful, but concise enough to be read quickly.',
     'If a question is not covered by the information below, or you are not sure, reply exactly: "I don\'t have that information available. Please contact BioPackKos directly for accurate information." (In Albanian when answering in Albanian: "Nuk kam këtë informacion të disponueshme. Ju lutem kontaktoni BioPackKos drejtpërdrejt për informacion të saktë.")',
     `${langInstruction}`,
     'Never claim that an order has been placed. Orders are handled only through direct contact with BioPackKos.',
@@ -124,10 +125,10 @@ function sanitizeMessages(rawMessages, language) {
   return out;
 }
 
-async function callOpenRouter(systemPrompt, messages) {
-  const apiKey = process.env.OPENROUTER_API_KEY;
+async function callGroq(systemPrompt, messages) {
+  const apiKey = process.env.groq_biopackkos_api_key;
   if (!apiKey) {
-    const err = new Error('OPENROUTER_API_KEY is not configured on the server.');
+    const err = new Error('groq_biopackkos_api_key is not configured on the server.');
     err.code = 'NO_KEY';
     throw err;
   }
@@ -136,7 +137,7 @@ async function callOpenRouter(systemPrompt, messages) {
   const timer = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
 
   try {
-    const response = await fetch(OPENROUTER_API_URL, {
+    const response = await fetch(GROQ_API_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -158,7 +159,7 @@ async function callOpenRouter(systemPrompt, messages) {
       // Keep provider diagnostics in Netlify logs, but never return them to
       // the browser because they can contain account or request details.
       const detail = (await response.text()).slice(0, 1000);
-      const err = new Error(`OpenRouter API returned ${response.status}: ${detail}`);
+      const err = new Error(`Groq API returned ${response.status}: ${detail}`);
       err.code = 'UPSTREAM_STATUS';
       err.status = response.status;
       throw err;
@@ -170,7 +171,7 @@ async function callOpenRouter(systemPrompt, messages) {
       : '';
 
     if (!reply) {
-      const err = new Error('Empty response from OpenRouter API.');
+      const err = new Error('Empty response from Groq API.');
       err.code = 'EMPTY_REPLY';
       throw err;
     }
@@ -209,7 +210,7 @@ exports.handler = async (event) => {
   const systemPrompt = buildSystemPrompt(language);
 
   try {
-    const reply = await callOpenRouter(systemPrompt, messages);
+    const reply = await callGroq(systemPrompt, messages);
     return jsonResponse(200, { reply });
   } catch (err) {
     const status = err && err.code === 'UPSTREAM_STATUS' && err.status === 429 ? 429
