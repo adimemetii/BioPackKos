@@ -4,7 +4,7 @@
 
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
 // A professional, fast and detailed model as requested.
-const MODEL = 'llama-3.3-70b-versatile';
+const MODEL = 'openai/gpt-oss-20b';
 
 // Tunable safety limits (kept conservative so a single client cannot abuse the quota).
 const MAX_MESSAGE_CHARS = 2000;
