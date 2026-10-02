@@ -89,14 +89,14 @@
 
         /* Navigation */
         .navbar {
-            background-color: rgba(253, 245, 230, 0.95);
+            background-color: rgba(253, 245, 230, 1);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             box-shadow: 0 4px 30px rgba(102, 187, 106, 0.15);
             transition: var(--transition);
             padding: 1rem 0;
             min-height: 100px;
-            z-index: 1100;
+            z-index: 2000;
         }
         
         .navbar.scrolled {
@@ -510,6 +510,10 @@
             justify-content: center;
             pointer-events: none;
             perspective: 1000px;
+        }
+
+        .hero .bag-container {
+            top: 60px;
         }
        
         .about-bag-container {
@@ -1519,6 +1523,10 @@
                 align-items: center;
             }
 
+            .hero .bag-container {
+                top: 28px;
+            }
+
             .about-bag-container {
                 width: 250px;
                 height: 250px;
@@ -1685,6 +1693,10 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
+            }
+
+            .hero .bag-container {
+                top: 20px;
             }
 
             .about-bag-container {
@@ -1967,13 +1979,14 @@
 
         /* Navigation */
         .navbar {
-            background-color: rgba(253, 245, 230, 0.95);
+            background-color: rgba(253, 245, 230, 1);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             box-shadow: 0 4px 30px rgba(102, 187, 106, 0.15);
             transition: var(--transition);
             padding: 1rem 0;
             min-height: 100px;
+            z-index: 2000;
         }
 
         .navbar-brand img {
@@ -2333,7 +2346,8 @@
             display: inline-block;
             padding: 0.2rem 0.8rem 0.35rem;
             border-radius: 10px;
-            background-color: rgba(102, 187, 106, 0.14);
+            color: var(--text-primary);
+            background-color: #dff2df;
         }
 
         #stats-section h2::after {
@@ -2574,7 +2588,7 @@
             <p class="catalog-subtitle" data-translate="catalog-subtitle">Eksploro koleksionin e produkteve tona</p>
             
             <div class="catalog-grid">
-                <div class="catalog-item" style="grid-column: 1 / -1; width: 100%; max-width: 1000px; height: auto; margin: 0 auto 30px;" onclick="openModal('assets/newmali3.jpg', 0)">
+                <div class="catalog-item" style="grid-column: 1 / -1; width: 100%; max-width: none; height: auto; margin: 0 auto 30px;" onclick="openModal('assets/newmali3.jpg', 0)">
                     <img src="assets/newmali3.jpg" alt="BioPackKos" loading="lazy" style="width: 100%; height: auto; object-fit: contain;">
                 </div>
 
