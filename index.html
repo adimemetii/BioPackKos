@@ -892,41 +892,6 @@
             margin-bottom: 0.5rem;
         }
 
-        /* Separate photo banner */
-        .photo-banner {
-            position: relative;
-            overflow: hidden;
-            background: #263b2c;
-        }
-
-        .photo-banner img {
-            display: block;
-            width: 100%;
-            height: auto;
-            max-height: 60vh;
-            object-fit: contain;
-            object-position: center;
-            margin: 0 auto;
-        }
-
-        .photo-banner-overlay {
-            position: absolute;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            padding: clamp(0.75rem, 2vw, 1.5rem) 0;
-            background: linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.72));
-            color: #fff;
-        }
-
-        .photo-banner-overlay h2 {
-            margin: 0;
-            font-size: clamp(1.25rem, 3vw, 2.5rem);
-            line-height: 1.25;
-            text-align: center;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
-        }
-
         /* Map Container */
         .map-container {
             width: 100%;
@@ -1525,14 +1490,6 @@
 
             .stats {
                 padding: 30px 0;
-            }
-
-            .photo-banner img {
-                max-height: none;
-            }
-
-            .photo-banner-overlay {
-                padding: 0.75rem 0;
             }
 
             .stat-item {
@@ -2437,16 +2394,6 @@
             </div>
     </section>
 
-    <!-- Photo Banner -->
-    <section class="photo-banner" aria-labelledby="photo-banner-title">
-        <img src="assets/newmali3.jpg" alt="Green packaging, clean future" data-translate-alt="photo-banner-alt" loading="lazy">
-        <div class="photo-banner-overlay">
-            <div class="container">
-                <h2 id="photo-banner-title" data-translate="photo-banner-title">Green packaging, clean future</h2>
-            </div>
-        </div>
-    </section>
-
     <!-- Statistics Section -->
     <section id="stats-section" class="section stats">
         <div class="container">
@@ -2550,8 +2497,8 @@
             <p class="catalog-subtitle" data-translate="catalog-subtitle">Eksploro koleksionin e produkteve tona</p>
             
             <div class="catalog-grid">
-                <div class="catalog-item" style="grid-column: 1 / -1; height: auto; margin-bottom: 30px;" onclick="openModal('assets/newmali3.jpg', 0)">
-                    <img src="assets/newmali3.jpg" alt="BioPackKos" loading="lazy" style="width: 100%; height: auto; object-fit: cover;">
+                <div class="catalog-item" style="grid-column: 1 / -1; width: 100%; max-width: 820px; height: auto; margin: 0 auto 30px;" onclick="openModal('assets/newmali3.jpg', 0)">
+                    <img src="assets/newmali3.jpg" alt="BioPackKos" loading="lazy" style="width: 100%; height: auto; object-fit: contain;">
                 </div>
 
                 <div class="catalog-item catalog-bag-item" onclick="openModal('assets/bag0.png', 1)">
@@ -2905,8 +2852,6 @@ Mundesh ta dizajnosh vetë
                 'hero-button': 'Eksploro Katalogun',
                 'stats-title': 'Statistikat Tona',
                 'stats-subtitle': 'Rezultatet e punës sonë në shifra',
-                'photo-banner-title': 'Paketim i gjelbër, e ardhme e pastër',
-                'photo-banner-alt': 'Paketim i gjelbër, e ardhme e pastër',
                 'stat-trees': 'Pema të shpëtuara në vit',
                 'stat-clients': 'Klientë të kënaqur',
                 'stat-production': 'Qese të prodhuara çditë',
@@ -3033,8 +2978,6 @@ Mundesh ta dizajnosh vetë
                 'hero-button': 'Explore Catalog',
                 'stats-title': 'Our Statistics',
                 'stats-subtitle': 'Our work results in numbers',
-                'photo-banner-title': 'Green packaging, clean future',
-                'photo-banner-alt': 'Green packaging, clean future',
                 'stat-trees': 'Trees saved per year',
                 'stat-clients': 'Satisfied customers',
                 'stat-production': 'Bags produced daily',
@@ -3155,8 +3098,6 @@ Mundesh ta dizajnosh vetë
                 'hero-button': 'Durchstöbere den Katalog',
                 'stats-title': 'Unsere Statistiken',
                 'stats-subtitle': 'Unsere Arbeitsergebnisse in Zahlen',
-                'photo-banner-title': 'Grüne Verpackung, saubere Zukunft',
-                'photo-banner-alt': 'Grüne Verpackung, saubere Zukunft',
                 'stat-trees': 'Bäume pro Jahr gerettet',
                 'stat-clients': 'Zufriedene Kunden',
                 'stat-production': 'Taschen täglich produziert',
@@ -3279,8 +3220,6 @@ Mundesh ta dizajnosh vetë
                 'hero-button': 'Explorer le catalogue',
                 'stats-title': 'Nos statistiques',
                 'stats-subtitle': 'Nos résultats de travail en chiffres',
-                'photo-banner-title': 'Emballage vert, avenir propre',
-                'photo-banner-alt': 'Emballage vert, avenir propre',
                 'stat-trees': 'Arbres sauvés par an',
                 'stat-clients': 'Clients satisfaits',
                 'stat-production': 'Sacs produits par jour',
@@ -3401,8 +3340,6 @@ Mundesh ta dizajnosh vetë
                 'hero-button': 'Esplora il catalogo',
                 'stats-title': 'Le Nostre Statistiche',
                 'stats-subtitle': 'I nostri risultati di lavoro in cifre',
-                'photo-banner-title': 'Packaging green, futuro pulito',
-                'photo-banner-alt': 'Packaging green, futuro pulito',
                 'stat-trees': 'Alberi salvati all\'anno',
                 'stat-clients': 'Clienti soddisfatti',
                 'stat-production': 'Sacchetti prodotti al giorno',
