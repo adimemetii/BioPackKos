@@ -378,14 +378,20 @@
             background: #fff;
             border: 1px solid rgba(76, 175, 80, 0.2);
             box-shadow: 0 8px 20px rgba(102, 187, 106, 0.16);
+            box-sizing: border-box;
+            height: 132px;
+            min-height: 132px;
+            padding: clamp(8px, 1.5vw, 14px);
         }
 
         .hero-certification-logo {
             display: block;
             width: 100%;
-            height: auto;
-            max-height: 112px;
+            height: 100%;
+            max-width: 100%;
+            max-height: 100%;
             object-fit: contain;
+            object-position: center;
         }
 
         .hero-certification-card {
@@ -948,6 +954,93 @@
             transition: var(--transition);
         }
 
+        /* Services certification block */
+        .service-certification {
+            margin-top: 3rem;
+            padding: clamp(1.5rem, 3vw, 2.5rem);
+            border: 1px solid rgba(102, 187, 106, 0.2);
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.72);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(102, 187, 106, 0.1);
+        }
+
+        .service-certification-logo-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100%;
+            background: transparent;
+            border: 0;
+            box-shadow: none;
+        }
+
+        .service-certification-logo {
+            display: block;
+            width: min(100%, 430px);
+            height: auto;
+            max-height: 260px;
+            object-fit: contain;
+            object-position: center;
+        }
+
+        .service-certification-content h3 {
+            color: var(--text-primary);
+        }
+
+        .service-certification-intro,
+        .service-certification-description {
+            color: var(--text-secondary);
+        }
+
+        .service-certification-details {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.75rem 1.25rem;
+            margin: 1.5rem 0;
+        }
+
+        .service-certification-detail {
+            min-width: 0;
+            margin: 0;
+            padding: 0.75rem 0.9rem;
+            border-radius: 12px;
+            background: rgba(102, 187, 106, 0.08);
+        }
+
+        .service-certification-detail--scope {
+            grid-column: 1 / -1;
+        }
+
+        .service-certification-detail dt {
+            margin-bottom: 0.2rem;
+            color: var(--text-primary);
+            font-size: 0.78rem;
+            font-weight: 700;
+            line-height: 1.35;
+        }
+
+        .service-certification-detail dd {
+            margin: 0;
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+            line-height: 1.5;
+            overflow-wrap: anywhere;
+        }
+
+        .service-certification-download {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.55rem;
+            max-width: 100%;
+        }
+
+        .service-certification-download i {
+            flex: 0 0 auto;
+        }
+
         /* Contact Icons */
         .contact-icon {
             color: var(--primary);
@@ -1296,6 +1389,8 @@
                 width: 100%;
                 max-width: 230px;
                 align-self: center;
+                height: 132px;
+                min-height: 132px;
             }
 
             .hero-certification-card {
@@ -1322,6 +1417,34 @@
                 width: auto;
                 max-width: none;
                 margin: 0 auto;
+            }
+
+            .service-certification {
+                margin-top: 2rem;
+                padding: 1.25rem;
+                text-align: center;
+            }
+
+            .service-certification-logo-wrap {
+                min-height: 0;
+            }
+
+            .service-certification-logo {
+                width: min(100%, 360px);
+                max-height: 220px;
+            }
+
+            .service-certification-details {
+                grid-template-columns: 1fr;
+                text-align: left;
+            }
+
+            .service-certification-detail--scope {
+                grid-column: auto;
+            }
+
+            .service-certification-download {
+                width: 100%;
             }
            
             .bag-container {
@@ -2443,6 +2566,50 @@ Mundesh ta dizajnosh vetë
                     </div>
                 </div>
             </div>
+
+            <div class="service-certification fade-in">
+                <div class="row align-items-center g-4">
+                    <div class="col-lg-4">
+                        <div class="service-certification-logo-wrap">
+                            <img class="service-certification-logo" src="assets/ok-compost-industrial-tuv-austria.png" alt="OK compost INDUSTRIAL – TÜV AUSTRIA, S3317" data-translate-alt="certification-logo-alt">
+                        </div>
+                    </div>
+                    <div class="col-lg-8 service-certification-content">
+                        <h3 class="h2 mb-3" data-translate="certifications-title">Certifications</h3>
+                        <p class="service-certification-intro mb-3" data-translate="certifications-intro">Our products are certified by internationally recognized organizations, ensuring the highest standards of quality and environmental responsibility.</p>
+                        <h4 class="h5 mb-2" data-translate="certification-service-title">OK compost INDUSTRIAL by TÜV AUSTRIA</h4>
+                        <p class="service-certification-description mb-0" data-translate="certification-service-description">BioPack KOS compostable bags are certified OK compost INDUSTRIAL by TÜV AUSTRIA, in accordance with EN 13432.</p>
+
+                        <dl class="service-certification-details">
+                            <div class="service-certification-detail">
+                                <dt data-translate="certification-certificate-label">Certificate No.</dt>
+                                <dd>TA10045</dd>
+                            </div>
+                            <div class="service-certification-detail">
+                                <dt data-translate="certification-licensee-label">Licensee Code</dt>
+                                <dd>S3317</dd>
+                            </div>
+                            <div class="service-certification-detail">
+                                <dt data-translate="certification-standard-label">Standard</dt>
+                                <dd>EN 13432:2000</dd>
+                            </div>
+                            <div class="service-certification-detail">
+                                <dt data-translate="certification-validity-label">Validity</dt>
+                                <dd>02.10.2026 – 02.10.2031</dd>
+                            </div>
+                            <div class="service-certification-detail service-certification-detail--scope">
+                                <dt data-translate="certification-scope-label">Scope</dt>
+                                <dd data-translate="certification-scope">Compostable bags up to 50 μm for industrial composting.</dd>
+                            </div>
+                        </dl>
+
+                        <a class="btn btn-primary service-certification-download" href="assets/TA10045_EN_ed20261002.pdf" download>
+                            <i class="fas fa-file-pdf" aria-hidden="true"></i>
+                            <span data-translate="certification-download">Download certificate (PDF)</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -2627,7 +2794,8 @@ Mundesh ta dizajnosh vetë
                 'certification-ok-subtitle': 'I certifikuar nga TÜV AUSTRIA',
                 'certification-en-title': 'EN 13432',
                 'certification-en-subtitle': 'Qese kompostueshme të certifikuara',
-                'certification-details': '',
+                'certification-details': 'Nr. i certifikatës TA10045 • Kodi i licencuarit S3317',
+                'hero-button': 'Eksploro Katalogun',
                 'stats-title': 'Statistikat Tona',
                 'stats-subtitle': 'Rezultatet e punës sonë në shifra',
                 'stat-trees': 'Pema të shpëtuara në vit',
@@ -2645,7 +2813,7 @@ Mundesh ta dizajnosh vetë
                 'about-factory': 'Me fabrikën tonë të modernizuar në Kosovo, ne prodhojmë qese të ndryshme sipas nevojave të klientëve tanë, nga qese për të blerë deri te ato për mbeturinat.',
                 'products-title': 'Produktet Tona',
                 'products-subtitle': 'Eksploro gamën tonë të gjerë të qeseve biodegradueshme të dizajnuara për nevoja të ndryshme.',
-                'product-1-title': 'Qese për Blerje',fix
+                'product-1-title': 'Qese për Blerje',
                 'product-1-desc': 'Qese të qëndrueshme dhe miqësore me mjedisin për nevojat tuaja të përditshme të blerjeve.',
                 
             
@@ -2667,6 +2835,17 @@ Mundesh ta dizajnosh vetë
                 'service-3-desc': 'Të gjitha produktet tona janë certifikuara sipas standardeve europiane të cilësisë dhe sigurisë.',
                 'service-4-title': 'Mbështetje 24/7',
                 'service-4-desc': 'Ekipi ynë është i disponueshëm 24/7 për të përgjigjet në pyetjet dhe kërkesat tuaja.',
+                'certifications-title': 'Certifikime',
+                'certifications-intro': 'Produktet tona janë të certifikuara nga organizata të njohura ndërkombëtarisht, duke garantuar standardet më të larta të cilësisë dhe përgjegjësisë mjedisore.',
+                'certification-service-title': 'OK compost INDUSTRIAL nga TÜV AUSTRIA',
+                'certification-service-description': 'Qeset e kompostueshme BioPack KOS janë të certifikuara OK compost INDUSTRIAL nga TÜV AUSTRIA, në përputhje me EN 13432.',
+                'certification-certificate-label': 'Nr. i certifikatës',
+                'certification-licensee-label': 'Kodi i licencuarit',
+                'certification-standard-label': 'Standardi',
+                'certification-validity-label': 'Vlefshmëria',
+                'certification-scope-label': 'Fusha e zbatimit',
+                'certification-scope': 'Qese të kompostueshme deri në 50 μm për kompostim industrial.',
+                'certification-download': 'Shkarko certifikatën (PDF)',
                 'contact-title': 'Na Kontaktoni',
                 'contact-subtitle': 'Jeni të interesuar për produktet tona? Na kontaktoni tani për një porosi ose për më shumë informacion.',
                 'contact-info-title': 'Informacionet e Kontaktit',
@@ -2741,7 +2920,7 @@ Mundesh ta dizajnosh vetë
                 'certification-ok-subtitle': 'Certified by TÜV AUSTRIA',
                 'certification-en-title': 'EN 13432',
                 'certification-en-subtitle': 'Certified Compostable Bags',
-                'certification-details': '',
+                'certification-details': 'Certificate No. TA10045 • Licensee Code S3317',
                 'hero-button': 'Explore Catalog',
                 'stats-title': 'Our Statistics',
                 'stats-subtitle': 'Our work results in numbers',
@@ -2782,6 +2961,17 @@ Mundesh ta dizajnosh vetë
                 'service-3-desc': 'All our products are certified according to European quality and safety standards.',
                 'service-4-title': '24/7 Support',
                 'service-4-desc': 'Our team is available 24/7 to answer your questions and requests.',
+                'certifications-title': 'Certifications',
+                'certifications-intro': 'Our products are certified by internationally recognized organizations, ensuring the highest standards of quality and environmental responsibility.',
+                'certification-service-title': 'OK compost INDUSTRIAL by TÜV AUSTRIA',
+                'certification-service-description': 'BioPack KOS compostable bags are certified OK compost INDUSTRIAL by TÜV AUSTRIA, in accordance with EN 13432.',
+                'certification-certificate-label': 'Certificate No.',
+                'certification-licensee-label': 'Licensee Code',
+                'certification-standard-label': 'Standard',
+                'certification-validity-label': 'Validity',
+                'certification-scope-label': 'Scope',
+                'certification-scope': 'Compostable bags up to 50 μm for industrial composting.',
+                'certification-download': 'Download certificate (PDF)',
                 'contact-title': 'Contact Us',
                 'contact-subtitle': 'Interested in our products? Contact us now for an order or for more information.',
                 'contact-info-title': 'Contact Information',
@@ -2843,13 +3033,14 @@ Mundesh ta dizajnosh vetë
                 'nav-contact': 'Kontakt',
                 'hero-title': 'Biologisch abbaubare Kunststofftaschen',
 
-                'hero-description': '',
+                'hero-quote': '"Green Packaging, Clean Future"',
+                'hero-description': 'BioPack KOS stellt hochwertige kompostierbare Beutel her, die von TÜV AUSTRIA gemäß EN 13432 mit OK compost INDUSTRIAL zertifiziert sind.',
                 'certification-logo-alt': 'OK compost INDUSTRIAL – TÜV AUSTRIA, S3317',
                 'certification-ok-title': 'OK compost INDUSTRIAL',
                 'certification-ok-subtitle': 'Zertifiziert von TÜV AUSTRIA',
                 'certification-en-title': 'EN 13432',
                 'certification-en-subtitle': 'Zertifizierte kompostierbare Beutel',
-                'certification-details': '',
+                'certification-details': 'Zertifikatsnummer TA10045 • Lizenznehmer-Code S3317',
                 'hero-button': 'Durchstöbere den Katalog',
                 'stats-title': 'Unsere Statistiken',
                 'stats-subtitle': 'Unsere Arbeitsergebnisse in Zahlen',
@@ -2890,6 +3081,17 @@ Mundesh ta dizajnosh vetë
                 'service-3-desc': 'Alle unsere Produkte sind nach europäischen Qualitäts- und Sicherheitsstandards zertifiziert.',
                 'service-4-title': '24/7 Unterstützung',
                 'service-4-desc': 'Unser Team ist rund um die Uhr erreichbar, um Ihre Fragen und Anfragen zu beantworten.',
+                'certifications-title': 'Zertifizierungen',
+                'certifications-intro': 'Unsere Produkte sind von international anerkannten Organisationen zertifiziert und gewährleisten höchste Standards in Qualität und Umweltverantwortung.',
+                'certification-service-title': 'OK compost INDUSTRIAL von TÜV AUSTRIA',
+                'certification-service-description': 'Die kompostierbaren Beutel von BioPack KOS sind gemäß EN 13432 von TÜV AUSTRIA mit OK compost INDUSTRIAL zertifiziert.',
+                'certification-certificate-label': 'Zertifikatsnummer',
+                'certification-licensee-label': 'Lizenznehmer-Code',
+                'certification-standard-label': 'Norm',
+                'certification-validity-label': 'Gültigkeit',
+                'certification-scope-label': 'Geltungsbereich',
+                'certification-scope': 'Kompostierbare Beutel bis 50 μm für die industrielle Kompostierung.',
+                'certification-download': 'Zertifikat herunterladen (PDF)',
                 'contact-title': 'Kontaktieren Sie uns',
                 'contact-subtitle': 'Interessiert an unseren Produkten? Kontaktieren Sie uns jetzt für eine Bestellung oder weitere Informationen.',
                 'contact-info-title': 'Kontaktinformationen',
@@ -2960,7 +3162,7 @@ Mundesh ta dizajnosh vetë
                 'certification-ok-subtitle': 'Certifié par TÜV AUSTRIA',
                 'certification-en-title': 'EN 13432',
                 'certification-en-subtitle': 'Sacs compostables certifiés',
-                'certification-details': '',
+                'certification-details': 'N° de certificat TA10045 • Code du titulaire de licence S3317',
                 'hero-button': 'Explorer le catalogue',
                 'stats-title': 'Nos statistiques',
                 'stats-subtitle': 'Nos résultats de travail en chiffres',
@@ -3001,6 +3203,17 @@ Mundesh ta dizajnosh vetë
                 'service-3-desc': 'Tous nos produits sont certifiés selon les normes européennes de qualité et de sécurité.',
                 'service-4-title': 'Support 24/7',
                 'service-4-desc': 'Notre équipe est disponible 24h/24 pour répondre à vos questions et demandes.',
+                'certifications-title': 'Certifications',
+                'certifications-intro': 'Nos produits sont certifiés par des organismes reconnus internationalement, garantissant les plus hauts standards de qualité et de responsabilité environnementale.',
+                'certification-service-title': 'OK compost INDUSTRIAL par TÜV AUSTRIA',
+                'certification-service-description': 'Les sacs compostables BioPack KOS sont certifiés OK compost INDUSTRIAL par TÜV AUSTRIA, conformément à la norme EN 13432.',
+                'certification-certificate-label': 'N° de certificat',
+                'certification-licensee-label': 'Code du titulaire de licence',
+                'certification-standard-label': 'Norme',
+                'certification-validity-label': 'Validité',
+                'certification-scope-label': 'Portée',
+                'certification-scope': "Sacs compostables jusqu'à 50 μm pour le compostage industriel.",
+                'certification-download': 'Télécharger le certificat (PDF)',
                 'contact-title': 'Nous contacter',
                 'contact-subtitle': 'Intéressé par nos produits? Contactez-nous maintenant pour une commande ou plus d\'informations.',
                 'contact-info-title': 'Coordonnées',
@@ -3069,7 +3282,7 @@ Mundesh ta dizajnosh vetë
                 'certification-ok-subtitle': 'Certificato da TÜV AUSTRIA',
                 'certification-en-title': 'EN 13432',
                 'certification-en-subtitle': 'Sacchetti compostabili certificati',
-                'certification-details': '',
+                'certification-details': 'N. certificato TA10045 • Codice licenziatario S3317',
                 'hero-button': 'Esplora il catalogo',
                 'stats-title': 'Le Nostre Statistiche',
                 'stats-subtitle': 'I nostri risultati di lavoro in cifre',
@@ -3111,6 +3324,17 @@ Mundesh ta dizajnosh vetë
                 'service-3-desc': 'Tutti i nostri prodotti sono certificati secondo gli standard europei di qualità e sicurezza.',
                 'service-4-title': 'Supporto 24/7',
                 'service-4-desc': 'Il nostro team è disponibile 24 ore su 24 per rispondere alle tue domande e richieste.',
+                'certifications-title': 'Certificazioni',
+                'certifications-intro': 'I nostri prodotti sono certificati da organizzazioni riconosciute a livello internazionale, a garanzia dei più elevati standard di qualità e responsabilità ambientale.',
+                'certification-service-title': 'OK compost INDUSTRIAL di TÜV AUSTRIA',
+                'certification-service-description': 'I sacchetti compostabili BioPack KOS sono certificati OK compost INDUSTRIAL da TÜV AUSTRIA, in conformità alla norma EN 13432.',
+                'certification-certificate-label': 'N. certificato',
+                'certification-licensee-label': 'Codice licenziatario',
+                'certification-standard-label': 'Norma',
+                'certification-validity-label': 'Validità',
+                'certification-scope-label': 'Ambito',
+                'certification-scope': 'Sacchetti compostabili fino a 50 μm per il compostaggio industriale.',
+                'certification-download': 'Scarica il certificato (PDF)',
                 'contact-title': 'Contattaci',
                 'contact-subtitle': 'Interessato ai nostri prodotti? Contattaci ora per un ordine o per ulteriori informazioni.',
                 'contact-info-title': 'Informazioni di contatto',
@@ -3262,15 +3486,23 @@ Mundesh ta dizajnosh vetë
             }
         };
 
+        // Keep the supported dictionary order consistent everywhere: EN -> DE -> FR -> IT -> SQ.
+        const supportedLanguages = ['en', 'de', 'fr', 'it', 'sq'];
+        const orderedTranslations = Object.fromEntries(
+            supportedLanguages.map((language) => [language, translations[language]])
+        );
+        Object.keys(translations).forEach((language) => delete translations[language]);
+        Object.assign(translations, orderedTranslations);
+
         // Current language and theme
         let currentLang = (function () {
             try {
                 const saved = localStorage.getItem('language');
-                if (saved && ['en', 'de', 'fr', 'it', 'sq'].indexOf(saved) !== -1) {
+                if (saved && supportedLanguages.indexOf(saved) !== -1) {
                     return saved;
                 }
             } catch (_) {}
-            return 'en';
+            return supportedLanguages[0];
         })();
         localStorage.setItem('language', currentLang);
         let countersAnimated = false;
@@ -3406,6 +3638,8 @@ Mundesh ta dizajnosh vetë
 
             // Animate counters immediately if the stats section is already in view.
             animateCountersIfVisible();
+            window.addEventListener('scroll', animateCountersIfVisible, { passive: true });
+            window.addEventListener('resize', animateCountersIfVisible);
 
             // Generate animated icons
             generateAnimatedIcons();
@@ -3471,7 +3705,7 @@ Mundesh ta dizajnosh vetë
         // Language toggle
         function toggleLanguage() {
             // Language rotation order: EN -> DE -> FR -> IT -> SQ
-            const languages = ['en', 'de', 'fr', 'it', 'sq'];
+            const languages = supportedLanguages;
             
             // Get current index
             let currentIndex = languages.indexOf(currentLang);
@@ -3690,7 +3924,7 @@ Mundesh ta dizajnosh vetë
                     'assets/back6.jpg', 
                     'assets/back7.jpg',
                     'assets/backg3.jpg',
-                    'assets/backg4.jpg'
+                    'assets/backg2.jpg'
                 ];
                 
                 let index = 0;
@@ -3735,6 +3969,8 @@ Mundesh ta dizajnosh vetë
 
         function generateAnimatedIcons() {
             const iconsContainer = document.querySelector('.icons-container');
+            if (!iconsContainer) return;
+
             const icons = [
                 'fas fa-leaf', 'fas fa-tree', 'fas fa-seedling', 'fas fa-recycle', 
                 'fas fa-globe', 'fas fa-sun', 'fas fa-cloud', 'fas fa-rainbow',
@@ -3794,6 +4030,14 @@ Mundesh ta dizajnosh vetë
 
         // Intersection Observer for animations and counters
         function initializeObservers() {
+            const revealElements = document.querySelectorAll('.fade-in');
+
+            if (!('IntersectionObserver' in window)) {
+                revealElements.forEach(el => el.classList.add('visible'));
+                animateCountersIfVisible();
+                return;
+            }
+
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -3816,9 +4060,14 @@ Mundesh ta dizajnosh vetë
             });
            
             // Observe all elements with fade-in class
-            document.querySelectorAll('.fade-in').forEach(el => {
+            revealElements.forEach(el => {
                 observer.observe(el);
             });
+
+            // Keep content visible if a browser delays or skips the initial observer callback.
+            setTimeout(() => {
+                revealElements.forEach(el => el.classList.add('visible'));
+            }, 1500);
            
             // Observe stats section for counter animation
             const statsSection = document.getElementById('stats-section');
@@ -4500,12 +4749,18 @@ Mundesh ta dizajnosh vetë
             },
         };
 
+        const orderedAIChatLabels = Object.fromEntries(
+            supportedLanguages.map((language) => [language, AI_CHAT_LABELS[language]])
+        );
+        Object.keys(AI_CHAT_LABELS).forEach((language) => delete AI_CHAT_LABELS[language]);
+        Object.assign(AI_CHAT_LABELS, orderedAIChatLabels);
+
         const AI_API_ENDPOINT = (typeof window !== 'undefined' && window.location && window.location.origin)
             ? window.location.origin + '/api/chat'
             : '/api/chat';
 
         function aiLabels() {
-            return AI_CHAT_LABELS[currentLang] || AI_CHAT_LABELS.en;
+            return AI_CHAT_LABELS[currentLang] || AI_CHAT_LABELS[supportedLanguages[0]];
         }
 
         function aiEscape(text) {
