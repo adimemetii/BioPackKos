@@ -892,6 +892,41 @@
             margin-bottom: 0.5rem;
         }
 
+        /* Separate photo banner */
+        .photo-banner {
+            position: relative;
+            overflow: hidden;
+            background: #263b2c;
+        }
+
+        .photo-banner img {
+            display: block;
+            width: 100%;
+            height: auto;
+            max-height: 60vh;
+            object-fit: contain;
+            object-position: center;
+            margin: 0 auto;
+        }
+
+        .photo-banner-overlay {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            padding: clamp(0.75rem, 2vw, 1.5rem) 0;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.72));
+            color: #fff;
+        }
+
+        .photo-banner-overlay h2 {
+            margin: 0;
+            font-size: clamp(1.25rem, 3vw, 2.5rem);
+            line-height: 1.25;
+            text-align: center;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+        }
+
         /* Map Container */
         .map-container {
             width: 100%;
@@ -1490,6 +1525,14 @@
 
             .stats {
                 padding: 30px 0;
+            }
+
+            .photo-banner img {
+                max-height: none;
+            }
+
+            .photo-banner-overlay {
+                padding: 0.75rem 0;
             }
 
             .stat-item {
@@ -2235,8 +2278,62 @@
             }
         }
 
-        #stats-section{
-            background-color: #93f898;
+        #stats-section {
+            background-color: #e8f5e9;
+            background-image: none;
+            background-position: initial;
+            background-size: auto;
+            background-repeat: no-repeat;
+            color: #1f3a26;
+            opacity: 1;
+            transition: none;
+        }
+
+        #stats-section::before {
+            display: none;
+        }
+
+        #stats-section .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        #stats-section h2,
+        #stats-section .lead {
+            color: #1f3a26;
+            text-shadow: none;
+        }
+
+        #stats-section h2::after {
+            background: var(--dark);
+        }
+
+        #stats-section .stat-item {
+            background: rgba(255, 255, 255, 0.62);
+            border-color: rgba(76, 175, 80, 0.22);
+            box-shadow: 0 8px 32px rgba(76, 175, 80, 0.12);
+            backdrop-filter: none;
+        }
+
+        #stats-section .stat-item:hover {
+            background: rgba(255, 255, 255, 0.78);
+            box-shadow: 0 20px 40px rgba(76, 175, 80, 0.18);
+        }
+
+        #stats-section .stat-item i,
+        #stats-section .stat-item:hover i {
+            text-shadow: none;
+        }
+
+        #stats-section .stat-number {
+            color: #1f3a26;
+            text-shadow: none;
+        }
+
+        #stats-section .stat-item p,
+        #stats-section .stat-item:hover p {
+            color: #2e4d37;
+            text-shadow: none;
         }
 
 
@@ -2340,8 +2437,18 @@
             </div>
     </section>
 
+    <!-- Photo Banner -->
+    <section class="photo-banner" aria-labelledby="photo-banner-title">
+        <img src="assets/newmali3.jpg" alt="Green packaging, clean future" data-translate-alt="photo-banner-alt" loading="lazy">
+        <div class="photo-banner-overlay">
+            <div class="container">
+                <h2 id="photo-banner-title" data-translate="photo-banner-title">Green packaging, clean future</h2>
+            </div>
+        </div>
+    </section>
+
     <!-- Statistics Section -->
-    <section id="stats-section" class="section stats bg1">
+    <section id="stats-section" class="section stats">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-8 text-center mb-5">
@@ -2798,6 +2905,8 @@ Mundesh ta dizajnosh vetë
                 'hero-button': 'Eksploro Katalogun',
                 'stats-title': 'Statistikat Tona',
                 'stats-subtitle': 'Rezultatet e punës sonë në shifra',
+                'photo-banner-title': 'Paketim i gjelbër, e ardhme e pastër',
+                'photo-banner-alt': 'Paketim i gjelbër, e ardhme e pastër',
                 'stat-trees': 'Pema të shpëtuara në vit',
                 'stat-clients': 'Klientë të kënaqur',
                 'stat-production': 'Qese të prodhuara çditë',
@@ -2924,6 +3033,8 @@ Mundesh ta dizajnosh vetë
                 'hero-button': 'Explore Catalog',
                 'stats-title': 'Our Statistics',
                 'stats-subtitle': 'Our work results in numbers',
+                'photo-banner-title': 'Green packaging, clean future',
+                'photo-banner-alt': 'Green packaging, clean future',
                 'stat-trees': 'Trees saved per year',
                 'stat-clients': 'Satisfied customers',
                 'stat-production': 'Bags produced daily',
@@ -3044,6 +3155,8 @@ Mundesh ta dizajnosh vetë
                 'hero-button': 'Durchstöbere den Katalog',
                 'stats-title': 'Unsere Statistiken',
                 'stats-subtitle': 'Unsere Arbeitsergebnisse in Zahlen',
+                'photo-banner-title': 'Grüne Verpackung, saubere Zukunft',
+                'photo-banner-alt': 'Grüne Verpackung, saubere Zukunft',
                 'stat-trees': 'Bäume pro Jahr gerettet',
                 'stat-clients': 'Zufriedene Kunden',
                 'stat-production': 'Taschen täglich produziert',
@@ -3166,6 +3279,8 @@ Mundesh ta dizajnosh vetë
                 'hero-button': 'Explorer le catalogue',
                 'stats-title': 'Nos statistiques',
                 'stats-subtitle': 'Nos résultats de travail en chiffres',
+                'photo-banner-title': 'Emballage vert, avenir propre',
+                'photo-banner-alt': 'Emballage vert, avenir propre',
                 'stat-trees': 'Arbres sauvés par an',
                 'stat-clients': 'Clients satisfaits',
                 'stat-production': 'Sacs produits par jour',
@@ -3286,7 +3401,8 @@ Mundesh ta dizajnosh vetë
                 'hero-button': 'Esplora il catalogo',
                 'stats-title': 'Le Nostre Statistiche',
                 'stats-subtitle': 'I nostri risultati di lavoro in cifre',
-
+                'photo-banner-title': 'Packaging green, futuro pulito',
+                'photo-banner-alt': 'Packaging green, futuro pulito',
                 'stat-trees': 'Alberi salvati all\'anno',
                 'stat-clients': 'Clienti soddisfatti',
                 'stat-production': 'Sacchetti prodotti al giorno',
@@ -3595,7 +3711,7 @@ Mundesh ta dizajnosh vetë
         
         // Parallax scroll effect for background images
         function initParallaxScroll() {
-            const parallaxElements = document.querySelectorAll('.stats, .hero');
+            const parallaxElements = document.querySelectorAll('.hero');
             
             window.addEventListener('scroll', () => {
                 parallaxElements.forEach(element => {
@@ -3644,11 +3760,6 @@ Mundesh ta dizajnosh vetë
             // Generate animated icons
             generateAnimatedIcons();
             
-            // Start stats background switching with a small delay to ensure DOM is ready
-            setTimeout(() => {
-                startStatsBackgroundRotation();
-            }, 500);
-           
             // Add loading effect
             setTimeout(() => {
                 document.querySelector('.loading-spinner').style.display = 'none';
@@ -3773,59 +3884,6 @@ Mundesh ta dizajnosh vetë
             bagBacks[1].src = 'assets/qese2.png';
         }
 
-        function changeStatsBackground() {
-            const statsSection = document.querySelector('.stats');
-            const backgroundClasses = ['bg1', 'bg2', 'bg3', 'bg4', 'bg5'];
-            
-            let currentIndex = 0;
-            
-            if (statsSection) {
-                console.log('Stats section found, starting background rotation...');
-                
-                // Start the interval
-                const intervalId = setInterval(() => {
-                    // Remove current class
-                    statsSection.classList.remove(backgroundClasses[currentIndex]);
-                    
-                    // Move to next background
-                    currentIndex = (currentIndex + 1) % backgroundClasses.length;
-                    
-                    // Add new class
-                    statsSection.classList.add(backgroundClasses[currentIndex]);
-                    console.log('Background changed to:', backgroundClasses[currentIndex]);
-                }, 2000); // Change every 2 seconds
-                
-                // Store interval ID for potential cleanup
-                window.statsBackgroundInterval = intervalId;
-            } else {
-                console.log('Stats section not found!');
-            }
-        }
-
-        // Manual test function - you can call this from browser console
-        function testStatsBackground() {
-            const statsSection = document.querySelector('.stats');
-            if (statsSection) {
-                console.log('Stats section found, testing background change...');
-                console.log('Current classes:', statsSection.className);
-                statsSection.classList.remove('bg1', 'bg2', 'bg3', 'bg4', 'bg5');
-                statsSection.classList.add('bg2');
-                console.log('Background changed to bg2');
-                console.log('New classes:', statsSection.className);
-            } else {
-                console.log('Stats section not found!');
-            }
-        }
-
-        // Quick test to see if CSS is working
-        function testCSS() {
-            const statsSection = document.querySelector('.stats');
-            if (statsSection) {
-                console.log('Testing CSS classes...');
-                console.log('Current background:', window.getComputedStyle(statsSection).backgroundImage);
-            }
-        }
-
         // Hero background rotation
         function startHeroBackgroundRotation() {
             const heroSection = document.querySelector('.hero');
@@ -3864,107 +3922,6 @@ Mundesh ta dizajnosh vetë
 
             window.heroRotationInterval = rotationInterval;
             console.log('Hero background rotation started with slide1.jpg, slide2.jpg, slide3.jpg, slide4.jpg');
-        }
-
-        // Simple and direct background rotation using direct style setting
-        function startStatsBackgroundRotation() {
-            const statsSection = document.querySelector('.stats') || document.querySelector('#stats-section');
-            const backgroundImages = [
-                'assets/slide1.jpg',
-                'assets/slide2.jpg',
-                'assets/slide3.jpg',
-                'assets/slide4.jpg',
-            ];
-
-            if (!statsSection) {
-                console.error('Stats section not found!');
-                return;
-            }
-
-            // Clear any existing interval first
-            if (window.statsRotationInterval) {
-                clearInterval(window.statsRotationInterval);
-            }
-
-            let currentIndex = 0;
-            statsSection.style.backgroundImage = `url('${backgroundImages[currentIndex]}')`;
-
-            const rotationInterval = setInterval(() => {
-                // Fade out effect
-                statsSection.style.opacity = '0.7';
-
-                setTimeout(() => {
-                    // Move to next background
-                    currentIndex = (currentIndex + 1) % backgroundImages.length;
-
-                    // Set new background image
-                    statsSection.style.backgroundImage = `url('${backgroundImages[currentIndex]}')`;
-
-                    // Fade in effect
-                    statsSection.style.opacity = '1';
-                }, 300);
-            }, 2500);
-
-            window.statsRotationInterval = rotationInterval;
-            console.log('Stats background rotation started with slide1.jpg, slide2.jpg, slide3.jpg, slide4.jpg');
-        }
-
-        // Manual test function - call this from browser console
-        function testBackground() {
-            console.log('Testing background rotation...');
-            startStatsBackgroundRotation();
-        }
-
-        // Force background rotation - call this from browser console if needed
-        function forceBackgroundRotation() {
-            const statsSection = document.querySelector('.stats');
-            if (statsSection) {
-                const backgrounds = [
-                    'assets/back5.jpg',
-                    'assets/back6.jpg', 
-                    'assets/back7.jpg',
-                    'assets/backg3.jpg',
-                    'assets/backg2.jpg'
-                ];
-                
-                let index = 0;
-                statsSection.style.backgroundImage = `url('${backgrounds[index]}')`;
-                statsSection.style.backgroundSize = 'cover';
-                statsSection.style.backgroundPosition = 'center';
-                statsSection.style.backgroundRepeat = 'no-repeat';
-                
-                setInterval(() => {
-                    index = (index + 1) % backgrounds.length;
-                    statsSection.style.backgroundImage = `url('${backgrounds[index]}')`;
-                    console.log('Force background changed to:', backgrounds[index]);
-                }, 2000);
-            }
-        }
-
-        // Test individual background images
-        function testBackgroundImage(imageName) {
-            const statsSection = document.querySelector('.stats');
-            if (statsSection) {
-                statsSection.style.cssText = `
-                    background-image: url('assets/${imageName}') !important;
-                    background-size: cover !important;
-                    background-position: center !important;
-                    background-repeat: no-repeat !important;
-                `;
-                console.log(`Testing background: assets/${imageName}`);
-            }
-        }
-
-        // Simple test function to set any background
-        function setStatsBackground(imageName) {
-            const statsSection = document.querySelector('.stats');
-            if (statsSection) {
-                statsSection.style.backgroundImage = `url('assets/${imageName}')`;
-                statsSection.style.backgroundSize = 'cover';
-                statsSection.style.backgroundPosition = 'center';
-                statsSection.style.backgroundRepeat = 'no-repeat';
-                console.log(`Background set to: assets/${imageName}`);
-            }
         }
 
         function generateAnimatedIcons() {
