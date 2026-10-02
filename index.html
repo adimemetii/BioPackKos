@@ -2384,6 +2384,94 @@
             text-shadow: none;
         }
 
+        /* Hero responsive layout */
+        @media (max-width: 991.98px) {
+            #home.hero {
+                display: block;
+                min-height: auto;
+                padding: clamp(32px, 6vw, 56px) 0 36px;
+            }
+
+            #home.hero > .container {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            #home.hero > .container > .row {
+                --bs-gutter-y: 1rem;
+            }
+
+            #home.hero > .container > .row > .col-lg-6:first-child {
+                padding-top: 0 !important;
+            }
+
+            #home .hero-content {
+                width: 100%;
+                max-width: 540px;
+                margin: 0 auto;
+            }
+
+            #home .bag-container {
+                width: min(72vw, 360px);
+                height: min(72vw, 360px);
+                margin: 1rem auto 0;
+                top: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            #home.hero {
+                padding: 28px 0 30px;
+            }
+
+            #home .hero-content {
+                max-width: 480px;
+                padding: 0.9rem;
+            }
+
+            #home .hero-certification-row {
+                flex-direction: column;
+                gap: 6px;
+            }
+
+            #home .hero-certification-logo-wrap {
+                width: 100%;
+                max-width: 150px;
+                height: 82px;
+                margin: 0 auto;
+            }
+
+            #home .hero-certification-card {
+                width: 100%;
+            }
+
+            #home .bag-container {
+                width: min(78vw, 280px);
+                height: min(78vw, 280px);
+                margin-top: 0.75rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            #home.hero {
+                padding: 20px 0 24px;
+            }
+
+            #home .hero-content {
+                max-width: calc(100% - 16px);
+                padding: 0.75rem;
+            }
+
+            #home .hero-certification-card {
+                padding: 8px;
+            }
+
+            #home .bag-container {
+                width: min(74vw, 220px);
+                height: min(74vw, 220px);
+            }
+        }
+
 
     </style>
 </head>
