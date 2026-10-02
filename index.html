@@ -96,6 +96,7 @@
             transition: var(--transition);
             padding: 1rem 0;
             min-height: 100px;
+            z-index: 1100;
         }
         
         .navbar.scrolled {
@@ -2328,6 +2329,13 @@
             text-shadow: none;
         }
 
+        #stats-section h2 {
+            display: inline-block;
+            padding: 0.2rem 0.8rem 0.35rem;
+            border-radius: 10px;
+            background-color: rgba(102, 187, 106, 0.14);
+        }
+
         #stats-section h2::after {
             background: var(--dark);
         }
@@ -2566,7 +2574,7 @@
             <p class="catalog-subtitle" data-translate="catalog-subtitle">Eksploro koleksionin e produkteve tona</p>
             
             <div class="catalog-grid">
-                <div class="catalog-item" style="grid-column: 1 / -1; width: 100%; max-width: 820px; height: auto; margin: 0 auto 30px;" onclick="openModal('assets/newmali3.jpg', 0)">
+                <div class="catalog-item" style="grid-column: 1 / -1; width: 100%; max-width: 1000px; height: auto; margin: 0 auto 30px;" onclick="openModal('assets/newmali3.jpg', 0)">
                     <img src="assets/newmali3.jpg" alt="BioPackKos" loading="lazy" style="width: 100%; height: auto; object-fit: contain;">
                 </div>
 
