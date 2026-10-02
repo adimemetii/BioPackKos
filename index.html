@@ -2236,12 +2236,14 @@
         }
 
         #stats-section {
-            background-color: var(--bg-primary);
+            background-color: #eef6e9;
             background-image: none;
             background-position: initial;
             background-size: auto;
             background-repeat: no-repeat;
             color: #1f3a26;
+            min-height: auto;
+            padding: clamp(30px, 5vw, 52px) 0 clamp(28px, 4vw, 46px);
             opacity: 1;
             transition: none;
         }
@@ -2266,7 +2268,9 @@
         }
 
         #stats-section .stat-item {
-            background: rgba(255, 255, 255, 0.62);
+            padding: 1.25rem 0.75rem;
+            margin-bottom: 0;
+            background: rgba(253, 245, 230, 0.82);
             border-color: rgba(76, 175, 80, 0.22);
             box-shadow: 0 8px 32px rgba(76, 175, 80, 0.12);
             backdrop-filter: none;
