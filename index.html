@@ -5232,6 +5232,11 @@ Mundesh ta dizajnosh vetë
             const wrap = document.getElementById('ai-chat-suggestions');
             if (!wrap) return;
             wrap.innerHTML = '';
+            if (AI_STATE.history.length > 0) {
+                wrap.setAttribute('hidden', '');
+                return;
+            }
+            wrap.removeAttribute('hidden');
             const labels = aiLabels();
             if (!labels.suggestions || labels.suggestions.length === 0) return;
             labels.suggestions.forEach(function (q) {
@@ -5251,6 +5256,13 @@ Mundesh ta dizajnosh vetë
             });
         }
 
+        function aiHideSuggestions() {
+            const wrap = document.getElementById('ai-chat-suggestions');
+            if (!wrap) return;
+            wrap.innerHTML = '';
+            wrap.setAttribute('hidden', '');
+        }
+
         async function aiSendMessage() {
             const input = document.getElementById('ai-chat-input');
             if (!input) return;
@@ -5260,6 +5272,7 @@ Mundesh ta dizajnosh vetë
             const labels = aiLabels();
             appendAIMessage('user', text);
             AI_STATE.history.push({ role: 'user', content: text });
+            aiHideSuggestions();
             input.value = '';
             input.style.height = 'auto';
 
@@ -5366,6 +5379,7 @@ Mundesh ta dizajnosh vetë
         function aiClearConversation() {
             AI_STATE.history = [];
             aiRenderWelcome();
+            aiRenderSuggestions();
         }
 
         function aiAutoResize() {
