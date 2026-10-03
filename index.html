@@ -4962,10 +4962,11 @@ Mundesh ta dizajnosh vetë
             .ai-chat-badge { top: -4px; right: -4px; font-size: 9px; padding: 2px 5px; }
             .ai-chat-container {
                 position: fixed;
-                right: 10px; left: 10px; bottom: 68px;
+                top: max(12px, env(safe-area-inset-top));
+                right: 10px; left: 10px; bottom: auto;
                 width: auto;
-                height: calc(100dvh - 110px);
-                max-height: calc(100dvh - 110px);
+                height: min(480px, calc(100dvh - 92px));
+                max-height: calc(100dvh - 92px);
                 border-radius: 18px;
             }
             .ai-chat-header { padding: 14px 16px; }
