@@ -4682,9 +4682,9 @@ Mundesh ta dizajnosh vetë
         /* AI Chat Widget Styles */
         .ai-chat-widget {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1080;
+            right: 16px;
+            bottom: calc(16px + env(safe-area-inset-bottom));
+            z-index: 99999;
         }
 
         .ai-chat-toggle {
@@ -4730,7 +4730,9 @@ Mundesh ta dizajnosh vetë
             position: absolute;
             bottom: 80px;
             right: 0;
-            width: 360px;
+            width: min(360px, calc(100vw - 32px));
+            height: min(480px, calc(100vh - 140px));
+            max-height: calc(100vh - 140px);
             height: min(480px, calc(100dvh - 140px));
             max-height: calc(100dvh - 140px);
             min-height: 0;
@@ -4740,6 +4742,7 @@ Mundesh ta dizajnosh vetë
             display: none;
             flex-direction: column;
             overflow: hidden;
+            z-index: 99999;
             animation: aiSlideUp 0.25s ease-out;
         }
         .ai-chat-container.active { display: flex; }
@@ -4751,25 +4754,29 @@ Mundesh ta dizajnosh vetë
         .ai-chat-header {
             background: var(--gradient-primary);
             color: white;
-            padding: 16px 18px;
+            padding: 12px 14px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             gap: 10px;
+            flex: 0 0 auto;
+            min-width: 0;
         }
-        .ai-chat-header-content { display: flex; align-items: center; gap: 12px; min-width: 0; }
-        .ai-chat-header-content > div { min-width: 0; }
+        .ai-chat-header-content { display: flex; align-items: center; gap: 10px; min-width: 0; overflow: hidden; }
+        .ai-chat-header-content > div { min-width: 0; overflow: hidden; }
         .ai-chat-header-content i { font-size: 22px; }
+        .ai-chat-header h6,
+        .ai-chat-header small { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         .ai-chat-header h6 { color: white; margin: 0; font-size: 1rem; line-height: 1.1; }
         .ai-chat-header small { color: rgba(255, 255, 255, 0.9); display: block; font-size: 0.75rem; }
-        .ai-chat-header-actions { display: flex; gap: 6px; }
+        .ai-chat-header-actions { display: flex; gap: 6px; flex: 0 0 auto; }
 
         .ai-chat-icon-btn {
             background: rgba(255, 255, 255, 0.2);
             border: none;
             color: white;
-            width: 32px;
-            height: 32px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             cursor: pointer;
             display: flex;
@@ -4786,13 +4793,16 @@ Mundesh ta dizajnosh vetë
             flex: 1 1 auto;
             min-height: 0;
             overflow-y: auto;
+            overflow-x: hidden;
             padding: 18px;
             background: #f8f9fa;
             display: flex;
             flex-direction: column;
             gap: 12px;
             scroll-behavior: auto;
+            -webkit-overflow-scrolling: touch;
             overscroll-behavior: contain;
+            scrollbar-gutter: stable;
         }
         .ai-message { display: flex; flex: 0 0 auto; min-width: 0; animation: aiFadeIn 0.25s ease-out; }
         @keyframes aiFadeIn {
@@ -4812,12 +4822,13 @@ Mundesh ta dizajnosh vetë
         .ai-user-message .ai-message-avatar { background: #e9ecef; color: #495057; order: 2; }
 
         .ai-message-content {
-            max-width: 78%;
+            max-width: 85%;
+            min-width: 0;
             padding: 10px 14px;
             border-radius: 16px;
             word-wrap: break-word;
             overflow-wrap: anywhere;
-            font-size: 0.93rem;
+            font-size: 0.9rem;
             line-height: 1.45;
             white-space: pre-wrap;
         }
@@ -4877,13 +4888,21 @@ Mundesh ta dizajnosh vetë
         .ai-message-retry:focus-visible { outline: 2px solid #b00020; outline-offset: 2px; }
 
         .ai-chat-suggestions {
+            flex: 0 0 auto;
+            min-width: 0;
+            max-height: 96px;
             display: flex;
             flex-wrap: wrap;
             gap: 6px;
             padding: 10px 14px 0;
             background: #f8f9fa;
+            overflow-y: auto;
         }
+        .ai-chat-suggestions::-webkit-scrollbar { display: none; }
+        .ai-chat-suggestions { scrollbar-width: none; }
+        .ai-chat-suggestions[hidden] { display: none !important; }
         .ai-chat-suggestion {
+            flex: 0 0 auto;
             background: #ffffff;
             border: 1px solid #e0e0e0;
             color: #333;
@@ -4898,6 +4917,8 @@ Mundesh ta dizajnosh vetë
         .ai-chat-suggestions:empty { display: none; }
 
         .ai-chat-input-container {
+            flex: 0 0 auto;
+            min-width: 0;
             padding: 12px;
             background: #ffffff;
             border-top: 1px solid #e0e0e0;
@@ -4907,6 +4928,7 @@ Mundesh ta dizajnosh vetë
         }
         .ai-chat-input {
             flex: 1;
+            min-width: 0;
             border: 1.5px solid #e0e0e0;
             border-radius: 22px;
             padding: 10px 14px;
@@ -4925,8 +4947,8 @@ Mundesh ta dizajnosh vetë
         }
 
         .ai-chat-send {
-            width: 42px;
-            height: 42px;
+            width: 44px;
+            height: 44px;
             background: var(--gradient-primary);
             border: none;
             border-radius: 50%;
@@ -4956,22 +4978,69 @@ Mundesh ta dizajnosh vetë
             border: 0;
         }
 
-        @media (max-width: 768px) {
-            .ai-chat-widget { bottom: 14px; right: 14px; }
+        html.ai-chat-lock,
+        body.ai-chat-lock { overflow: hidden; overscroll-behavior: none; }
+
+        @media (max-width: 600px) {
+            .ai-chat-widget {
+                right: 16px;
+                bottom: calc(16px + env(safe-area-inset-bottom));
+            }
             .ai-chat-toggle { width: 54px; height: 54px; font-size: 20px; }
             .ai-chat-badge { top: -4px; right: -4px; font-size: 9px; padding: 2px 5px; }
+            .ai-chat-widget.is-open .ai-chat-toggle { display: none; }
             .ai-chat-container {
                 position: fixed;
-                top: max(12px, env(safe-area-inset-top));
-                right: 10px; left: 10px; bottom: auto;
+                top: auto;
+                left: 8px;
+                right: 8px;
+                bottom: 8px;
                 width: auto;
-                height: min(480px, calc(100dvh - 92px));
-                max-height: calc(100dvh - 92px);
-                border-radius: 18px;
+                height: min(560px, calc(var(--ai-visual-height, 100vh) - 90px));
+                max-height: calc(var(--ai-visual-height, 100vh) - 90px);
+                height: min(560px, calc(var(--ai-visual-height, 100dvh) - 90px));
+                max-height: calc(var(--ai-visual-height, 100dvh) - 90px);
+                border-radius: 16px;
             }
-            .ai-chat-header { padding: 14px 16px; }
-            .ai-chat-input-container { padding: 10px; gap: 6px; padding-bottom: calc(10px + env(safe-area-inset-bottom)); }
+            .ai-chat-header { padding: 10px 12px; }
+            .ai-chat-header-content i { font-size: 20px; }
+            .ai-chat-messages { padding: 12px; gap: 10px; }
+            .ai-chat-suggestions {
+                flex-wrap: nowrap;
+                max-height: 52px;
+                overflow-x: auto;
+                overflow-y: hidden;
+                white-space: nowrap;
+                padding: 6px 12px 0;
+            }
+            .ai-chat-suggestion { font-size: 0.78rem; padding: 6px 10px; }
+            .ai-chat-input-container {
+                padding: 10px;
+                gap: 6px;
+                padding-bottom: calc(10px + env(safe-area-inset-bottom));
+            }
             .ai-chat-input { font-size: 16px; }
+        }
+
+        @media (max-width: 379px) {
+            .ai-chat-messages { padding: 10px; gap: 8px; }
+            .ai-message-content { padding: 8px 10px; font-size: 0.86rem; }
+            .ai-chat-header { padding: 8px 10px; }
+            .ai-chat-input-container { padding: 8px; }
+        }
+
+        @media (max-width: 600px) and (max-height: 500px) {
+            .ai-chat-container {
+                top: 8px;
+                bottom: 8px;
+                height: calc(100vh - 16px);
+                max-height: calc(100vh - 16px);
+                height: calc(100dvh - 16px);
+                max-height: calc(100dvh - 16px);
+            }
+            .ai-chat-suggestions { display: none !important; }
+            .ai-chat-header { padding: 8px 10px; }
+            .ai-chat-input-container { padding: 8px; }
         }
     </style>
 
@@ -5355,6 +5424,29 @@ Mundesh ta dizajnosh vetë
             }
         }
 
+        function aiIsMobileViewport() {
+            return typeof window !== 'undefined'
+                && window.matchMedia
+                && window.matchMedia('(max-width: 600px)').matches;
+        }
+
+        function aiSyncMobileViewport() {
+            const container = document.getElementById('ai-chat-container');
+            if (!container || typeof window === 'undefined') return;
+
+            if (!AI_STATE.open || !aiIsMobileViewport()) {
+                container.style.removeProperty('--ai-visual-height');
+                document.documentElement.classList.remove('ai-chat-lock');
+                if (document.body) document.body.classList.remove('ai-chat-lock');
+                return;
+            }
+
+            const viewport = window.visualViewport;
+            if (viewport) {
+                container.style.setProperty('--ai-visual-height', `${Math.round(viewport.height)}px`);
+            }
+        }
+
         function aiOpen(open) {
             const widget = document.getElementById('ai-chat-widget');
             const container = document.getElementById('ai-chat-container');
@@ -5367,6 +5459,11 @@ Mundesh ta dizajnosh vetë
                 container.removeAttribute('hidden');
                 toggle.setAttribute('aria-expanded', 'true');
                 toggle.setAttribute('aria-label', 'Close AI Assistant');
+                if (aiIsMobileViewport()) {
+                    document.documentElement.classList.add('ai-chat-lock');
+                    document.body.classList.add('ai-chat-lock');
+                }
+                requestAnimationFrame(aiSyncMobileViewport);
                 const input = document.getElementById('ai-chat-input');
                 if (input) setTimeout(function () { input.focus(); }, 50);
             } else {
@@ -5375,6 +5472,9 @@ Mundesh ta dizajnosh vetë
                 container.setAttribute('hidden', '');
                 toggle.setAttribute('aria-expanded', 'false');
                 toggle.setAttribute('aria-label', 'Open AI Assistant');
+                container.style.removeProperty('--ai-visual-height');
+                document.documentElement.classList.remove('ai-chat-lock');
+                document.body.classList.remove('ai-chat-lock');
             }
         }
 
@@ -5432,6 +5532,13 @@ Mundesh ta dizajnosh vetë
                 }
             });
             input.addEventListener('input', aiAutoResize);
+
+            window.addEventListener('resize', aiSyncMobileViewport, { passive: true });
+            window.addEventListener('orientationchange', aiSyncMobileViewport, { passive: true });
+            if (window.visualViewport) {
+                window.visualViewport.addEventListener('resize', aiSyncMobileViewport, { passive: true });
+                window.visualViewport.addEventListener('scroll', aiSyncMobileViewport, { passive: true });
+            }
         }
 
         // Initialize AI Chat when DOM is ready
