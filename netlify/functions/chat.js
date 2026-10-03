@@ -1,5 +1,5 @@
-// Netlify serverless function: secure proxy to the OpenRouter Chat API.
-// The API key is read ONLY from the server-side environment variable OPENROUTER_API_KEY.
+// Netlify serverless function: secure proxy to the Groq Chat API.
+// The API key is read ONLY from the server-side environment variable groq_biopackkos_api_key.
 // Never expose the key to the browser.
 
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
@@ -199,7 +199,7 @@ exports.handler = async (event) => {
     return jsonResponse(400, { error: 'Invalid JSON body.' });
   }
 
-  const language = (payload.language || 'sq').toString().toLowerCase();
+  const language = (payload.language || 'en').toString().toLowerCase();
   const messages = sanitizeMessages(payload.messages, language);
   if (!messages) {
     return jsonResponse(400, {
