@@ -4975,7 +4975,7 @@ Mundesh ta dizajnosh vetë
     </style>
 
     <script>
-        // AI Chat Agent - real OpenRouter-backed conversation.
+        // AI Chat Agent - provider-backed conversation.
         // The actual API call is made from the Netlify Function at /.netlify/functions/chat
         // (or via the /api/chat rewrite). The API key never leaves the server.
 
@@ -5083,9 +5083,21 @@ Mundesh ta dizajnosh vetë
         Object.keys(AI_CHAT_LABELS).forEach((language) => delete AI_CHAT_LABELS[language]);
         Object.assign(AI_CHAT_LABELS, orderedAIChatLabels);
 
-        const AI_API_ENDPOINT = (typeof window !== 'undefined' && window.location && window.location.origin)
-            ? window.location.origin + '/api/chat'
-            : '/api/chat';
+        const AI_API_ENDPOINT = (() => {
+            if (typeof window === 'undefined' || !window.location) return '/api/chat';
+
+            const { hostname, port, origin, protocol } = window.location;
+            const isLocalHost = hostname === 'localhost' || hostname === '127.0.0.1';
+
+            // Live Server (usually :5500) does not execute Netlify Functions.
+            // The local adapter listens on :8888 and keeps the production URL unchanged.
+            if (protocol === 'file:' || (isLocalHost && port && port !== '8888')) {
+                return 'http://127.0.0.1:8888/api/chat';
+            }
+
+            return origin + '/api/chat';
+        })();
+        const AI_REQUEST_TIMEOUT_MS = 30000;
 
         function aiLabels() {
             return AI_CHAT_LABELS[currentLang] || AI_CHAT_LABELS[supportedLanguages[0]];
@@ -5292,28 +5304,40 @@ Mundesh ta dizajnosh vetë
 
         async function aiCallBackend(history) {
             let response;
+            let data = null;
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), AI_REQUEST_TIMEOUT_MS);
+
             try {
                 response = await fetch(AI_API_ENDPOINT, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ language: currentLang, messages: history }),
+                    signal: controller.signal,
                 });
-            } catch (_) {
-                const e = new Error('network');
-                e.userMessage = aiLabels().networkError;
-                throw e;
+                try { data = await response.json(); } catch (_) { data = null; }
+
+                if (!response.ok) {
+                    const detail = data && data.error ? data.error : `HTTP ${response.status}`;
+                    const e = new Error(`AI backend request failed: ${detail}`);
+                    e.status = response.status;
+                    console.error('BioPackKos AI request failed', e);
+                    e.userMessage = aiLabels().networkError;
+                    throw e;
+                }
+
+                return (data && typeof data.reply === 'string') ? data.reply : '';
+            } catch (err) {
+                if (err && err.name === 'AbortError') {
+                    console.error('BioPackKos AI request timed out after 30 seconds');
+                } else if (!err || !err.status) {
+                    console.error('BioPackKos AI request failed', err);
+                }
+                if (err && !err.userMessage) err.userMessage = aiLabels().networkError;
+                throw err;
+            } finally {
+                clearTimeout(timeoutId);
             }
-
-            let data = null;
-            try { data = await response.json(); } catch (_) { data = null; }
-
-            if (!response.ok) {
-                const e = new Error('http');
-                e.userMessage = (data && data.error) ? data.error : aiLabels().networkError;
-                throw e;
-            }
-
-            return (data && typeof data.reply === 'string') ? data.reply : '';
         }
 
         function aiOpen(open) {

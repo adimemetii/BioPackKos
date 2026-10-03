@@ -3,6 +3,7 @@
 // Never expose the key to the browser.
 
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
+const OPENROUTER_API_URL = 'https://openrouter.ai/api/v1/chat/completions';
 // A professional, fast and detailed model as requested.
 const MODEL = 'openai/gpt-oss-20b';
 
@@ -45,7 +46,7 @@ Statistics section (counters on the website):
   placeholders and do not invent any concrete numbers yourself.
 
 Certification:
-- The website highlights EN 13432 certification and industrial composting.
+- The website highlights OK compost INDUSTRIAL certification by TÜV Austria and EN 13432 industrial composting.
 - Do not claim any other specific certifications.
 
 About the AI assistant:
@@ -125,28 +126,79 @@ function sanitizeMessages(rawMessages, language) {
   return out;
 }
 
-async function callGroq(systemPrompt, messages) {
-  const apiKey = process.env.groq_biopackkos_api_key;
-  if (!apiKey) {
-    const err = new Error('groq_biopackkos_api_key is not configured on the server.');
+function getProviderConfig() {
+  const preferredProvider = String(process.env.BIOPACKKOS_AI_PROVIDER || '').trim().toLowerCase();
+  const groqKey = process.env.groq_biopackkos_api_key || process.env.GROQ_API_KEY;
+  const openRouterKey = process.env.OPENROUTER_API_KEY;
+
+  if (preferredProvider === 'groq' && groqKey) {
+    return {
+      name: 'Groq',
+      apiKey: groqKey,
+      url: GROQ_API_URL,
+      model: MODEL,
+    };
+  }
+
+  if (preferredProvider === 'openrouter' && openRouterKey) {
+    return {
+      name: 'OpenRouter',
+      apiKey: openRouterKey,
+      url: OPENROUTER_API_URL,
+      model: MODEL,
+    };
+  }
+
+  if (preferredProvider === 'groq' || preferredProvider === 'openrouter') {
+    const err = new Error(`No API key is configured for the selected provider: ${preferredProvider}.`);
     err.code = 'NO_KEY';
     throw err;
   }
+
+  if (groqKey) {
+    return {
+      name: 'Groq',
+      apiKey: groqKey,
+      url: GROQ_API_URL,
+      model: MODEL,
+    };
+  }
+
+  if (openRouterKey) {
+    return {
+      name: 'OpenRouter',
+      apiKey: openRouterKey,
+      url: OPENROUTER_API_URL,
+      model: MODEL,
+    };
+  }
+
+  const err = new Error('No Groq or OpenRouter API key is configured on the server.');
+  err.code = 'NO_KEY';
+  throw err;
+}
+
+async function callAI(systemPrompt, messages) {
+  const provider = getProviderConfig();
 
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
 
   try {
-    const response = await fetch(GROQ_API_URL, {
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${provider.apiKey}`,
+    };
+    if (provider.name === 'OpenRouter') {
+      headers['HTTP-Referer'] = 'https://biopackkos.netlify.app';
+      headers['X-Title'] = 'BioPackKos AI Assistant';
+    }
+
+    const response = await fetch(provider.url, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`,
-        'HTTP-Referer': 'https://biopackkos.netlify.app',
-        'X-Title': 'BioPackKos AI Assistant',
-      },
+      headers,
       body: JSON.stringify({
-        model: MODEL,
+        model: provider.model,
         messages: [{ role: 'system', content: systemPrompt }, ...messages],
         temperature: 0.4,
         max_tokens: 600,
@@ -159,9 +211,10 @@ async function callGroq(systemPrompt, messages) {
       // Keep provider diagnostics in Netlify logs, but never return them to
       // the browser because they can contain account or request details.
       const detail = (await response.text()).slice(0, 1000);
-      const err = new Error(`Groq API returned ${response.status}: ${detail}`);
+      const err = new Error(`${provider.name} API returned ${response.status}: ${detail}`);
       err.code = 'UPSTREAM_STATUS';
       err.status = response.status;
+      err.provider = provider.name;
       throw err;
     }
 
@@ -171,7 +224,7 @@ async function callGroq(systemPrompt, messages) {
       : '';
 
     if (!reply) {
-      const err = new Error('Empty response from Groq API.');
+      const err = new Error(`Empty response from ${provider.name} API.`);
       err.code = 'EMPTY_REPLY';
       throw err;
     }
@@ -210,7 +263,7 @@ exports.handler = async (event) => {
   const systemPrompt = buildSystemPrompt(language);
 
   try {
-    const reply = await callGroq(systemPrompt, messages);
+      const reply = await callAI(systemPrompt, messages);
     return jsonResponse(200, { reply });
   } catch (err) {
     const status = err && err.code === 'UPSTREAM_STATUS' && err.status === 429 ? 429
