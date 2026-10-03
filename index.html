@@ -5334,6 +5334,7 @@ Mundesh ta dizajnosh vetë
                     const detail = data && data.error ? data.error : `HTTP ${response.status}`;
                     const e = new Error(`AI backend request failed: ${detail}`);
                     e.status = response.status;
+                    e.code = data && data.code ? data.code : `HTTP_${response.status}`;
                     console.error('BioPackKos AI request failed', e);
                     e.userMessage = aiLabels().networkError;
                     throw e;

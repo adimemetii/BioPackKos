@@ -296,6 +296,12 @@ exports.handler = async (event) => {
       userMessage = 'Sorry, the AI assistant could not answer right now. Please try again, or contact BioPackKos directly.';
     }
 
-    return jsonResponse(status, { error: userMessage });
+    const diagnosticCode = err && err.code === 'UPSTREAM_STATUS' && err.status
+      ? `PROVIDER_${err.status}`
+      : err && err.code
+        ? err.code
+        : 'AI_REQUEST_FAILED';
+
+    return jsonResponse(status, { error: userMessage, code: diagnosticCode });
   }
 };
