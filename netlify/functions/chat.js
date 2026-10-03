@@ -128,8 +128,14 @@ function sanitizeMessages(rawMessages, language) {
 
 function getProviderConfig() {
   const preferredProvider = String(process.env.BIOPACKKOS_AI_PROVIDER || '').trim().toLowerCase();
-  const groqKey = process.env.groq_biopackkos_api_key || process.env.GROQ_API_KEY;
-  const openRouterKey = process.env.OPENROUTER_API_KEY;
+  const cleanApiKey = (value) => String(value || '')
+    .trim()
+    .replace(/^['"]|['"]$/g, '')
+    .replace(/^Bearer\s+/i, '')
+    .replace(/^['"]|['"]$/g, '')
+    .trim();
+  const groqKey = cleanApiKey(process.env.groq_biopackkos_api_key || process.env.GROQ_API_KEY);
+  const openRouterKey = cleanApiKey(process.env.OPENROUTER_API_KEY);
 
   if (preferredProvider === 'groq' && groqKey) {
     return {
