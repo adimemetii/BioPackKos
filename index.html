@@ -975,6 +975,47 @@
             transition: var(--transition);
         }
 
+        /* Compact, animated delivery service card. */
+        #services .service-card--delivery {
+            max-width: 520px;
+            margin-inline: auto;
+            border-radius: 18px;
+        }
+
+        #services .service-card--delivery .card-body {
+            padding: 1.15rem 1.25rem;
+        }
+
+        #services .service-card--delivery .service-icon {
+            flex: 0 0 2.35rem;
+            width: 2.35rem;
+            text-align: center;
+            font-size: 1.65rem !important;
+        }
+
+        #services .service-card--delivery .card-title {
+            font-size: 1rem;
+        }
+
+        #services .service-card--delivery .card-text {
+            margin-bottom: 0;
+            font-size: 0.88rem;
+            line-height: 1.55;
+        }
+
+        @keyframes deliveryIconFloat {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-4px) rotate(-3deg);
+            }
+        }
+
+        #services .service-card--delivery.visible .service-icon {
+            animation: deliveryIconFloat 2.8s ease-in-out 0.7s infinite;
+        }
+
         /* Services certification block */
         .service-certification {
             width: 100%;
@@ -3024,7 +3065,7 @@ Mundesh ta dizajnosh vetë
                 </div>
                
                 <div class="col-lg-6">
-                    <div class="card h-100 fade-in">
+                    <div class="card h-100 fade-in service-card--delivery">
                         <div class="card-body">
                             <div class="d-flex align-items-center mb-3">
                                 <i class="fas fa-truck service-icon fs-2 me-3"></i>
