@@ -2574,6 +2574,14 @@
                 padding: 20px;
             }
 
+            .service-certification-content {
+                text-align: left;
+            }
+
+            .service-certification-details {
+                grid-template-columns: 1fr;
+            }
+
             .service-certification > .row {
                 flex-direction: column;
                 gap: 16px;
@@ -2786,7 +2794,7 @@
                             <div class="hero-certification">
                                 <div class="hero-certification-row">
                                     <div class="hero-certification-logo-wrap">
-                                        <img class="hero-certification-logo" src="assets/ok-compost-industrial-tuv-austria.png" alt="OK compost INDUSTRIAL – TÜV AUSTRIA, S3317" data-translate-alt="certification-logo-alt">
+                                        <img class="hero-certification-logo" src="assets/ok-compost-industrial-tuv-austria.png" alt="OK compost INDUSTRIAL – TÜV AUSTRIA" data-translate-alt="certification-logo-alt">
                                     </div>
                                     <div class="hero-certification-card">
                                         <span class="hero-certification-icon hero-certification-icon--shield" aria-hidden="true">
@@ -3056,7 +3064,7 @@ Mundesh ta dizajnosh vetë
                 <div class="row align-items-center g-4">
                     <div class="col-lg-4">
                         <div class="service-certification-logo-wrap">
-                            <img class="service-certification-logo" src="assets/ok-compost-industrial-tuv-austria.png" alt="OK compost INDUSTRIAL – TÜV AUSTRIA, S3317" data-translate-alt="certification-logo-alt">
+                            <img class="service-certification-logo" src="assets/ok-compost-industrial-tuv-austria.png" alt="OK compost INDUSTRIAL – TÜV AUSTRIA" data-translate-alt="certification-logo-alt">
                         </div>
                     </div>
                     <div class="col-lg-8 service-certification-content">
@@ -3071,20 +3079,8 @@ Mundesh ta dizajnosh vetë
                                 <dd>TA10045</dd>
                             </div>
                             <div class="service-certification-detail">
-                                <dt data-translate="certification-licensee-label">Licensee Code</dt>
-                                <dd>S3317</dd>
-                            </div>
-                            <div class="service-certification-detail">
                                 <dt data-translate="certification-standard-label">Standard</dt>
-                                <dd>EN 13432:2000</dd>
-                            </div>
-                            <div class="service-certification-detail">
-                                <dt data-translate="certification-validity-label">Validity</dt>
-                                <dd>02.10.2026 – 02.10.2031</dd>
-                            </div>
-                            <div class="service-certification-detail service-certification-detail--scope">
-                                <dt data-translate="certification-scope-label">Scope</dt>
-                                <dd data-translate="certification-scope">Compostable bags up to 50 μm for industrial composting.</dd>
+                                <dd data-translate="certification-standard-value">EN 13432</dd>
                             </div>
                         </dl>
 
@@ -3274,12 +3270,12 @@ Mundesh ta dizajnosh vetë
 
                 'hero-quote': '"Green Packaging, Clean Future"',
                 'hero-description': 'BioPack KOS prodhon qese kompostueshme me cilësi të lartë, të certifikuara OK compost INDUSTRIAL nga TÜV AUSTRIA, në përputhje me EN 13432.',
-                'certification-logo-alt': 'OK compost INDUSTRIAL – TÜV AUSTRIA, S3317',
+                'certification-logo-alt': 'OK compost INDUSTRIAL – TÜV AUSTRIA',
                 'certification-ok-title': 'OK compost INDUSTRIAL',
                 'certification-ok-subtitle': 'I certifikuar nga TÜV AUSTRIA',
                 'certification-en-title': 'EN 13432',
                 'certification-en-subtitle': 'Qese kompostueshme të certifikuara',
-                'certification-details': 'Nr. i certifikatës TA10045 • Kodi i licencuarit S3317',
+                'certification-details': 'Nr. i certifikatës TA10045',
                 'hero-button': 'Eksploro Katalogun',
                 'stats-title': 'Statistikat Tona',
                 'stats-subtitle': 'Rezultatet e punës sonë në shifra',
@@ -3325,11 +3321,8 @@ Mundesh ta dizajnosh vetë
                 'certification-service-title': 'OK compost INDUSTRIAL nga TÜV AUSTRIA',
                 'certification-service-description': 'Qeset e kompostueshme BioPack KOS janë të certifikuara OK compost INDUSTRIAL nga TÜV AUSTRIA, në përputhje me EN 13432.',
                 'certification-certificate-label': 'Nr. i certifikatës',
-                'certification-licensee-label': 'Kodi i licencuarit',
                 'certification-standard-label': 'Standardi',
-                'certification-validity-label': 'Vlefshmëria',
-                'certification-scope-label': 'Fusha e zbatimit',
-                'certification-scope': 'Qese të kompostueshme deri në 50 μm për kompostim industrial.',
+                'certification-standard-value': 'EN 13432',
                 'certification-download': 'Shkarko certifikatën (PDF)',
                 'contact-title': 'Na Kontaktoni',
                 'contact-subtitle': 'Jeni të interesuar për produktet tona? Na kontaktoni tani për një porosi ose për më shumë informacion.',
@@ -3400,12 +3393,12 @@ Mundesh ta dizajnosh vetë
 
                 'hero-quote': '"Green Packaging, Clean Future"',
                 'hero-description':'BioPack KOS manufactures high-quality compostable bags certified OK compost INDUSTRIAL by TÜV AUSTRIA, in accordance with EN 13432.',
-                'certification-logo-alt': 'OK compost INDUSTRIAL – TÜV AUSTRIA, S3317',
+                'certification-logo-alt': 'OK compost INDUSTRIAL – TÜV AUSTRIA',
                 'certification-ok-title': 'OK compost INDUSTRIAL',
                 'certification-ok-subtitle': 'Certified by TÜV AUSTRIA',
                 'certification-en-title': 'EN 13432',
                 'certification-en-subtitle': 'Certified Compostable Bags',
-                'certification-details': 'Certificate No. TA10045 • Licensee Code S3317',
+                'certification-details': 'Certificate No. TA10045',
                 'hero-button': 'Explore Catalog',
                 'stats-title': 'Our Statistics',
                 'stats-subtitle': 'Our work results in numbers',
@@ -3451,11 +3444,8 @@ Mundesh ta dizajnosh vetë
                 'certification-service-title': 'OK compost INDUSTRIAL by TÜV AUSTRIA',
                 'certification-service-description': 'BioPack KOS compostable bags are certified OK compost INDUSTRIAL by TÜV AUSTRIA, in accordance with EN 13432.',
                 'certification-certificate-label': 'Certificate No.',
-                'certification-licensee-label': 'Licensee Code',
                 'certification-standard-label': 'Standard',
-                'certification-validity-label': 'Validity',
-                'certification-scope-label': 'Scope',
-                'certification-scope': 'Compostable bags up to 50 μm for industrial composting.',
+                'certification-standard-value': 'EN 13432',
                 'certification-download': 'Download certificate (PDF)',
                 'contact-title': 'Contact Us',
                 'contact-subtitle': 'Interested in our products? Contact us now for an order or for more information.',
@@ -3520,12 +3510,12 @@ Mundesh ta dizajnosh vetë
 
                 'hero-quote': '"Green Packaging, Clean Future"',
                 'hero-description': 'BioPack KOS stellt hochwertige kompostierbare Beutel her, die von TÜV AUSTRIA gemäß EN 13432 mit OK compost INDUSTRIAL zertifiziert sind.',
-                'certification-logo-alt': 'OK compost INDUSTRIAL – TÜV AUSTRIA, S3317',
+                'certification-logo-alt': 'OK compost INDUSTRIAL – TÜV AUSTRIA',
                 'certification-ok-title': 'OK compost INDUSTRIAL',
                 'certification-ok-subtitle': 'Zertifiziert von TÜV AUSTRIA',
                 'certification-en-title': 'EN 13432',
                 'certification-en-subtitle': 'Zertifizierte kompostierbare Beutel',
-                'certification-details': 'Zertifikatsnummer TA10045 • Lizenznehmer-Code S3317',
+                'certification-details': 'Zertifikatsnummer TA10045',
                 'hero-button': 'Durchstöbere den Katalog',
                 'stats-title': 'Unsere Statistiken',
                 'stats-subtitle': 'Unsere Arbeitsergebnisse in Zahlen',
@@ -3571,11 +3561,8 @@ Mundesh ta dizajnosh vetë
                 'certification-service-title': 'OK compost INDUSTRIAL von TÜV AUSTRIA',
                 'certification-service-description': 'Die kompostierbaren Beutel von BioPack KOS sind gemäß EN 13432 von TÜV AUSTRIA mit OK compost INDUSTRIAL zertifiziert.',
                 'certification-certificate-label': 'Zertifikatsnummer',
-                'certification-licensee-label': 'Lizenznehmer-Code',
                 'certification-standard-label': 'Norm',
-                'certification-validity-label': 'Gültigkeit',
-                'certification-scope-label': 'Geltungsbereich',
-                'certification-scope': 'Kompostierbare Beutel bis 50 μm für die industrielle Kompostierung.',
+                'certification-standard-value': 'EN 13432',
                 'certification-download': 'Zertifikat herunterladen (PDF)',
                 'contact-title': 'Kontaktieren Sie uns',
                 'contact-subtitle': 'Interessiert an unseren Produkten? Kontaktieren Sie uns jetzt für eine Bestellung oder weitere Informationen.',
@@ -3642,12 +3629,12 @@ Mundesh ta dizajnosh vetë
 
                 'hero-quote': '"Green Packaging, Clean Future"',
                 'hero-description': 'BioPack KOS fabrique des sacs compostables de haute qualité, certifiés OK compost INDUSTRIAL par TÜV AUSTRIA, conformément à la norme EN 13432.',
-                'certification-logo-alt': 'OK compost INDUSTRIAL – TÜV AUSTRIA, S3317',
+                'certification-logo-alt': 'OK compost INDUSTRIAL – TÜV AUSTRIA',
                 'certification-ok-title': 'OK compost INDUSTRIAL',
                 'certification-ok-subtitle': 'Certifié par TÜV AUSTRIA',
                 'certification-en-title': 'EN 13432',
                 'certification-en-subtitle': 'Sacs compostables certifiés',
-                'certification-details': 'N° de certificat TA10045 • Code du titulaire de licence S3317',
+                'certification-details': 'N° de certificat TA10045',
                 'hero-button': 'Explorer le catalogue',
                 'stats-title': 'Nos statistiques',
                 'stats-subtitle': 'Nos résultats de travail en chiffres',
@@ -3693,11 +3680,8 @@ Mundesh ta dizajnosh vetë
                 'certification-service-title': 'OK compost INDUSTRIAL par TÜV AUSTRIA',
                 'certification-service-description': 'Les sacs compostables BioPack KOS sont certifiés OK compost INDUSTRIAL par TÜV AUSTRIA, conformément à la norme EN 13432.',
                 'certification-certificate-label': 'N° de certificat',
-                'certification-licensee-label': 'Code du titulaire de licence',
                 'certification-standard-label': 'Norme',
-                'certification-validity-label': 'Validité',
-                'certification-scope-label': 'Portée',
-                'certification-scope': "Sacs compostables jusqu'à 50 μm pour le compostage industriel.",
+                'certification-standard-value': 'EN 13432',
                 'certification-download': 'Télécharger le certificat (PDF)',
                 'contact-title': 'Nous contacter',
                 'contact-subtitle': 'Intéressé par nos produits? Contactez-nous maintenant pour une commande ou plus d\'informations.',
@@ -3762,12 +3746,12 @@ Mundesh ta dizajnosh vetë
 
                 'hero-quote': '"Green Packaging, Clean Future"',
                 'hero-description': 'BioPack KOS produce sacchetti compostabili di alta qualità, certificati OK compost INDUSTRIAL da TÜV AUSTRIA, in conformità alla norma EN 13432.',
-                'certification-logo-alt': 'OK compost INDUSTRIAL – TÜV AUSTRIA, S3317',
+                'certification-logo-alt': 'OK compost INDUSTRIAL – TÜV AUSTRIA',
                 'certification-ok-title': 'OK compost INDUSTRIAL',
                 'certification-ok-subtitle': 'Certificato da TÜV AUSTRIA',
                 'certification-en-title': 'EN 13432',
                 'certification-en-subtitle': 'Sacchetti compostabili certificati',
-                'certification-details': 'N. certificato TA10045 • Codice licenziatario S3317',
+                'certification-details': 'N. certificato TA10045',
                 'hero-button': 'Esplora il catalogo',
                 'stats-title': 'Le Nostre Statistiche',
                 'stats-subtitle': 'I nostri risultati di lavoro in cifre',
@@ -3813,11 +3797,8 @@ Mundesh ta dizajnosh vetë
                 'certification-service-title': 'OK compost INDUSTRIAL di TÜV AUSTRIA',
                 'certification-service-description': 'I sacchetti compostabili BioPack KOS sono certificati OK compost INDUSTRIAL da TÜV AUSTRIA, in conformità alla norma EN 13432.',
                 'certification-certificate-label': 'N. certificato',
-                'certification-licensee-label': 'Codice licenziatario',
                 'certification-standard-label': 'Norma',
-                'certification-validity-label': 'Validità',
-                'certification-scope-label': 'Ambito',
-                'certification-scope': 'Sacchetti compostabili fino a 50 μm per il compostaggio industriale.',
+                'certification-standard-value': 'EN 13432',
                 'certification-download': 'Scarica il certificato (PDF)',
                 'contact-title': 'Contattaci',
                 'contact-subtitle': 'Interessato ai nostri prodotti? Contattaci ora per un ordine o per ulteriori informazioni.',
@@ -3882,12 +3863,12 @@ Mundesh ta dizajnosh vetë
 
                 'hero-quote': '"Green Packaging, Clean Future"',
                 'hero-description': 'BioPackKoS prodhon qese plastike kompostueshme me cilësi të lartë, në përputhje me EN 13432, duke ofruar një alternativë miqësore me mjedisin për shitësit me pakicë dhe shumicë në tregun evropian.',
-                'certification-logo-alt': 'OK compost INDUSTRIAL – TÜV AUSTRIA, S3317',
+                'certification-logo-alt': 'OK compost INDUSTRIAL – TÜV AUSTRIA',
                 'certification-ok-title': 'OK compost INDUSTRIAL',
                 'certification-ok-subtitle': 'I certifikuar nga TÜV AUSTRIA',
                 'certification-en-title': 'EN 13432',
                 'certification-en-subtitle': 'Qese kompostueshme të certifikuara',
-                'certification-details': 'Certifikata Nr. TA10045 • Kodi i licencuarit S3317',
+                'certification-details': 'Certifikata Nr. TA10045',
                 'hero-button': 'Eksploro Produktet',
                 'stat-trees': 'Pema të shpëtuara në vit',
                 'stat-clients': 'Klientë të kënaqur',
